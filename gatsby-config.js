@@ -1,6 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: "AdaMobile",
+    title: 'AdaMobile',
   },
-  plugins: ["gatsby-plugin-emotion"],
+  plugins: [
+    'gatsby-plugin-image',
+    'gatsby-plugin-sharp',
+    'gatsby-plugin-material-ui'],
 };
