@@ -7,7 +7,6 @@ import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography';
-import { StaticImage } from "gatsby-plugin-image"
 
 const items = require('../res/explore.json')
 
@@ -20,53 +19,47 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.background.paper,
     },
     gridList: {
-      width: 800,
-      height: 450,
+      width: 'auto',
+      height: 'auto',
     },
-    icon: {
-      color: 'rgba(255, 255, 255, 0.54)',
+    gridImg: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover'
     },
+    
   }));
 
 const ExplorePage = () => {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(false);
+    const [selectedItem, setSelectedItem] = React.useState(null);
 
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
     const handleClose = () => {
       setOpen(false);
     };
 
     return (
-      <Layout pageTitle="Explore Adamobiles">
+      <Layout pageTitle='Explore Adamobiles'>
         <div className={classes.root}>
-            <GridList cellHeight={180} className={classes.gridList}>
+            <GridList cellHeight={220} className={classes.gridList}>
                 {items.map((item) => (
-                <GridListTile key={item.image}>
-                    <Button onClick={handleClickOpen}>
-                      <StaticImage src={`../images/micro.png`}/>
+                <GridListTile key={item.id}>
+                    <Button onClick={() => {
+                      setSelectedItem(item)
+                      setOpen(true)
+                    }}>
+                      <div className={classes.gridImg}>
+                        <img src={`../${item.image}.png`} alt='grid item'/>
+                      </div>
                     </Button>
                 </GridListTile>
                 ))}
             </GridList>
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
               <DialogContent dividers>
-                <Typography gutterBottom>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-                  in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                </Typography>
-                <Typography gutterBottom>
-                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-                  lacus vel augue laoreet rutrum faucibus dolor auctor.
-                </Typography>
-                <Typography gutterBottom>
-                  Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-                  scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-                  auctor fringilla.
-                </Typography>
+                <img src={ selectedItem === null? ``: `../${selectedItem.image}.png`} alt='grid item'/>
               </DialogContent>
             </Dialog>
           </div>
