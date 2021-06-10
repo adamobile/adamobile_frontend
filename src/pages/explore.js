@@ -28,14 +28,14 @@ const useStyles = makeStyles((theme) => ({
     padding: 20
   },
   gridListContainer: {
-    maxWidth: 1000,
+    maxWidth: 1200,
   },
   gridList: {
     width: 'auto',
     height: 'auto',
   },
   cardRoot: {
-    maxWidth: 400,
+    maxWidth: 300,
   },
   cardmedia: {
     height: "100px",
@@ -90,7 +90,7 @@ const ExplorePage = () => {
       </Box>
 
     <Container maxWidth='sm' className={classes.gridListContainer}>
-    <GridList cellHeight={500} className={classes.gridList}>
+    <GridList cellHeight={300} className={classes.gridList} cols={3}>
     {filteredItems.map((item) => (
       <GridListTile key={item.id}>
         <Card className={classes.cardRoot} onClick={()=>{showDetail(item)}}>
@@ -103,10 +103,7 @@ const ExplorePage = () => {
           />
         <CardContent>
           <Typography gutterBottom variant='h5' component='h2'>
-            {item.id}
-          </Typography>
-          <Typography variant='body2' color='textSecondary' component='p'>
-            {item.type}
+            {item.id} {item.type}
           </Typography>
         </CardContent>
         </CardActionArea>

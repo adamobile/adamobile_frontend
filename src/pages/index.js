@@ -14,7 +14,7 @@ const IndexPage = (props) => {
   const [uuid, setUuid] = React.useState('')
 
   ws.onmessage = function (event) {
-    
+
     console.log('received: ', event.data)
     const msg = JSON.parse(event.data)
 
@@ -22,7 +22,7 @@ const IndexPage = (props) => {
       case 'stats':
         setStats(msg.stats)
         break;
-    
+
       case 'uuid':
         setUuid(msg.uuid)
         break;
