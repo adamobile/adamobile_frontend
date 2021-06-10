@@ -2,70 +2,129 @@ import * as React from 'react'
 import Layout from '../components/layout'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
-import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
 import { makeStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography';
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormLabel from '@material-ui/core/FormLabel'
+import Card from '@material-ui/core/Card'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
+import Container from '@material-ui/core/Container'
 
 const items = require('../res/explore.json')
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      overflow: 'hidden',
-      backgroundColor: theme.palette.background.paper,
-    },
-    gridList: {
-      width: 'auto',
-      height: 'auto',
-    },
-    gridImg: {
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover'
-    },
-    
-  }));
+  root: {
+    backgroundColor: theme.palette.background.paper,
+  },
+  filter: {
+    padding: 20
+  },
+  gridListContainer: {
+    maxWidth: 1000,
+  },
+  gridList: {
+    width: 'auto',
+    height: 'auto',
+  },
+  cardRoot: {
+    maxWidth: 400,
+  },
+  cardmedia: {
+    height: "100px",
+  },
+
+}));
 
 const ExplorePage = () => {
-    const classes = useStyles();
+  const classes = useStyles()
 
-    const [open, setOpen] = React.useState(false);
-    const [selectedItem, setSelectedItem] = React.useState(null);
+  const [dialogOpen, setDialogOpen] = React.useState(false)
+  const [selectedItem, setSelectedItem] = React.useState('')
+  const [typeFilter, setTypeFilter] = React.useState('')
+  var [filteredItems, setFilteredItems] = React.useState(items)
 
-    const handleClose = () => {
-      setOpen(false);
-    };
-
-    return (
-      <Layout pageTitle='Explore Adamobiles'>
-        <div className={classes.root}>
-            <GridList cellHeight={220} className={classes.gridList}>
-                {items.map((item) => (
-                <GridListTile key={item.id}>
-                    <Button onClick={() => {
-                      setSelectedItem(item)
-                      setOpen(true)
-                    }}>
-                      <div className={classes.gridImg}>
-                        <img src={`../${item.image}.png`} alt='grid item'/>
-                      </div>
-                    </Button>
-                </GridListTile>
-                ))}
-            </GridList>
-            <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-              <DialogContent dividers>
-                <img src={ selectedItem === null? ``: `../${selectedItem.image}.png`} alt='grid item'/>
-              </DialogContent>
-            </Dialog>
-          </div>
-      </Layout>
-    )
-  
+  const handleClose = () => {
+    setDialogOpen(false)
   }
-  
-  export default ExplorePage
+
+  const handleTypeFilterChange = (event) => {
+    const newTypeFilter = event.target.value
+    setTypeFilter(newTypeFilter)
+    filterItems({typeFilter:newTypeFilter})
+  }
+
+  const filterItems = (args) => {
+    if (args.typeFilter) {
+      setFilteredItems(items.filter(item => item.type === args.typeFilter))
+    }
+    else {
+      setFilteredItems([...items])
+    }
+  }
+
+  const showDetail = (item) => {
+    setSelectedItem(item)
+    setDialogOpen(true)
+  }
+
+  return (
+    <Layout pageTitle='Explore Adamobiles'>
+    <Box className={classes.root}>
+
+      <Box className={classes.filter}>
+        <FormLabel component='legend'>Type</FormLabel>
+        <RadioGroup row aria-label='type' name='typeFilter' value={typeFilter} onChange={handleTypeFilterChange}>
+          <FormControlLabel value='' control={<Radio />} label='All' />
+          <FormControlLabel value='micro' control={<Radio />} label='Micro' />
+          <FormControlLabel value='suv' control={<Radio />} label='SUV' />
+          <FormControlLabel value='super' control={<Radio />} label='Super' />
+        </RadioGroup>
+      </Box>
+
+    <Container maxWidth='sm' className={classes.gridListContainer}>
+    <GridList cellHeight={500} className={classes.gridList}>
+    {filteredItems.map((item) => (
+      <GridListTile key={item.id}>
+        <Card className={classes.cardRoot} onClick={()=>{showDetail(item)}}>
+          <CardActionArea>
+          <CardMedia
+            component="img"
+            className={classes.cardMedia}
+            image={`../${item.image}.png`}
+            title={item.id}
+          />
+        <CardContent>
+          <Typography gutterBottom variant='h5' component='h2'>
+            {item.id}
+          </Typography>
+          <Typography variant='body2' color='textSecondary' component='p'>
+            {item.type}
+          </Typography>
+        </CardContent>
+        </CardActionArea>
+        </Card>
+      </GridListTile>
+    ))}
+    </GridList>
+    </Container>
+    <Dialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={dialogOpen}>
+      <DialogContent dividers>
+        <img src={ selectedItem === null? ``: `../${selectedItem.image}.png`} alt='grid item'/>
+        <DialogContentText>{JSON.stringify(selectedItem.traits)}</DialogContentText>
+      </DialogContent>
+    </Dialog>
+    </Box>
+    </Layout>
+  )
+
+}
+
+export default ExplorePage
