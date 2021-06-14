@@ -49,6 +49,8 @@ const ExplorePage = () => {
   const [dialogOpen, setDialogOpen] = React.useState(false)
   const [selectedItem, setSelectedItem] = React.useState('')
   const [typeFilter, setTypeFilter] = React.useState('')
+  const [stickerFilter, setStickerFilter] = React.useState('')
+  const [rimsFilter, setRimsFilter] = React.useState('')
   var [filteredItems, setFilteredItems] = React.useState(items)
 
   const handleClose = () => {
@@ -58,16 +60,33 @@ const ExplorePage = () => {
   const handleTypeFilterChange = (event) => {
     const newTypeFilter = event.target.value
     setTypeFilter(newTypeFilter)
-    filterItems({typeFilter:newTypeFilter})
+    filterItems({type:newTypeFilter, rims:rimsFilter, sticker: stickerFilter})
+  }
+
+  const handleRimsFilterChange = (event) => {
+    const newRimsFilter = event.target.value
+    setRimsFilter(newRimsFilter)
+    filterItems({type:typeFilter, rims:newRimsFilter, sticker: stickerFilter})
+  }
+
+  const handleStickerFilterChange = (event) => {
+    const newStickerFilter = event.target.value
+    setStickerFilter(newStickerFilter)
+    filterItems({type:typeFilter, rims:rimsFilter, sticker: newStickerFilter})
   }
 
   const filterItems = (args) => {
-    if (args.typeFilter) {
-      setFilteredItems(items.filter(item => item.type === args.typeFilter))
+    var tmp = [...items]
+    if (args.type) {
+      tmp = tmp.filter(item => item.traits.type === args.type)
     }
-    else {
-      setFilteredItems([...items])
+    if (args.rims) {
+      tmp = tmp.filter(item => item.traits.rims === args.rims)
     }
+    if (args.sticker) {
+      tmp = tmp.filter(item => item.traits.sticker === args.sticker)
+    }
+    setFilteredItems([...tmp])
   }
 
   const showDetail = (item) => {
@@ -86,6 +105,29 @@ const ExplorePage = () => {
           <FormControlLabel value='micro' control={<Radio />} label='Micro' />
           <FormControlLabel value='suv' control={<Radio />} label='SUV' />
           <FormControlLabel value='super' control={<Radio />} label='Super' />
+        </RadioGroup>
+      </Box>
+
+      <Box className={classes.filter}>
+        <FormLabel component='legend'>Rims</FormLabel>
+        <RadioGroup row aria-label='rims' name='rimsFilter' value={rimsFilter} onChange={handleRimsFilterChange}>
+          <FormControlLabel value='' control={<Radio />} label='All' />
+          <FormControlLabel value='sport' control={<Radio />} label='Sport' />
+          <FormControlLabel value='teddy' control={<Radio />} label='Teddy' />
+          <FormControlLabel value='monster' control={<Radio />} label='Monster' />
+        </RadioGroup>
+      </Box>
+
+      <Box className={classes.filter}>
+        <FormLabel component='legend'>Sticker</FormLabel>
+        <RadioGroup row aria-label='sticker' name='stickerFilter' value={stickerFilter} onChange={handleStickerFilterChange}>
+          <FormControlLabel value='' control={<Radio />} label='All' />
+          <FormControlLabel value='cat' control={<Radio />} label='Cat' />
+          <FormControlLabel value='dog' control={<Radio />} label='Dog' />
+          <FormControlLabel value='fox' control={<Radio />} label='Fox' />
+          <FormControlLabel value='ada' control={<Radio />} label='ADA' />
+          <FormControlLabel value='btc' control={<Radio />} label='BTC' />
+          <FormControlLabel value='eth' control={<Radio />} label='ETH' />
         </RadioGroup>
       </Box>
 
