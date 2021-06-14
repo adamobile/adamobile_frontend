@@ -6,10 +6,10 @@ import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import { makeStyles } from '@material-ui/core/styles'
-import Radio from '@material-ui/core/Radio'
-import RadioGroup from '@material-ui/core/RadioGroup'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import FormLabel from '@material-ui/core/FormLabel'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import InputLabel from '@material-ui/core/InputLabel'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
@@ -23,6 +23,13 @@ const items = require('../res/explore.json')
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
   },
   filter: {
     padding: 20
@@ -49,6 +56,7 @@ const ExplorePage = () => {
   const [dialogOpen, setDialogOpen] = React.useState(false)
   const [selectedItem, setSelectedItem] = React.useState('')
   const [typeFilter, setTypeFilter] = React.useState('')
+  const [colorFilter, setColorFilter] = React.useState('')
   const [stickerFilter, setStickerFilter] = React.useState('')
   const [rimsFilter, setRimsFilter] = React.useState('')
   var [filteredItems, setFilteredItems] = React.useState(items)
@@ -60,25 +68,34 @@ const ExplorePage = () => {
   const handleTypeFilterChange = (event) => {
     const newTypeFilter = event.target.value
     setTypeFilter(newTypeFilter)
-    filterItems({type:newTypeFilter, rims:rimsFilter, sticker: stickerFilter})
+    filterItems({type:newTypeFilter, color:colorFilter, rims:rimsFilter, sticker: stickerFilter})
+  }
+
+  const handleColorFilterChange = (event) => {
+    const newColorFilter = event.target.value
+    setColorFilter(newColorFilter)
+    filterItems({type:typeFilter, color: newColorFilter, rims:rimsFilter, sticker: stickerFilter})
   }
 
   const handleRimsFilterChange = (event) => {
     const newRimsFilter = event.target.value
     setRimsFilter(newRimsFilter)
-    filterItems({type:typeFilter, rims:newRimsFilter, sticker: stickerFilter})
+    filterItems({type:typeFilter, color:colorFilter, rims:newRimsFilter, sticker: stickerFilter})
   }
 
   const handleStickerFilterChange = (event) => {
     const newStickerFilter = event.target.value
     setStickerFilter(newStickerFilter)
-    filterItems({type:typeFilter, rims:rimsFilter, sticker: newStickerFilter})
+    filterItems({type:typeFilter, color:colorFilter, rims:rimsFilter, sticker: newStickerFilter})
   }
 
   const filterItems = (args) => {
     var tmp = [...items]
     if (args.type) {
       tmp = tmp.filter(item => item.traits.type === args.type)
+    }
+    if (args.color) {
+      tmp = tmp.filter(item => item.traits.color === args.color)
     }
     if (args.rims) {
       tmp = tmp.filter(item => item.traits.rims === args.rims)
@@ -99,37 +116,85 @@ const ExplorePage = () => {
     <Box className={classes.root}>
 
       <Box className={classes.filter}>
-        <FormLabel component='legend'>Type</FormLabel>
-        <RadioGroup row aria-label='type' name='typeFilter' value={typeFilter} onChange={handleTypeFilterChange}>
-          <FormControlLabel value='' control={<Radio />} label='All' />
-          <FormControlLabel value='micro' control={<Radio />} label='Micro' />
-          <FormControlLabel value='suv' control={<Radio />} label='SUV' />
-          <FormControlLabel value='super' control={<Radio />} label='Super' />
-        </RadioGroup>
-      </Box>
 
-      <Box className={classes.filter}>
-        <FormLabel component='legend'>Rims</FormLabel>
-        <RadioGroup row aria-label='rims' name='rimsFilter' value={rimsFilter} onChange={handleRimsFilterChange}>
-          <FormControlLabel value='' control={<Radio />} label='All' />
-          <FormControlLabel value='sport' control={<Radio />} label='Sport' />
-          <FormControlLabel value='teddy' control={<Radio />} label='Teddy' />
-          <FormControlLabel value='monster' control={<Radio />} label='Monster' />
-        </RadioGroup>
-      </Box>
+        <FormControl className={classes.formControl}>
+          <InputLabel shrink id="typeFilterLabel">
+            Type
+          </InputLabel>
+          <Select
+            labelId="typeFilterLabel"
+            id="typeFilterId"
+            className={classes.selectEmpty}
+            value={typeFilter}
+            onChange={handleTypeFilterChange}
+          >
+            <MenuItem value=''>All</MenuItem>
+            <MenuItem value='micro'>Micro</MenuItem>
+            <MenuItem value='suv'>SUV</MenuItem>
+            <MenuItem value='super'>Super</MenuItem>
+          </Select>
+        </FormControl>
 
-      <Box className={classes.filter}>
-        <FormLabel component='legend'>Sticker</FormLabel>
-        <RadioGroup row aria-label='sticker' name='stickerFilter' value={stickerFilter} onChange={handleStickerFilterChange}>
-          <FormControlLabel value='' control={<Radio />} label='All' />
-          <FormControlLabel value='cat' control={<Radio />} label='Cat' />
-          <FormControlLabel value='dog' control={<Radio />} label='Dog' />
-          <FormControlLabel value='fox' control={<Radio />} label='Fox' />
-          <FormControlLabel value='ada' control={<Radio />} label='ADA' />
-          <FormControlLabel value='btc' control={<Radio />} label='BTC' />
-          <FormControlLabel value='eth' control={<Radio />} label='ETH' />
-        </RadioGroup>
-      </Box>
+        <FormControl className={classes.formControl}>
+          <InputLabel shrink id="colorFilterLabel">
+            Color
+          </InputLabel>
+          <Select
+            labelId="colorFilterLabel"
+            id="colorFilterId"
+            className={classes.selectEmpty}
+            value={colorFilter}
+            onChange={handleColorFilterChange}
+          >
+            <MenuItem value=''>All</MenuItem>
+            <MenuItem value='black'>Black</MenuItem>
+            <MenuItem value='red'>Red</MenuItem>
+            <MenuItem value='green'>Green</MenuItem>
+            <MenuItem value='blue'>Blue</MenuItem>
+            <MenuItem value='white'>White</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl className={classes.formControl}>
+          <InputLabel shrink id="rimsFilterLabel">
+            Rims
+          </InputLabel>
+          <Select
+            labelId="rimsFilterLabel"
+            id="rimsFilterId"
+            className={classes.selectEmpty}
+            value={rimsFilter}
+            onChange={handleRimsFilterChange}
+          >
+            <MenuItem value=''>All</MenuItem>
+            <MenuItem value='sport'>sport</MenuItem>
+            <MenuItem value='teddy'>Teddy</MenuItem>
+            <MenuItem value='monster'>Monster</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl className={classes.formControl}>
+          <InputLabel shrink id="stickerFilterLabel">
+            Sticker
+          </InputLabel>
+          <Select
+            labelId="stickerFilterLabel"
+            id="stickerFilterId"
+            className={classes.selectEmpty}
+            value={stickerFilter}
+            onChange={handleStickerFilterChange}
+          >
+            <MenuItem value=''>All</MenuItem>
+            <MenuItem value='cat'>Cat</MenuItem>
+            <MenuItem value='dog'>Dog</MenuItem>
+            <MenuItem value='fox'>Fox</MenuItem>
+            <MenuItem value='ada'>ADA</MenuItem>
+            <MenuItem value='btc'>BTC</MenuItem>
+            <MenuItem value='eth'>ETH</MenuItem>
+          </Select>
+        </FormControl>
+    </Box>
+
 
     <Container maxWidth='sm' className={classes.gridListContainer}>
     <GridList cellHeight={300} className={classes.gridList} cols={3}>
