@@ -50,6 +50,11 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+var ws = new WebSocket('ws://localhost:8080');
+ws.onopen = function (event) {
+  console.log('Explore: Connection is open!');
+};
+
 const ExplorePage = () => {
   const classes = useStyles()
 
@@ -60,6 +65,24 @@ const ExplorePage = () => {
   const [stickerFilter, setStickerFilter] = React.useState('')
   const [rimsFilter, setRimsFilter] = React.useState('')
   var [filteredItems, setFilteredItems] = React.useState(items)
+  var [soldItems, setSoldItems] = React.useState([])
+
+  ws.onmessage = function (event) {
+
+    console.log('Explore received: ', event.data)
+    const msg = JSON.parse(event.data)
+
+    switch (msg.type) {
+      case 'sold':
+          setSoldItems(msg.sold)
+        break;
+
+      case 'log':
+      break;
+      default:
+        break;
+    }
+  }
 
   const handleClose = () => {
     setDialogOpen(false)
@@ -210,7 +233,7 @@ const ExplorePage = () => {
           />
         <CardContent>
           <Typography gutterBottom variant='h5' component='h2'>
-            {item.id} {item.type}
+            {item.id} {soldItems.includes(item.id)? 'SOLD!': ''}
           </Typography>
         </CardContent>
         </CardActionArea>
