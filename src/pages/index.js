@@ -1,19 +1,15 @@
 import * as React from 'react'
 import Layout from '../components/layout'
 import Stats from '../components/stats'
-import Card from '@material-ui/core/Card'
-import CardActionArea from '@material-ui/core/CardActionArea'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
-import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import { makeStyles } from '@material-ui/core/styles'
+import CarCard from '../components/CarCard'
+
 const items = require('../res/explore.json')
 const WebSocket = require('isomorphic-ws')
 
@@ -23,19 +19,7 @@ ws.onopen = function (event) {
 };
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  filter: {
-    padding: 20
-  },
+  
   gridListContainer: {
     maxWidth: 1200,
     display: 'flex',
@@ -47,12 +31,6 @@ const useStyles = makeStyles((theme) => ({
   gridList: {
     flexWrap: 'nowrap',
     transform: 'translateZ(0)',
-  },
-  cardRoot: {
-    maxWidth: 300,
-  },
-  cardmedia: {
-    height: "100px",
   },
 
 }));
@@ -117,23 +95,7 @@ const IndexPage = (props) => {
       <Container maxWidth='sm' className={classes.gridListContainer}>
         <GridList id='gridList' cellHeight={300} className={classes.gridList} cols={2.5}>
         {filteredItems.map((item) => (
-          <GridListTile id={item.id} key={item.id}>
-            <Card className={classes.cardRoot} onClick={()=>{showDetail(item)}}>
-              <CardActionArea>
-              <CardMedia
-                component="img"
-                className={classes.cardMedia}
-                image={`../${item.image}.png`}
-                title={item.id}
-              />
-            <CardContent>
-              <Typography gutterBottom variant='h5' component='h2'>
-                {item.id}
-              </Typography>
-            </CardContent>
-            </CardActionArea>
-            </Card>
-          </GridListTile>
+          <CarCard car={item} isSold={false} onClick={showDetail}/>
         ))}
         </GridList>
 

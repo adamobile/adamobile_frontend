@@ -1,31 +1,29 @@
 import * as React from 'react'
+import { ThemeProvider } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import theme from '../theme/theme'
+import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'gatsby'
 import Button from '@material-ui/core/Button'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import { makeStyles } from '@material-ui/core/styles';
 
-export default function Layout({ pageTitle, children }) {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    background:theme.palette.background.default,
+  },
+}))
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      backgroundColor: theme.palette.background.default,
-    },
-    title: {
-      fontSize: 30
-    },
-
-  }))
+const Layout = ({ pageTitle, children }) => {
   const classes = useStyles()
-
   return (
       <main>
         <title>{pageTitle}</title>
+        <ThemeProvider theme={theme}>
+        <CssBaseline/>
             <Box className={classes.root}>
-            <CssBaseline/>
             <Container align ='right' >
               <br/>
               <ButtonGroup size='large' aria-label='large outlined primary button group'>
@@ -40,6 +38,9 @@ export default function Layout({ pageTitle, children }) {
             <br/>
         {children}
         </Box>
+        </ThemeProvider>
     </main>
   )
 }
+
+export default Layout
