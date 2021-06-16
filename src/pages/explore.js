@@ -5,7 +5,7 @@ import GridListTile from '@material-ui/core/GridListTile'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
-import { makeStyles } from '@material-ui/core/styles'
+import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
@@ -17,12 +17,26 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
+import Button from '@material-ui/core/Button'
+import purple from '@material-ui/core/colors/purple';
+import green from '@material-ui/core/colors/green';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: purple[500],
+    },
+    secondary: {
+      main: green[500],
+    },
+  },
+});
 
 const items = require('../res/explore.json')
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.default,
   },
   formControl: {
     margin: theme.spacing(1),
@@ -30,6 +44,11 @@ const useStyles = makeStyles((theme) => ({
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
+    color: theme.primary,
+  },
+  menuItem: {
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
   },
   filter: {
     padding: 20
@@ -48,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100px",
   },
 
-}));
+}))
 
 var ws = new WebSocket('ws://localhost:8080');
 ws.onopen = function (event) {
@@ -135,7 +154,17 @@ const ExplorePage = () => {
     setDialogOpen(true)
   }
 
+  const resetFilters = () => {
+    setTypeFilter('')
+    setColorFilter('')
+    setRimsFilter('')
+    setStickerFilter('')
+    setFilteredItems([...items])
+  }
+
   return (
+    <ThemeProvider theme={theme}>
+
     <Layout pageTitle='Explore Adamobiles'>
     <Box className={classes.root}>
 
@@ -152,7 +181,7 @@ const ExplorePage = () => {
             value={typeFilter}
             onChange={handleTypeFilterChange}
           >
-            <MenuItem value=''>All</MenuItem>
+            <MenuItem className={classes.MenuItem} value=''>All</MenuItem>
             <MenuItem value='micro'>Micro</MenuItem>
             <MenuItem value='suv'>SUV</MenuItem>
             <MenuItem value='super'>Super</MenuItem>
@@ -217,6 +246,8 @@ const ExplorePage = () => {
             <MenuItem value='eth'>ETH</MenuItem>
           </Select>
         </FormControl>
+
+        <Button onClick={resetFilters}>Reset Filters</Button>
     </Box>
 
 
@@ -252,6 +283,7 @@ const ExplorePage = () => {
     </Dialog>
     </Box>
     </Layout>
+    </ThemeProvider>
   )
 
 }
