@@ -9,18 +9,17 @@ export default function Layout({ pageTitle, children }) {
   return (
       <main>
         <title>{pageTitle}</title>
-          <React.Fragment>
             <CssBaseline/>
-            <Container maxWidth="sm">
-              <h1>{pageTitle}</h1>
-              <ButtonGroup size="large" color="primary" aria-label="large outlined primary button group">
-                <Button><Link to="/">Home</Link></Button>
-                <Button><Link to="/explore">Explore</Link></Button>
-                <Button><Link to="/about">About</Link></Button>
+            <Container align = 'center'>
+              <br/>
+              <ButtonGroup size='large' color='primary' aria-label='large outlined primary button group'>
+                <Button><Link to='/'>Home</Link></Button>
+                <Button><Link to='/explore'>Explore</Link></Button>
+                <Button><Link to='/about'>FAQ</Link></Button>
               </ButtonGroup>
+              <h1>{pageTitle}</h1>
             </Container>
-          </React.Fragment>
-
+            <br/>
         {children}
     </main>
   )

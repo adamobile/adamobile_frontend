@@ -56,6 +56,7 @@ ws.onopen = function (event) {
 };
 
 const ExplorePage = () => {
+
   const classes = useStyles()
 
   const [dialogOpen, setDialogOpen] = React.useState(false)
@@ -74,7 +75,7 @@ const ExplorePage = () => {
 
     switch (msg.type) {
       case 'sold':
-          setSoldItems(msg.sold)
+          setSoldItems([...soldItems, msg.sold])
         break;
 
       case 'log':
@@ -220,28 +221,29 @@ const ExplorePage = () => {
 
 
     <Container maxWidth='sm' className={classes.gridListContainer}>
-    <GridList cellHeight={300} className={classes.gridList} cols={3}>
-    {filteredItems.map((item) => (
-      <GridListTile key={item.id}>
-        <Card className={classes.cardRoot} onClick={()=>{showDetail(item)}}>
-          <CardActionArea>
-          <CardMedia
-            component="img"
-            className={classes.cardMedia}
-            image={`../${item.image}.png`}
-            title={item.id}
-          />
-        <CardContent>
-          <Typography gutterBottom variant='h5' component='h2'>
-            {item.id} {soldItems.includes(item.id)? 'SOLD!': ''}
-          </Typography>
-        </CardContent>
-        </CardActionArea>
-        </Card>
-      </GridListTile>
-    ))}
-    </GridList>
+      <GridList cellHeight={300} className={classes.gridList} cols={3}>
+      {filteredItems.map((item) => (
+        <GridListTile key={item.id}>
+          <Card className={classes.cardRoot} onClick={()=>{showDetail(item)}}>
+            <CardActionArea>
+            <CardMedia
+              component="img"
+              className={classes.cardMedia}
+              image={`../${item.image}.png`}
+              title={item.id}
+            />
+          <CardContent>
+            <Typography gutterBottom variant='h5' component='h2'>
+              {item.id} {soldItems.includes(item.id)? 'SOLD!': ''}
+            </Typography>
+          </CardContent>
+          </CardActionArea>
+          </Card>
+        </GridListTile>
+      ))}
+      </GridList>
     </Container>
+
     <Dialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={dialogOpen}>
       <DialogContent dividers>
         <img src={ selectedItem === null? ``: `../${selectedItem.image}.png`} alt='grid item'/>
