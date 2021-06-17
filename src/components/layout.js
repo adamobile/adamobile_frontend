@@ -9,6 +9,8 @@ import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
+import '../theme/typography.css'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {

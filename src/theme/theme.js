@@ -1,6 +1,12 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 
 const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      'lato',
+      'sans-serif',
+    ].join(','),
+  },
   palette: {
     primary: {
       main: 'rgb(176,35,39)',
