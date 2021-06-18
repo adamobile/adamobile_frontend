@@ -24,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-export default function CarCard({ car, isSold, showDetail }) {
+const CarCard = ({ car, isSold, showDetail }) => {
 
   const classes = useStyles()
   return (
-    <GridListTile id={car.id} key={car.id}>
+    <GridListTile>
       <Card className={classes.cardRoot} onClick={showDetail}>
         <CardActionArea>
         <CardMedia
@@ -46,5 +46,6 @@ export default function CarCard({ car, isSold, showDetail }) {
       </Card>
     </GridListTile>
   )
-
 }
+
+export default CarCard
