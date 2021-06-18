@@ -19,11 +19,8 @@ ws.onopen = function (event) {
 };
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    background:theme.palette.background.default,
-  },
   gridListContainer: {
-    maxWidth: 1200,
+    width: '70%',
   },
   gridList: {
     width: 'auto',
@@ -120,10 +117,10 @@ const ExplorePage = () => {
   const classes = useStyles()
   return (
     <Layout pageTitle='Explore Adamobiles'>
-    <Box className={classes.root}>
+    <Box>
 
-    <Container maxWidth='lg' className={classes.gridListContainer}>
-      <GridList cellHeight={300} className={classes.gridList} cols={3}>
+    <Container className={classes.gridListContainer}>
+      <GridList className={classes.gridList} cols={3}>
       {filteredItems.map((item) => (
           <CarCard car={item} isSold={soldItems.includes(item.id)} onClick={showDetail}/>
       ))}

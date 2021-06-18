@@ -19,7 +19,7 @@ ws.onopen = function (event) {
 };
 
 const useStyles = makeStyles((theme) => ({
-  
+
   gridListContainer: {
     maxWidth: 1200,
     display: 'flex',
@@ -89,10 +89,8 @@ const IndexPage = (props) => {
   return (
     <Layout pageTitle="Welcome to ADAmobile">
       <Box>Grab your ADAmobile and join the ride!</Box>
-      <Stats stats={stats}></Stats><br/>
-      <Box>UUID: {uuid}</Box>
 
-      <Container maxWidth='sm' className={classes.gridListContainer}>
+      <Container className={classes.gridListContainer}>
         <GridList id='gridList' cellHeight={300} className={classes.gridList} cols={2.5}>
         {filteredItems.map((item) => (
           <CarCard car={item} isSold={false} onClick={showDetail}/>

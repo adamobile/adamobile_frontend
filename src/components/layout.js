@@ -3,7 +3,7 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from '../theme/theme'
 import { makeStyles } from '@material-ui/core/styles'
-import { Link } from 'gatsby'
+import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Container from '@material-ui/core/Container'
@@ -13,9 +13,10 @@ import '../theme/typography.css'
 
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    background:theme.palette.background.default,
-  },
+  title: {
+    fontSize: theme.typography.pxToRem(28),
+    fontWeight: 800,
+  }
 }))
 
 const Layout = ({ pageTitle, children }) => {
@@ -25,13 +26,13 @@ const Layout = ({ pageTitle, children }) => {
         <title>{pageTitle}</title>
         <ThemeProvider theme={theme}>
         <CssBaseline/>
-            <Box className={classes.root}>
+            <Box>
             <Container align ='right' >
               <br/>
-              <ButtonGroup size='large' aria-label='large outlined primary button group'>
-                <Button><Link to='/'>Home</Link></Button>
-                <Button><Link to='/explore'>Explore</Link></Button>
-                <Button><Link to='/about'>FAQ</Link></Button>
+              <ButtonGroup color='primary' size='large' aria-label='large outlined primary button group'>
+                <Button><Link href='/'>Home</Link></Button>
+                <Button><Link href='/explore'>Explore</Link></Button>
+                <Button><Link href='/about'>FAQ</Link></Button>
               </ButtonGroup>
             </Container>
             <Container align ='center' >

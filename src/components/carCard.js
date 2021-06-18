@@ -13,20 +13,23 @@ import theme from '../theme/theme'
 const useStyles = makeStyles((theme) => ({
   cardRoot: {
     maxWidth: 300,
-    background:theme.palette.background.paper,
+    background: theme.palette.background.paper,
+    margin: 10,
   },
-  cardmedia: {
-    height: "100px",
+  cardMedia: {
+    height: 200,
+  },
+  cardContent: {
   },
 }))
 
 
-export default function CarCard({ car, isSold, onClick }) {
+export default function CarCard({ car, isSold, showDetail }) {
 
   const classes = useStyles()
   return (
     <GridListTile id={car.id} key={car.id}>
-      <Card className={classes.cardRoot} onClick={onClick}>
+      <Card className={classes.cardRoot} onClick={showDetail}>
         <CardActionArea>
         <CardMedia
           component="img"
@@ -34,7 +37,7 @@ export default function CarCard({ car, isSold, onClick }) {
           image={`../${car.image}.png`}
           title={car.id}
         />
-      <CardContent>
+      <CardContent className={classes.cardContent}>
         <Typography gutterBottom variant='h5' component='h2'>
           {car.id} {isSold? 'SOLD!': ''}
         </Typography>

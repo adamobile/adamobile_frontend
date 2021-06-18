@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
   },
   heading: {
     fontSize: theme.typography.pxToRem(18),
-    color: theme.palette.text.primery,
     fontWeight: 600,
   },
 }));
@@ -92,7 +91,7 @@ const AboutPage = () => {
                 After the payment is in, an Adamobile will be selected randomly from the pool of available items. This item will be created of the block chain and send to your address automatically.
                 On the <Link to='/'>home page</Link> there will be a list of already created ADAmobiles. This list can be filtered by your address, so that you can see which ADAmobiles you pulled.
                 If you want to purchase multiple items, please send the specified amout multiple times and not the multiple of the amout one time.
-                After all items have been created and sent to their new owners this will be announced on the 
+                After all items have been created and sent to their new owners this will be announced on the
                 </p>
                 <p>
                 Dont send ADA from an exchange!!! If you send ADA from an exchange the funds will be lost and the Adamobile will be lost for ever.
@@ -107,14 +106,10 @@ const AboutPage = () => {
               id="panel4bh-header"
             >
               <Typography className={classes.heading}>Why Cardano?</Typography>
-              <Typography className={classes.secondaryHeading}>
-                Filtering has been entirely disabled for whole web server
-              </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-                vitae egestas augue. Duis vel est augue.
+                ...
               </Typography>
             </AccordionDetails>
           </Accordion>
