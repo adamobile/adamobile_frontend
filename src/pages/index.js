@@ -5,6 +5,7 @@ import {
   Box,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import '../theme/theme'
 
 const useStyles = makeStyles((theme) => ({
   bannerContainer: {
@@ -12,20 +13,16 @@ const useStyles = makeStyles((theme) => ({
   },
   logoContainer: {
     position: 'absolute',
-    top: 10,
+    top: 16,
     left: 16,
-    width: '20%',
-    height: '20%',
+    width: '30%',
+    height: '30%',
   },
   infoBox: {
-    position: 'absolute',
-    top: 350,
-    left: 16,
-    color: 'white',
+    color: 'rgb(28, 28, 28)',
   },
   stayTuned: {
     fontSize: theme.typography.pxToRem(24),
-    fontFamily: 'dodger',
   }
 }))
 
@@ -36,17 +33,17 @@ const IndexPage = (props) => {
     <React.Fragment>
       <Box id='banner' className={classes.bannerContainer}>
       <StaticImage
-        cover='false'
-        src='../stay_tuned.png'
+        placeholder= 'transparent'
+        src='../images/stay_tuned.png'
         alt='Stay tuned'/>
       </Box>
       <Box className={classes.logoContainer}>
         <StaticImage
-          color= 'transparent'
-          src='../logo.png'
+          placeholder= 'transparent'
+          src='../images/logo.png'
           alt='Adamobile logo'/>
       </Box>
-      <Box className={classes.infoBox}>
+      <Box>
         <Typography>Adamobiles are NFT-Collectables on the cardano blockchain</Typography>
         <Typography>You can buy, sell, or gift Adamobiles. Or simply enjoy them parked in your wallet</Typography>
       </Box>
