@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { StaticImage } from "gatsby-plugin-image"
 import {
   Typography,
   Box,
@@ -6,16 +7,15 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
-  wrapper: {
-    margin: 'auto'
+  bannerContainer: {
+    width:'100%',
   },
-
-  logo: {
+  logoContainer: {
     position: 'absolute',
     top: 10,
     left: 16,
-    width: 400,
-    height: 400,
+    width: '20%',
+    height: '20%',
   },
   infoBox: {
     position: 'absolute',
@@ -33,16 +33,18 @@ const IndexPage = (props) => {
 
   const classes = useStyles()
   return (
-    <Box className={classes.wrapper} >
-      <Box>
-        <img
-          src="../images/stay_tuned.png"
-          alt="Stay tuned"/>
+    <React.Fragment>
+      <Box id='banner' className={classes.bannerContainer}>
+      <StaticImage
+        cover='false'
+        src='../stay_tuned.png'
+        alt='Stay tuned'/>
       </Box>
-      <Box className={classes.logo}>
-        <img
-          src="../images/logo.png"
-          alt="Adamobile logo"/>
+      <Box className={classes.logoContainer}>
+        <StaticImage
+          color= 'transparent'
+          src='../logo.png'
+          alt='Adamobile logo'/>
       </Box>
       <Box className={classes.infoBox}>
         <Typography>Adamobiles are NFT-Collectables on the cardano blockchain</Typography>
@@ -52,7 +54,7 @@ const IndexPage = (props) => {
         <Typography>Engines starting soon</Typography>
         <Typography>Stay tuned!</Typography>
       </Box>
-    </Box>
+    </React.Fragment>
   )
 }
 
