@@ -4,8 +4,8 @@ import {
   Typography,
   Box,
 } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import '../theme/theme'
+import { makeStyles, ThemeProvider, CssBaseline } from '@material-ui/core/styles'
+import theme from '../theme/theme'
 
 const useStyles = makeStyles((theme) => ({
   bannerContainer: {
@@ -31,6 +31,8 @@ const IndexPage = (props) => {
   const classes = useStyles()
   return (
     <React.Fragment>
+    <ThemeProvider theme={theme}>
+    <CssBaseline/>
       <Box id='banner' className={classes.bannerContainer}>
       <StaticImage
         placeholder= 'transparent'
@@ -51,6 +53,7 @@ const IndexPage = (props) => {
         <Typography>Engines starting soon</Typography>
         <Typography>Stay tuned!</Typography>
       </Box>
+    </ThemeProvider>
     </React.Fragment>
   )
 }
