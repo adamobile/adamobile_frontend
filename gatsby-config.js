@@ -3,8 +3,5 @@ module.exports = {
     title: "AdaMobile",
   },
   plugins: [
-    `gatsby-plugin-image`,
-    `gatsby-plugin-sharp`,
-    `gatsby-transformer-sharp`,
   ],
 };

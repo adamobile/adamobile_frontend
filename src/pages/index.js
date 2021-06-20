@@ -1,62 +1,58 @@
 import * as React from 'react'
-import { StaticImage } from "gatsby-plugin-image"
-import styled from "@emotion/styled"
-import "../css/main.css";
+import {
+  Typography,
+  Box,
+} from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
-const Wrapper = styled("div")`
-  margin: auto;
-`
+const useStyles = makeStyles((theme) => ({
+  wrapper: {
+    margin: 'auto'
+  },
 
-const Banner = styled("div")`
-
-`
-
-const Logo = styled("div")`
-  position: absolute;
-  top: 10px;
-  left: 16px;
-  width: 400px;
-  height: 400px;
-`
-
-const InfoBox = styled("div")`
-  position: absolute;
-  top: 350px;
-  left: 16px;
-  color: white;
-  font-size: 1.5em;
-  font-family: lato, sans-serif;
-`
-const StayTuned = styled("div")`
-  font-family: dodger;
-  font-size: 3.5em;
-  color: rgb(176, 34, 38);
-  text-align: center;
-`
+  logo: {
+    position: 'absolute',
+    top: 10,
+    left: 16,
+    width: 400,
+    height: 400,
+  },
+  infoBox: {
+    position: 'absolute',
+    top: 350,
+    left: 16,
+    color: 'white',
+  },
+  stayTuned: {
+    fontSize: theme.typography.pxToRem(24),
+    fontFamily: 'dodger',
+  }
+}))
 
 const IndexPage = (props) => {
 
+  const classes = useStyles()
   return (
-    <Wrapper>
-      <Banner>
-        <StaticImage
+    <Box className={classes.wrapper} >
+      <Box>
+        <img
           src="../images/stay_tuned.png"
           alt="Stay tuned"/>
-      </Banner>
-      <Logo>
-        <StaticImage
+      </Box>
+      <Box className={classes.logo}>
+        <img
           src="../images/logo.png"
           alt="Adamobile logo"/>
-      </Logo>
-      <InfoBox>
-        <p>Adamobiles are NFT-Collectables on the cardano blockchain</p>
-        <p>You can buy, sell, or gift Adamobiles. Or simply enjoy them parked in your wallet</p>
-      </InfoBox>
-      <StayTuned>
-        <p>Engines starting soon</p>
-        <p>Stay tuned!</p>
-      </StayTuned>
-    </Wrapper>
+      </Box>
+      <Box className={classes.infoBox}>
+        <Typography>Adamobiles are NFT-Collectables on the cardano blockchain</Typography>
+        <Typography>You can buy, sell, or gift Adamobiles. Or simply enjoy them parked in your wallet</Typography>
+      </Box>
+      <Box className={classes.stayTuned}>
+        <Typography>Engines starting soon</Typography>
+        <Typography>Stay tuned!</Typography>
+      </Box>
+    </Box>
   )
 }
 
