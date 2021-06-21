@@ -117,8 +117,10 @@ const CarGridFilter = ({items, setFilteredItems}) => {
       >
         <MenuItem className={classes.MenuItem} value=''>All</MenuItem>
         <MenuItem value='micro'>Micro</MenuItem>
-        <MenuItem value='suv'>SUV</MenuItem>
+        <MenuItem value='hatchback'>Hatchback</MenuItem>
+        <MenuItem value='sedan'>Sedan</MenuItem>
         <MenuItem value='super'>Super</MenuItem>
+        <MenuItem value='suv'>SUV</MenuItem>
       </Select>
     </FormControl>
 
@@ -134,11 +136,14 @@ const CarGridFilter = ({items, setFilteredItems}) => {
     onChange={handleColorFilterChange}
     >
     <MenuItem value=''>All</MenuItem>
-    <MenuItem value='black'>Black</MenuItem>
+    <MenuItem value='grey'>Grey</MenuItem>
+    <MenuItem value='silver'>Silver</MenuItem>
+    <MenuItem value='yellow'>Yellow</MenuItem>
     <MenuItem value='red'>Red</MenuItem>
-    <MenuItem value='green'>Green</MenuItem>
     <MenuItem value='blue'>Blue</MenuItem>
-    <MenuItem value='white'>White</MenuItem>
+    <MenuItem value='green'>Green</MenuItem>
+    <MenuItem value='pink'>Pink</MenuItem>
+    <MenuItem value='orange'>Orange</MenuItem>
     </Select>
     </FormControl>
 
@@ -154,9 +159,20 @@ const CarGridFilter = ({items, setFilteredItems}) => {
       onChange={handleRimsFilterChange}
       >
         <MenuItem value=''>All</MenuItem>
-        <MenuItem value='sport'>sport</MenuItem>
-        <MenuItem value='teddy'>Teddy</MenuItem>
+        <MenuItem value='wings'>Wings</MenuItem>
+        <MenuItem value='wings_double'>Double wings</MenuItem>
+        <MenuItem value='feathers'>Feathers</MenuItem>
+        <MenuItem value='blades'>Blades</MenuItem>
+        <MenuItem value='columns'>Columns</MenuItem>
+        <MenuItem value='shanks'>Shanks</MenuItem>
+        <MenuItem value='cardanos'>Cardanos</MenuItem>
+        <MenuItem value='teddies'>Teddies</MenuItem>
+        <MenuItem value='rockets'>Rockets</MenuItem>
+        <MenuItem value='skis'>Skis</MenuItem>
         <MenuItem value='monster'>Monster</MenuItem>
+        <MenuItem value='tank'>Tank</MenuItem>
+        <MenuItem value='robot'>Robot</MenuItem>
+        <MenuItem value='gone'>Gone</MenuItem>
       </Select>
     </FormControl>
 
@@ -211,6 +227,14 @@ const CarGridFilter = ({items, setFilteredItems}) => {
         <MenuItem value='shark_fin'>Shark fin</MenuItem>
         <MenuItem value='golden_lion'>Golden lion</MenuItem>
         <MenuItem value='turbine'>Turbine</MenuItem>
+        <MenuItem value='monster_exhaust'>Monster exhaust</MenuItem>
+        <MenuItem value='spoiler'>Spoiler</MenuItem>
+        <MenuItem value='taxi'>Taxi</MenuItem>
+        <MenuItem value='antenna'>Antenna</MenuItem>
+        <MenuItem value='firefighter'>Firefighter</MenuItem>
+        <MenuItem value='ship'>Ship</MenuItem>
+        <MenuItem value='tent'>Tent</MenuItem>
+        <MenuItem value='horn_bull'>Bull horns</MenuItem>
       </Select>
     </FormControl>
 
