@@ -8,7 +8,7 @@ import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import { makeStyles } from '@material-ui/core/styles'
-import CarCard from '../components/CarCard'
+import CarCard from '../components/carCard'
 
 const items = require('../res/explore.json')
 const WebSocket = require('isomorphic-ws')

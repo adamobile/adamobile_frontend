@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  selectMultiple: {
+    selected: theme.palette.primary.main,
+  },
   filterLabel: {
     fontSize: theme.typography.pxToRem(24),
   },
@@ -33,34 +36,42 @@ const CarGridFilter = ({items, setFilteredItems}) => {
 
   const [typeFilter, setTypeFilter] = React.useState('')
   const [colorFilter, setColorFilter] = React.useState('')
-  const [stickerFilter, setStickerFilter] = React.useState('')
   const [rimsFilter, setRimsFilter] = React.useState('')
+  const [stickerFilter, setStickerFilter] = React.useState('')
+  const [extrasFilter, setExtrasFilter] = React.useState([])
 
   const handleTypeFilterChange = (event) => {
     const newTypeFilter = event.target.value
     setTypeFilter(newTypeFilter)
-    filterItems({type:newTypeFilter, color:colorFilter, rims:rimsFilter, sticker: stickerFilter})
+    filterItems({type:newTypeFilter, color:colorFilter, rims:rimsFilter, sticker: stickerFilter, extras: extrasFilter})
   }
 
   const handleColorFilterChange = (event) => {
     const newColorFilter = event.target.value
     setColorFilter(newColorFilter)
-    filterItems({type:typeFilter, color: newColorFilter, rims:rimsFilter, sticker: stickerFilter})
+    filterItems({type:typeFilter, color: newColorFilter, rims:rimsFilter, sticker: stickerFilter, extras: extrasFilter})
   }
 
   const handleRimsFilterChange = (event) => {
     const newRimsFilter = event.target.value
     setRimsFilter(newRimsFilter)
-    filterItems({type:typeFilter, color:colorFilter, rims:newRimsFilter, sticker: stickerFilter})
+    filterItems({type:typeFilter, color:colorFilter, rims:newRimsFilter, sticker: stickerFilter, extras: extrasFilter})
   }
 
   const handleStickerFilterChange = (event) => {
     const newStickerFilter = event.target.value
     setStickerFilter(newStickerFilter)
-    filterItems({type:typeFilter, color:colorFilter, rims:rimsFilter, sticker: newStickerFilter})
+    filterItems({type:typeFilter, color:colorFilter, rims:rimsFilter, sticker: newStickerFilter, extras: extrasFilter})
+  }
+
+  const handleExtrasFilterChange = (event) => {
+    const newExtrasFilter = event.target.value
+    setExtrasFilter(newExtrasFilter)
+    filterItems({type:typeFilter, color:colorFilter, rims:rimsFilter, sticker: stickerFilter, extras: newExtrasFilter})
   }
 
   const filterItems = (args) => {
+
     var tmp = [...items]
     if (args.type) {
       tmp = tmp.filter(item => item.traits.type === args.type)
@@ -74,6 +85,9 @@ const CarGridFilter = ({items, setFilteredItems}) => {
     if (args.sticker) {
       tmp = tmp.filter(item => item.traits.sticker === args.sticker)
     }
+    if (args.extras.length > 0) {
+      tmp = tmp.filter(item => args.extras.every(extraFilter => item.traits.extras.includes(extraFilter)))
+    }
     setFilteredItems([...tmp])
   }
 
@@ -82,6 +96,7 @@ const CarGridFilter = ({items, setFilteredItems}) => {
     setColorFilter('')
     setRimsFilter('')
     setStickerFilter('')
+    setExtrasFilter([])
     setFilteredItems([...items])
   }
 
@@ -157,12 +172,45 @@ const CarGridFilter = ({items, setFilteredItems}) => {
       onChange={handleStickerFilterChange}
       >
         <MenuItem value=''>All</MenuItem>
-        <MenuItem value='cat'>Cat</MenuItem>
         <MenuItem value='dog'>Dog</MenuItem>
+        <MenuItem value='tiger'>Tiger</MenuItem>
         <MenuItem value='fox'>Fox</MenuItem>
+        <MenuItem value='cat'>Cat</MenuItem>
+        <MenuItem value='racing'>Racing</MenuItem>
+        <MenuItem value='adamobile'>ADAmobile</MenuItem>
+        <MenuItem value='cardano'>Cardano</MenuItem>
         <MenuItem value='ada'>ADA</MenuItem>
-        <MenuItem value='btc'>BTC</MenuItem>
         <MenuItem value='eth'>ETH</MenuItem>
+        <MenuItem value='btc'>BTC</MenuItem>
+        <MenuItem value='smile'>Smile</MenuItem>
+        <MenuItem value='mandala'>Mandala</MenuItem>
+        <MenuItem value='eye'>Eye</MenuItem>
+      </Select>
+    </FormControl>
+
+    <FormControl className={classes.formControl}>
+      <InputLabel shrink id='extrasFilterLabel' className={classes.filterLabel}>
+        Extras
+      </InputLabel>
+      <Select
+      multiple
+      labelId='extrasFilterLabel'
+      id='extrasFilterId'
+      className={classes.selectEmpty}
+      value={extrasFilter}
+      onChange={handleExtrasFilterChange}
+      >
+        <MenuItem className={classes.selectMultiple} value='horn_front'>Front horn</MenuItem>
+        <MenuItem value='horn_top'>Top horn</MenuItem>
+        <MenuItem value='spikes_front'>Front spikes</MenuItem>
+        <MenuItem value='spikes_top'>Top spikes</MenuItem>
+        <MenuItem value='spikes_rear'>Rear spikes</MenuItem>
+        <MenuItem value='lights_front'>Front lights</MenuItem>
+        <MenuItem value='lights_top'>Top lights</MenuItem>
+        <MenuItem value='lights_blue'>Blue lights</MenuItem>
+        <MenuItem value='shark_fin'>Shark fin</MenuItem>
+        <MenuItem value='golden_lion'>Golden lion</MenuItem>
+        <MenuItem value='turbine'>Turbine</MenuItem>
       </Select>
     </FormControl>
 
