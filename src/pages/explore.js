@@ -9,9 +9,8 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
-import { makeStyles } from '@material-ui/core/styles'
-import theme from '../theme/theme'
-import clsx from 'clsx';
+import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { Typography } from '@material-ui/core'
 
 const items = require('../res/explore.json')
 
@@ -22,13 +21,23 @@ const items = require('../res/explore.json')
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
-    width: '70%',
   },
   gridList: {
-    width: 'auto',
-    height: 'auto',
   },
 }))
+
+const DodgerTypography = withStyles({
+  root: {
+    color: '#b71c1c',
+    fontFamily: 'dodger'
+  }
+})(Typography);
+
+const BoldTypography = withStyles({
+  root: {
+    fontWeight: 600
+  }
+})(Typography);
 
 const ExplorePage = () => {
 
@@ -59,6 +68,20 @@ const ExplorePage = () => {
   }
 
   const classes = useStyles()
+
+  const dialogText = () => {
+    if(dialogOpen){
+      return <Box>
+              <DodgerTypography>{selectedItem.id}</DodgerTypography>
+              {Object.keys(selectedItem.traits).map((trait) => (
+                    <Box>
+                      <DodgerTypography>{trait} : {selectedItem.traits[trait]}</DodgerTypography>
+                    </Box>
+                ))}
+            </Box>
+    }
+  }
+
   return (
     <Layout pageTitle='Explore Adamobiles'>
     <Box>
@@ -78,11 +101,10 @@ const ExplorePage = () => {
       </GridList>
     </Container>
 
-    // TODO: move to own file
     <Dialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={dialogOpen}>
       <DialogContent dividers>
         <img src={ selectedItem === null? ``: `../${selectedItem.image}.png`} alt='grid item'/>
-        <DialogContentText>{JSON.stringify(selectedItem.traits)}</DialogContentText>
+        <DialogContentText>{dialogText()}</DialogContentText>
       </DialogContent>
     </Dialog>
     </Box>

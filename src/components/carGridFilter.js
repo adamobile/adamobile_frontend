@@ -7,7 +7,7 @@ import {
   Box,
   Button,
 } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   filterContainer: {
@@ -21,9 +21,6 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
-  selectMultiple: {
-    selected: theme.palette.primary.main,
-  },
   filterLabel: {
     fontSize: theme.typography.pxToRem(24),
   },
@@ -31,6 +28,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
 }))
+
+const MultipleMenuItem = withStyles((theme) => ({
+  root: {
+    '&:selection': {
+      backgroundColor: theme.palette.primary.main,
+      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+        color: theme.palette.common.white,
+      },
+    },
+  },
+}))(MenuItem);
 
 const CarGridFilter = ({items, setFilteredItems}) => {
 
@@ -115,7 +123,7 @@ const CarGridFilter = ({items, setFilteredItems}) => {
       value={typeFilter}
       onChange={handleTypeFilterChange}
       >
-        <MenuItem className={classes.MenuItem} value=''>All</MenuItem>
+        <MenuItem value=''>All</MenuItem>
         <MenuItem value='micro'>Micro</MenuItem>
         <MenuItem value='hatchback'>Hatchback</MenuItem>
         <MenuItem value='sedan'>Sedan</MenuItem>
@@ -216,7 +224,7 @@ const CarGridFilter = ({items, setFilteredItems}) => {
       value={extrasFilter}
       onChange={handleExtrasFilterChange}
       >
-        <MenuItem className={classes.selectMultiple} value='horn_front'>Front horn</MenuItem>
+        <MultipleMenuItem value='horn_front'>Front horn</MultipleMenuItem>
         <MenuItem value='horn_top'>Top horn</MenuItem>
         <MenuItem value='spikes_front'>Front spikes</MenuItem>
         <MenuItem value='spikes_top'>Top spikes</MenuItem>

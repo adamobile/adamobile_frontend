@@ -7,21 +7,28 @@ import {
   CardMedia,
   Typography
 } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import theme from '../theme/theme'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
+import '../theme/typography.css'
 
 const useStyles = makeStyles((theme) => ({
   cardRoot: {
-    maxWidth: 300,
+    maxWidth: '90%',
+    maxHeight:'95%',
     background: theme.palette.background.paper,
-    margin: 10,
   },
   cardMedia: {
-    height: 200,
+    height: '20%',
   },
   cardContent: {
   },
 }))
+
+const DodgerTypography = withStyles({
+  root: {
+    color: '#b71c1c',
+    fontFamily: 'dodger'
+  }
+})(Typography);
 
 
 const CarCard = ({ car, isSold, showDetail }) => {
@@ -38,9 +45,9 @@ const CarCard = ({ car, isSold, showDetail }) => {
           title={car.id}
         />
       <CardContent className={classes.cardContent}>
-        <Typography gutterBottom variant='h5' component='h2'>
+        <DodgerTypography gutterBottom variant='h5' component='h2'>
           {car.id} {isSold? 'SOLD!': ''}
-        </Typography>
+        </DodgerTypography>
       </CardContent>
       </CardActionArea>
       </Card>
