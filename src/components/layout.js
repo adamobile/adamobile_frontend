@@ -1,16 +1,16 @@
 import * as React from 'react'
-import { ThemeProvider } from '@material-ui/core/styles'
+import { ThemeProvider, makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import theme from '../theme/theme'
-import { makeStyles } from '@material-ui/core/styles'
-import Link from '@material-ui/core/Link';
-import Button from '@material-ui/core/Button'
-import ButtonGroup from '@material-ui/core/ButtonGroup'
-import Container from '@material-ui/core/Container'
-import Typography from '@material-ui/core/Typography'
-import Box from '@material-ui/core/Box'
+import {
+  Box,
+  Typography,
+  Container,
+  Link,
+  ButtonGroup,
+  Button
+} from '@material-ui/core'
 import '../theme/typography.css'
-
+import theme from '../theme/theme'
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -31,6 +31,7 @@ const Layout = ({ pageTitle, children }) => {
               <br/>
               <ButtonGroup color='primary' size='large' aria-label='large outlined primary button group'>
                 <Button><Link href='/'>Home</Link></Button>
+                <Button><Link href='/buy'>Buy</Link></Button>
                 <Button><Link href='/explore'>Explore</Link></Button>
                 <Button><Link href='/about'>FAQ</Link></Button>
               </ButtonGroup>

@@ -1,18 +1,22 @@
 import React from 'react'
-
+import {
+    Box,
+    Container,
+    Typography
+} from '@material-ui/core'
 export default function Stats ({stats}) {
 
     return (
 
-        <div>
-            <center><h1>AdaMobile Statistics</h1></center> 
-            <p>
-                Total: {stats.total}<br/>
-                Minted: {stats.minted}<br/>
-                Minting: {stats.minting}<br/>
-                Available: {stats.available}<br/>
-            </p>
-         </div>
+        <Container>
+            <Typography>AdaMobile Statistics</Typography>
+            <Typography>
+                Total: {stats.total} 
+                Minted: {stats.minted}
+                Minting: {stats.minting}
+                Available: {stats.available}
+            </Typography>
+        </Container>
 
     )
 }

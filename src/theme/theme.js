@@ -15,6 +15,16 @@ const theme = createMuiTheme({
     secondary: {
       main: '#212121',
     },
+    MuiChip: {
+      root: {
+          padding: '3px 4px',
+          fontFamily: [
+            'dodger',
+            'sans-serif',
+          ].join(','),
+          fontSize: "15px"
+      },
+  },
   },
 })
 
