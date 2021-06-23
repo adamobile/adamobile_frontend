@@ -14,7 +14,7 @@ import theme from '../theme/theme';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '70%',
+        width: '80%',
     },
     heading: {
         fontSize: theme.typography.pxToRem(18),

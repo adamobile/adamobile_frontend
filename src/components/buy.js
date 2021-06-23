@@ -1,11 +1,10 @@
 import React from 'react'
 import {
+    Container,
+    GridList,
     Box,
-    Container
-  } from '@material-ui/core'
-import Layout from '../components/layout'
+} from '@material-ui/core'
 import Stats from '../components/stats'
-import GridList from '@material-ui/core/GridList'
 import CarCard from '../components/carCard'
 import { CarDetail, showDetails } from '../components/carDetail'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
@@ -19,6 +18,9 @@ const items = require('../res/explore.json')
 
 const useStyles = makeStyles((theme) => ({
 
+    root: {
+        width: '80%'
+    },
     gridListContainer: {
         maxWidth: 1200,
         display: 'flex',
@@ -41,53 +43,53 @@ const BuyPage = () => {
 
     //     console.log('received: ', event.data)
     //     const msg = JSON.parse(event.data)
-    
+
     //     switch (msg.type) {
     //       case 'stats':
     //         setStats(msg.stats)
     //         break;
-    
+
     //       case 'uuid':
     //         setUuid(msg.uuid)
     //         break;
-    
+
     //       case 'sold':
     //         setSoldItems([...soldItems, msg.sold])
     //         filterItems([...soldItems, msg.sold])
     //         break;
-    
+
     //       case 'log':
     //         break;
     //       default:
     //         break;
     //     }
-    
+
     //   }
 
     const classes = useStyles()
     const [filteredItems, setFilteredItems] = React.useState([])
     const [soldItems, setSoldItems] = React.useState([])
     const [stats, setStats] = React.useState({ 'total': 0, 'minted': 0, 'minting': 0, 'available': 0 })
-    
+
     const filterItems = (sold) => {
         setFilteredItems(items.filter(item => sold.includes(item.id)))
         document.getElementById(sold[sold.length - 1]).scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
     }
 
     return (
-        <Layout pageTitle='Buy Adamobiles'>
-            <Stats stats={stats}/>
-            <Container className={classes.gridListContainer}>
+        <Container className={classes.root}>
+            <Stats stats={stats} />
+            <Box>
                 <GridList id='gridList' cellHeight={300} className={classes.gridList} cols={2.5}>
                     {items.map((item) => (
                         <CarCard key={item.id} id={item.id} car={item} isSold={soldItems.includes(item.id)} showDetail={() => {
                             showDetails(item)
-                          }} />
+                        }} />
                     ))}
                 </GridList>
-            </Container>
+            </Box>
             <CarDetail />
-        </Layout>
+        </Container>
     )
 }
 

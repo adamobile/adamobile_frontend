@@ -28,7 +28,9 @@ const theme = createMuiTheme({
           'dodger',
           'sans-serif',
         ].join(','),
-        fontSize: "15px"
+        fontSize: '15px',
+        background: 'primary',
+        color: 'white'
       },
     },
   },

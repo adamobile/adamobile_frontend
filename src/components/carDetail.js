@@ -15,7 +15,6 @@ import '../theme/typography.css'
 
 const DodgerTypography = withStyles({
     root: {
-        color: '#b71c1c',
         fontFamily: 'dodger'
     }
 })(Typography);
@@ -65,7 +64,7 @@ const CarDetail = () => {
         if (Array.isArray(trait)) {
             return trait.map((extra) => (getChips(extra)))
         } else {
-            return <Chip className={classes.chip} variant='outlined' color='primary' label={trait} />
+            return <Chip className={classes.chip} label={trait} />
         }
     }
 

@@ -13,6 +13,10 @@ import {
 import '../theme/typography.css'
 import theme from '../theme/theme'
 import Faq from '../components/faq'
+import Explore from '../components/explore'
+import Buy from '../components/buy'
+
+const cars = require('../res/explore.json')
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -87,10 +91,10 @@ const IndexPage = (props) => {
           Item One
         </TabPanel>
         <TabPanel value={value} index={1}>
-
+          <Buy/>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Item Three
+          <Explore cars={cars}/>
         </TabPanel>
         <TabPanel value={value} index={3}>
           <Faq/>

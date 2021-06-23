@@ -12,12 +12,9 @@ import '../theme/typography.css'
 
 const useStyles = makeStyles((theme) => ({
   cardRoot: {
-    maxWidth: '90%',
-    maxHeight:'95%',
     background: theme.palette.background.paper,
   },
   cardMedia: {
-    height: '20%',
   },
   cardContent: {
   },
@@ -25,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
 
 const DodgerTypography = withStyles({
   root: {
-    color: '#b71c1c',
     fontFamily: 'dodger'
   }
 })(Typography);
