@@ -14,10 +14,6 @@ const useStyles = makeStyles((theme) => ({
   cardRoot: {
     background: theme.palette.background.paper,
   },
-  cardMedia: {
-  },
-  cardContent: {
-  },
 }))
 
 const DodgerTypography = withStyles({
@@ -27,11 +23,12 @@ const DodgerTypography = withStyles({
 })(Typography);
 
 
-const CarCard = ({ car, isSold, showDetail }) => {
+const CarCard = (props) => {
 
+  const {car, isSold, showDetail} = props
   const classes = useStyles()
   return (
-    <GridListTile>
+    <GridListTile {...props}>
       <Card className={classes.cardRoot} onClick={showDetail}>
         <CardActionArea>
         <CardMedia
@@ -41,9 +38,9 @@ const CarCard = ({ car, isSold, showDetail }) => {
           title={car.id}
         />
       <CardContent className={classes.cardContent}>
-        <DodgerTypography gutterBottom variant='h5' component='h2'>
+        <Typography gutterBottom variant='h5' component='h2'>
           {car.id} {isSold? 'SOLD!': ''}
-        </DodgerTypography>
+        </Typography>
       </CardContent>
       </CardActionArea>
       </Card>

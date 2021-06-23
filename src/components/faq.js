@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 const Faq = () => {
 
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = React.useState('panel1');
 
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);

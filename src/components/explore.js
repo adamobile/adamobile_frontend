@@ -35,7 +35,7 @@ const Explore = (props) => {
         <CarGridFilter items={props.cars} setFilteredItems={setFilteredItems} />
       </Box>
       <Box className={classes.gridListContainer}>
-        <GridList cellHeight={100} spacing={4} cols={3} className={classes.gridList}>
+        <GridList cellHeight={300} spacing={20} cols={3} className={classes.gridList}>
           {filteredItems.map((item) => (
             <CarCard key={item.id} id={item.id} car={item} isSold={soldItems.includes(item.id)} showDetail={() => {
               showDetails(item)
