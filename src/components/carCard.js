@@ -38,9 +38,9 @@ const CarCard = (props) => {
           title={car.id}
         />
       <CardContent className={classes.cardContent}>
-        <Typography gutterBottom variant='h5' component='h2'>
+        <DodgerTypography gutterBottom variant='h5' component='h2'>
           {car.id} {isSold? 'SOLD!': ''}
-        </Typography>
+        </DodgerTypography>
       </CardContent>
       </CardActionArea>
       </Card>

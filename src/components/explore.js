@@ -7,7 +7,7 @@ import {
 import CarGridFilter from '../components/carGridFilter'
 import CarCard from '../components/carCard'
 import { makeStyles } from '@material-ui/core/styles'
-import { CarDetail, showDetails } from '../components/carDetail'
+import { CarDetail, showCarDetails } from '../components/carDetail'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,10 +35,10 @@ const Explore = (props) => {
         <CarGridFilter items={props.cars} setFilteredItems={setFilteredItems} />
       </Box>
       <Box className={classes.gridListContainer}>
-        <GridList cellHeight={300} spacing={20} cols={3} className={classes.gridList}>
+        <GridList cellHeight='auto' spacing={20} cols={3} className={classes.gridList}>
           {filteredItems.map((item) => (
             <CarCard key={item.id} id={item.id} car={item} isSold={soldItems.includes(item.id)} showDetail={() => {
-              showDetails(item)
+              showCarDetails(item)
             }} />
           ))}
         </GridList>

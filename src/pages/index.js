@@ -15,8 +15,39 @@ import theme from '../theme/theme'
 import Faq from '../components/faq'
 import Explore from '../components/explore'
 import Buy from '../components/buy'
+import {Stats, updateStats} from '../components/stats'
 
+const WebSocket = require('isomorphic-ws')
 const cars = require('../res/explore.json')
+
+var ws = new WebSocket('ws://localhost:8080');
+ws.onopen = function (event) {
+  console.log('Connection is open!')
+}
+ws.onmessage = function (event) {
+
+  console.log('received: ', event.data)
+  const msg = JSON.parse(event.data)
+
+  switch (msg.type) {
+    case 'stats':
+      updateStats(msg.stats)
+      break
+
+    case 'uuid':
+      break
+
+    case 'sold':
+      break
+
+    case 'log':
+      break
+
+    default:
+      break
+  }
+
+}
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -91,13 +122,13 @@ const IndexPage = (props) => {
           Item One
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Buy/>
+          <Buy cars={cars} />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <Explore cars={cars}/>
+          <Explore cars={cars} />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          <Faq/>
+          <Faq />
         </TabPanel>
       </div>
     </ThemeProvider>

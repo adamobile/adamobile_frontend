@@ -7,14 +7,7 @@ import {
 import Stats from '../components/stats'
 import CarCard from '../components/carCard'
 import { CarDetail, showDetails } from '../components/carDetail'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
-
-const items = require('../res/explore.json')
-// const WebSocket = require('isomorphic-ws')
-// var ws = new WebSocket('ws://localhost:8080');
-// ws.onopen = function (event) {
-//   console.log('Connection is open!');
-// };
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
 
@@ -37,34 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const BuyPage = () => {
-
-    // ws.onmessage = function (event) {
-
-    //     console.log('received: ', event.data)
-    //     const msg = JSON.parse(event.data)
-
-    //     switch (msg.type) {
-    //       case 'stats':
-    //         setStats(msg.stats)
-    //         break;
-
-    //       case 'uuid':
-    //         setUuid(msg.uuid)
-    //         break;
-
-    //       case 'sold':
-    //         setSoldItems([...soldItems, msg.sold])
-    //         filterItems([...soldItems, msg.sold])
-    //         break;
-
-    //       case 'log':
-    //         break;
-    //       default:
-    //         break;
-    //     }
-
-    //   }
+const BuyPage = (props) => {
 
     const classes = useStyles()
     const [filteredItems, setFilteredItems] = React.useState([])
@@ -72,22 +38,27 @@ const BuyPage = () => {
     const [stats, setStats] = React.useState({ 'total': 0, 'minted': 0, 'minting': 0, 'available': 0 })
 
     const filterItems = (sold) => {
-        setFilteredItems(items.filter(item => sold.includes(item.id)))
+        setFilteredItems(props.cars.filter(item => sold.includes(item.id)))
         document.getElementById(sold[sold.length - 1]).scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
+    }
+
+    const gridList = () => {
+        return (
+            <Box>
+                {filteredItems.length > 0 && <GridList id='gridList' cellHeight={300} className={classes.gridList} cols={2.5}>
+                    {filteredItems.map((item) => (
+                        <CarCard key={item.id} id={item.id} car={item} isSold={soldItems.includes(item.id)} showDetail={() => {
+                            showDetails(item)
+                        }} />
+                    ))}
+                </GridList>}
+            </Box>
+        )
     }
 
     return (
         <Container className={classes.root}>
             <Stats stats={stats} />
-            <Box>
-                <GridList id='gridList' cellHeight={300} className={classes.gridList} cols={2.5}>
-                    {items.map((item) => (
-                        <CarCard key={item.id} id={item.id} car={item} isSold={soldItems.includes(item.id)} showDetail={() => {
-                            showDetails(item)
-                        }} />
-                    ))}
-                </GridList>
-            </Box>
             <CarDetail />
         </Container>
     )

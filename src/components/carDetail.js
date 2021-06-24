@@ -4,7 +4,6 @@ import {
     Typography,
     Dialog,
     DialogContent,
-    Paper,
     Chip
 } from '@material-ui/core'
 import {
@@ -27,7 +26,6 @@ const ItemTitle = withStyles({
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 400,
     },
     chips: {
         display: 'flex',
@@ -42,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-let showDetails = () => { }
+let showCarDetails = () => { }
 
 const CarDetail = () => {
 
@@ -51,7 +49,7 @@ const CarDetail = () => {
 
     const classes = useStyles()
 
-    showDetails = (item) => {
+    showCarDetails = (item) => {
         setSelectedItem(item)
         setDialogOpen(true)
     }
@@ -83,9 +81,7 @@ const CarDetail = () => {
 
     const getDetailImg = () => {
         if (dialogOpen) {
-            return <Paper>
-                <img src={`../${selectedItem.image}.png`} alt='grid item' />
-            </Paper>
+            return <img src={`../${selectedItem.image}.png`} alt='grid item' />
         }
         return <Box />
     }
@@ -100,4 +96,4 @@ const CarDetail = () => {
     )
 }
 
-export { CarDetail, showDetails }
+export { CarDetail, showCarDetails }
