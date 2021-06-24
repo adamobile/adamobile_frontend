@@ -4,7 +4,6 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Box,
   Container,
   Button,
 } from '@material-ui/core'

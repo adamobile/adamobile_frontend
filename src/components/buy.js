@@ -4,10 +4,9 @@ import {
     GridList,
     Box,
 } from '@material-ui/core'
-import Stats from '../components/stats'
-import CarCard from '../components/carCard'
-import { CarDetail, showDetails } from '../components/carDetail'
 import { makeStyles } from '@material-ui/core/styles'
+import CarCard from '../components/carCard'
+import { CarDetail, showCarDetails } from '../components/carDetail'
 
 const useStyles = makeStyles((theme) => ({
 
@@ -29,36 +28,28 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-
-const BuyPage = (props) => {
+let updateSoldItemsBuy = () => {}
+const Buy = (props) => {
 
     const classes = useStyles()
-    const [filteredItems, setFilteredItems] = React.useState([])
     const [soldItems, setSoldItems] = React.useState([])
-    const [stats, setStats] = React.useState({ 'total': 0, 'minted': 0, 'minting': 0, 'available': 0 })
 
-    const filterItems = (sold) => {
-        setFilteredItems(props.cars.filter(item => sold.includes(item.id)))
-        document.getElementById(sold[sold.length - 1]).scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
-    }
-
-    const gridList = () => {
-        return (
-            <Box>
-                {filteredItems.length > 0 && <GridList id='gridList' cellHeight={300} className={classes.gridList} cols={2.5}>
-                    {filteredItems.map((item) => (
-                        <CarCard key={item.id} id={item.id} car={item} isSold={soldItems.includes(item.id)} showDetail={() => {
-                            showDetails(item)
-                        }} />
-                    ))}
-                </GridList>}
-            </Box>
-        )
+    updateSoldItemsBuy = (newSoldItems) => {
+        setSoldItems(newSoldItems)
+        document.getElementById(newSoldItems[newSoldItems.length -1]).scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
     }
 
     return (
         <Container className={classes.root}>
-            <Stats stats={stats} />
+            <Box>
+                <GridList id='gridList' cellHeight={300} className={classes.gridList} cols={2.5}>
+                    {props.cars.filter(item => soldItems.includes(item.id)).map((item) => (
+                        <CarCard key={item.id} id={item.id} car={item} issold={soldItems.includes(item.id).toString()} showdetail={() => {
+                            showCarDetails(item)
+                          }} />
+                    ))}
+                </GridList>
+            </Box>
             <CarDetail />
         </Container>
     )
@@ -66,4 +57,4 @@ const BuyPage = (props) => {
 
 
 
-export default BuyPage
+export {Buy, updateSoldItemsBuy}

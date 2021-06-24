@@ -13,13 +13,14 @@ import {
 import '../theme/typography.css'
 import theme from '../theme/theme'
 import Faq from '../components/faq'
-import Explore from '../components/explore'
-import Buy from '../components/buy'
+import {Explore, updateSoldItemsExplore} from '../components/explore'
+import {Buy, updateSoldItemsBuy} from '../components/buy'
 import Main from '../components/main'
 import { Stats, updateStats } from '../components/stats'
 
 const WebSocket = require('isomorphic-ws')
 const cars = require('../res/explore.json')
+var sold = []
 
 var ws = new WebSocket('ws://localhost:8080');
 ws.onopen = function (event) {
@@ -39,6 +40,9 @@ ws.onmessage = function (event) {
       break
 
     case 'sold':
+      sold = [...sold, ...msg.sold]
+      updateSoldItemsExplore(sold)
+      updateSoldItemsBuy(sold)
       break
 
     case 'log':
@@ -125,10 +129,10 @@ const IndexPage = (props) => {
           <Main />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Buy cars={cars} />
+          <Buy cars={cars} sold={sold}/>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <Explore cars={cars} />
+          <Explore cars={cars} sold={sold}/>
         </TabPanel>
         <TabPanel value={value} index={3}>
           <Faq />

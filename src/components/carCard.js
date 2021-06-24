@@ -25,11 +25,11 @@ const DodgerTypography = withStyles({
 
 const CarCard = (props) => {
 
-  const {car, isSold, showDetail} = props
+  const {car, issold, showdetail} = props
   const classes = useStyles()
   return (
     <GridListTile {...props}>
-      <Card className={classes.cardRoot} onClick={showDetail}>
+      <Card className={classes.cardRoot} onClick={showdetail}>
         <CardActionArea>
         <CardMedia
           component="img"
@@ -39,7 +39,7 @@ const CarCard = (props) => {
         />
       <CardContent className={classes.cardContent}>
         <DodgerTypography gutterBottom variant='h5' component='h2'>
-          {car.id} {isSold? 'SOLD!': ''}
+          {car.id} {issold? 'SOLD!': ''}
         </DodgerTypography>
       </CardContent>
       </CardActionArea>
