@@ -15,7 +15,8 @@ import theme from '../theme/theme'
 import Faq from '../components/faq'
 import Explore from '../components/explore'
 import Buy from '../components/buy'
-import {Stats, updateStats} from '../components/stats'
+import Main from '../components/main'
+import { Stats, updateStats } from '../components/stats'
 
 const WebSocket = require('isomorphic-ws')
 const cars = require('../res/explore.json')
@@ -104,6 +105,7 @@ const IndexPage = (props) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className={classes.root}>
+        
         <AppBar position='static'>
           <Toolbar>
             <Typography variant='h6' className={classes.title}>
@@ -118,8 +120,9 @@ const IndexPage = (props) => {
             </Tabs>
           </Toolbar>
         </AppBar>
+        <Stats/>
         <TabPanel value={value} index={0}>
-          Item One
+          <Main />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <Buy cars={cars} />

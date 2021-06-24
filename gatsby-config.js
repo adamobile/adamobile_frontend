@@ -6,5 +6,5 @@ module.exports = {
     DEV_SSR: false
   },
   plugins: [
-    'gatsby-plugin-material-ui'],
+    'gatsby-plugin-material-ui',],
 };
