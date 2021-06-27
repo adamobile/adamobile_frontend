@@ -18,41 +18,41 @@ import {Buy, updateSoldItemsBuy} from '../components/buy'
 import Main from '../components/main'
 import { Stats, updateStats } from '../components/stats'
 
-const WebSocket = require('isomorphic-ws')
+// const WebSocket = require('isomorphic-ws')
 const cars = require('../res/explore.json')
 var sold = []
 
-var ws = new WebSocket('ws://localhost:8080');
-ws.onopen = function (event) {
-  console.log('Connection is open!')
-}
-ws.onmessage = function (event) {
+// var ws = new WebSocket('ws://localhost:8080');
+// ws.onopen = function (event) {
+//   console.log('Connection is open!')
+// }
+// ws.onmessage = function (event) {
 
-  console.log('received: ', event.data)
-  const msg = JSON.parse(event.data)
+//   console.log('received: ', event.data)
+//   const msg = JSON.parse(event.data)
 
-  switch (msg.type) {
-    case 'stats':
-      updateStats(msg.stats)
-      break
+//   switch (msg.type) {
+//     case 'stats':
+//       updateStats(msg.stats)
+//       break
 
-    case 'uuid':
-      break
+//     case 'uuid':
+//       break
 
-    case 'sold':
-      sold = [...sold, ...msg.sold]
-      updateSoldItemsExplore(sold)
-      updateSoldItemsBuy(sold)
-      break
+//     case 'sold':
+//       sold = [...sold, ...msg.sold]
+//       updateSoldItemsExplore(sold)
+//       updateSoldItemsBuy(sold)
+//       break
 
-    case 'log':
-      break
+//     case 'log':
+//       break
 
-    default:
-      break
-  }
+//     default:
+//       break
+//   }
 
-}
+// }
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
