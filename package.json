@@ -21,6 +21,7 @@
     "gatsby-link": "^3.7.0",
     "gatsby-plugin-image": "^1.8.0",
     "gatsby-plugin-material-ui": "^3.0.1",
+    "gatsby-plugin-sharp": "^3.8.0",
     "gatsby-react-router-scroll": "^4.7.0",
     "gatsby-source-filesystem": "^3.8.0",
     "gatsby-transformer-sharp": "^3.8.0",
