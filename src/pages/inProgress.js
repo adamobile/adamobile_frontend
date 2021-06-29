@@ -19,10 +19,10 @@ import Main from '../components/main'
 import { Stats, updateStats } from '../components/stats'
 
 const WebSocket = require('isomorphic-ws')
-const cars = require('../res/explore.json')
+const cars = require('../res/all.json')
 var sold = []
 
-var ws = new WebSocket('ws://localhost:8080');
+var ws = new WebSocket('ws://localhost:8090');
 ws.onopen = function (event) {
   console.log('Connection is open!')
 }

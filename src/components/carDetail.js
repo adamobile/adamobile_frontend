@@ -4,7 +4,8 @@ import {
     Typography,
     Dialog,
     DialogContent,
-    Chip
+    Chip,
+    Container
 } from '@material-ui/core'
 import {
     withStyles,
@@ -37,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
     },
     chip: {
         fontFamily: 'dodger'
+    },
+    image: {
+        width: '90%'
     }
 }));
 
@@ -62,7 +66,7 @@ const CarDetail = () => {
         if (Array.isArray(trait)) {
             return trait.map((extra) => (getChips(extra)))
         } else {
-            return <Chip className={classes.chip} label={trait} />
+            return <Chip key={trait} className={classes.chip} label={trait} />
         }
     }
 
@@ -71,8 +75,8 @@ const CarDetail = () => {
             return <Box className={classes.root}>
                 <ItemTitle>Adamobile {selectedItem.id}</ItemTitle>
                 <Box className={classes.chips}>
-                    {Object.keys(selectedItem.traits).filter(trait => selectedItem.traits[trait].length).map((trait) => (
-                        getChips(selectedItem.traits[trait])
+                    {Object.keys(selectedItem).filter(trait => selectedItem[trait].length).map((trait) => (
+                        getChips(selectedItem[trait])
                     ))}
                 </Box>
             </Box>
@@ -81,7 +85,7 @@ const CarDetail = () => {
 
     const getDetailImg = () => {
         if (dialogOpen) {
-            return <img src={`../${selectedItem.image}.png`} alt='grid item' />
+            return <img className={classes.image} src={`../thumb_${selectedItem.id.slice(1)}.png`} alt={`Adamobile ${selectedItem.id}`} />
         }
         return <Box />
     }
@@ -89,7 +93,9 @@ const CarDetail = () => {
     return (
         <Dialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={dialogOpen}>
             <DialogContent dividers>
-                {getDetailImg()}
+                <Container>
+                    {getDetailImg()}
+                </Container>
                 {getDetailText()}
             </DialogContent>
         </Dialog>

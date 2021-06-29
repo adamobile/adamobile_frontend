@@ -84,19 +84,19 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
 
     var tmp = [...items]
     if (args.type) {
-      tmp = tmp.filter(item => item.traits.type === args.type)
+      tmp = tmp.filter(item => item.type === args.type)
     }
     if (args.color) {
-      tmp = tmp.filter(item => item.traits.color === args.color)
+      tmp = tmp.filter(item => item.color === args.color)
     }
     if (args.rims) {
-      tmp = tmp.filter(item => item.traits.rims === args.rims)
+      tmp = tmp.filter(item => item.rims === args.rims)
     }
     if (args.sticker) {
-      tmp = tmp.filter(item => item.traits.sticker === args.sticker)
+      tmp = tmp.filter(item => item.sticker === args.sticker)
     }
     if (args.extras.length > 0) {
-      tmp = tmp.filter(item => args.extras.every(extraFilter => item.traits.extras.includes(extraFilter)))
+      tmp = tmp.filter(item => args.extras.every(extraFilter => item.extras.includes(extraFilter)))
     }
     setFilteredItems([...tmp])
   }
