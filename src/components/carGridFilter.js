@@ -84,19 +84,19 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
 
     var tmp = [...items]
     if (args.type) {
-      tmp = tmp.filter(item => item.traits.type === args.type)
+      tmp = tmp.filter(item => item.type === args.type)
     }
     if (args.color) {
-      tmp = tmp.filter(item => item.traits.color === args.color)
+      tmp = tmp.filter(item => item.color === args.color)
     }
     if (args.rims) {
-      tmp = tmp.filter(item => item.traits.rims === args.rims)
+      tmp = tmp.filter(item => item.rims === args.rims)
     }
     if (args.sticker) {
-      tmp = tmp.filter(item => item.traits.sticker === args.sticker)
+      tmp = tmp.filter(item => item.sticker === args.sticker)
     }
     if (args.extras.length > 0) {
-      tmp = tmp.filter(item => args.extras.every(extraFilter => item.traits.extras.includes(extraFilter)))
+      tmp = tmp.filter(item => args.extras.every(extraFilter => item.extras.includes(extraFilter)))
     }
     setFilteredItems([...tmp])
   }
@@ -126,11 +126,11 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           onChange={handleTypeFilterChange}
         >
           <MenuItem value=''>All</MenuItem>
-          <MenuItem value='micro'>Micro</MenuItem>
-          <MenuItem value='hatchback'>Hatchback</MenuItem>
-          <MenuItem value='sedan'>Sedan</MenuItem>
-          <MenuItem value='super'>Super</MenuItem>
-          <MenuItem value='suv'>SUV</MenuItem>
+          <MenuItem value='Microcar'>Micro</MenuItem>
+          <MenuItem value='Hatchback'>Hatchback</MenuItem>
+          <MenuItem value='Sedan'>Sedan</MenuItem>
+          <MenuItem value='Supercar'>Super</MenuItem>
+          <MenuItem value='SUV'>SUV</MenuItem>
         </Select>
       </FormControl>
 
@@ -146,14 +146,14 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           onChange={handleColorFilterChange}
         >
           <MenuItem value=''>All</MenuItem>
-          <MenuItem value='grey'>Grey</MenuItem>
-          <MenuItem value='silver'>Silver</MenuItem>
-          <MenuItem value='yellow'>Yellow</MenuItem>
-          <MenuItem value='red'>Red</MenuItem>
-          <MenuItem value='blue'>Blue</MenuItem>
-          <MenuItem value='green'>Green</MenuItem>
-          <MenuItem value='pink'>Pink</MenuItem>
-          <MenuItem value='orange'>Orange</MenuItem>
+          <MenuItem value='Black'>Black</MenuItem>
+          <MenuItem value='White'>White</MenuItem>
+          <MenuItem value='Yellow'>Yellow</MenuItem>
+          <MenuItem value='Red'>Red</MenuItem>
+          <MenuItem value='Blue'>Blue</MenuItem>
+          <MenuItem value='Green'>Green</MenuItem>
+          <MenuItem value='Pink'>Pink</MenuItem>
+          <MenuItem value='Orange'>Orange</MenuItem>
         </Select>
       </FormControl>
 
@@ -169,20 +169,20 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           onChange={handleRimsFilterChange}
         >
           <MenuItem value=''>All</MenuItem>
-          <MenuItem value='wings'>Wings</MenuItem>
-          <MenuItem value='wings_double'>Double wings</MenuItem>
-          <MenuItem value='feathers'>Feathers</MenuItem>
-          <MenuItem value='blades'>Blades</MenuItem>
-          <MenuItem value='columns'>Columns</MenuItem>
-          <MenuItem value='shanks'>Shanks</MenuItem>
-          <MenuItem value='cardanos'>Cardanos</MenuItem>
-          <MenuItem value='teddies'>Teddies</MenuItem>
-          <MenuItem value='rockets'>Rockets</MenuItem>
-          <MenuItem value='skis'>Skis</MenuItem>
-          <MenuItem value='monster'>Monster</MenuItem>
-          <MenuItem value='tank'>Tank</MenuItem>
-          <MenuItem value='robot'>Robot</MenuItem>
-          <MenuItem value='gone'>Gone</MenuItem>
+          <MenuItem value='Wings'>Wings</MenuItem>
+          <MenuItem value='Double wings'>Double wings</MenuItem>
+          <MenuItem value='Feathers'>Feathers</MenuItem>
+          <MenuItem value='Blades'>Blades</MenuItem>
+          <MenuItem value='Columns'>Columns</MenuItem>
+          <MenuItem value='Shanks'>Shanks</MenuItem>
+          <MenuItem value='Cardanos'>Cardanos</MenuItem>
+          <MenuItem value='Teddies'>Teddies</MenuItem>
+          <MenuItem value='Rockets'>Rockets</MenuItem>
+          <MenuItem value='Skis'>Skis</MenuItem>
+          <MenuItem value='Monster'>Monster</MenuItem>
+          <MenuItem value='Tank'>Tank</MenuItem>
+          <MenuItem value='Robot'>Robot</MenuItem>
+          <MenuItem value='Gone'>Gone</MenuItem>
         </Select>
       </FormControl>
 
@@ -198,19 +198,19 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           onChange={handleStickerFilterChange}
         >
           <MenuItem value=''>All</MenuItem>
-          <MenuItem value='dog'>Dog</MenuItem>
-          <MenuItem value='tiger'>Tiger</MenuItem>
-          <MenuItem value='fox'>Fox</MenuItem>
-          <MenuItem value='cat'>Cat</MenuItem>
-          <MenuItem value='racing'>Racing</MenuItem>
-          <MenuItem value='adamobile'>ADAmobile</MenuItem>
-          <MenuItem value='cardano'>Cardano</MenuItem>
-          <MenuItem value='ada'>ADA</MenuItem>
-          <MenuItem value='eth'>ETH</MenuItem>
-          <MenuItem value='btc'>BTC</MenuItem>
-          <MenuItem value='smile'>Smile</MenuItem>
-          <MenuItem value='mandala'>Mandala</MenuItem>
-          <MenuItem value='eye'>Eye</MenuItem>
+          <MenuItem value='Dog'>Dog</MenuItem>
+          <MenuItem value='Tiger'>Tiger</MenuItem>
+          <MenuItem value='Fox'>Fox</MenuItem>
+          <MenuItem value='Cat'>Cat</MenuItem>
+          <MenuItem value='Racing'>Racing</MenuItem>
+          <MenuItem value='Adamobile'>ADAmobile</MenuItem>
+          <MenuItem value='Cardano'>Cardano</MenuItem>
+          <MenuItem value='ADA'>ADA</MenuItem>
+          <MenuItem value='ETH'>ETH</MenuItem>
+          <MenuItem value='BTC'>BTC</MenuItem>
+          <MenuItem value='Smile'>Smile</MenuItem>
+          <MenuItem value='Mandala'>Mandala</MenuItem>
+          <MenuItem value='Eye'>Eye</MenuItem>
         </Select>
       </FormControl>
 
@@ -226,25 +226,25 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           value={extrasFilter}
           onChange={handleExtrasFilterChange}
         >
-          <MultipleMenuItem value='horn_front'>Front horn</MultipleMenuItem>
-          <MenuItem value='horn_top'>Top horn</MenuItem>
-          <MenuItem value='spikes_front'>Front spikes</MenuItem>
-          <MenuItem value='spikes_top'>Top spikes</MenuItem>
-          <MenuItem value='spikes_rear'>Rear spikes</MenuItem>
-          <MenuItem value='lights_front'>Front lights</MenuItem>
-          <MenuItem value='lights_top'>Top lights</MenuItem>
-          <MenuItem value='lights_blue'>Blue lights</MenuItem>
-          <MenuItem value='shark_fin'>Shark fin</MenuItem>
-          <MenuItem value='golden_lion'>Golden lion</MenuItem>
-          <MenuItem value='turbine'>Turbine</MenuItem>
-          <MenuItem value='monster_exhaust'>Monster exhaust</MenuItem>
-          <MenuItem value='spoiler'>Spoiler</MenuItem>
-          <MenuItem value='taxi'>Taxi</MenuItem>
-          <MenuItem value='antenna'>Antenna</MenuItem>
-          <MenuItem value='firefighter'>Firefighter</MenuItem>
-          <MenuItem value='ship'>Ship</MenuItem>
-          <MenuItem value='tent'>Tent</MenuItem>
-          <MenuItem value='horn_bull'>Bull horns</MenuItem>
+          <MenuItem value='Front horn'>Front horn</MenuItem>
+          <MenuItem value='Top horn'>Top horn</MenuItem>
+          <MenuItem value='Front spikes'>Front spikes</MenuItem>
+          <MenuItem value='Top spikes'>Top spikes</MenuItem>
+          <MenuItem value='Rear spikes'>Rear spikes</MenuItem>
+          <MenuItem value='Front lights'>Front lights</MenuItem>
+          <MenuItem value='Top lights'>Top lights</MenuItem>
+          <MenuItem value='Police lights'>Police lights</MenuItem>
+          <MenuItem value='Shark fin'>Shark fin</MenuItem>
+          <MenuItem value='Golden lion'>Golden lion</MenuItem>
+          <MenuItem value='Turbine'>Turbine</MenuItem>
+          <MenuItem value='Monster exhaust'>Monster exhaust</MenuItem>
+          <MenuItem value='Spoiler'>Spoiler</MenuItem>
+          <MenuItem value='Taxi'>Taxi</MenuItem>
+          <MenuItem value='Antenna'>Antenna</MenuItem>
+          <MenuItem value='Firefighter'>Firefighter</MenuItem>
+          <MenuItem value='Ship'>Ship</MenuItem>
+          <MenuItem value='Tent'>Tent</MenuItem>
+          <MenuItem value='Devil horns'>Devil horns</MenuItem>
         </Select>
       </FormControl>
 

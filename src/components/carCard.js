@@ -34,7 +34,7 @@ const CarCard = (props) => {
         <CardMedia
           component="img"
           className={classes.cardMedia}
-          image={`../${car.image}.png`}
+          image={`../thumb_${car.id.slice(1)}.png`}
           title={car.id}
         />
       <CardContent className={classes.cardContent}>
