@@ -146,8 +146,8 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           onChange={handleColorFilterChange}
         >
           <MenuItem value=''>All</MenuItem>
-          <MenuItem value='grey'>Grey</MenuItem>
-          <MenuItem value='silver'>Silver</MenuItem>
+          <MenuItem value='black'>Black</MenuItem>
+          <MenuItem value='white'>White</MenuItem>
           <MenuItem value='yellow'>Yellow</MenuItem>
           <MenuItem value='red'>Red</MenuItem>
           <MenuItem value='blue'>Blue</MenuItem>
