@@ -53,7 +53,7 @@ const BuyPage = (props) => {
     }
 
     return (
-        <Layout>
+        <Layout pageTitle='Buy' pageIndex={1}>
             <Container className={classes.root}>
                 <Box>
                     <Grid item xs={12}>

@@ -10,8 +10,8 @@ import {
     Tab,
     Tabs,
 } from '@material-ui/core'
-import {navigate} from 'gatsby'
-import {Stats} from '../components/stats'
+import { navigate } from 'gatsby'
+import { Stats } from '../components/stats'
 
 const homeIndex = 0
 const buyIndex = 1
@@ -21,8 +21,8 @@ const faqIndex = 4
 
 function a11yProps(index) {
     return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
+        id: `navigation-tab-${index}`,
+        'aria-controls': `tabpanel-${index}`,
     };
 }
 
@@ -39,11 +39,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Layout = ({ pageTitle, pageIndex, children }) => {
 
-    const [value, setValue] = React.useState(pageIndex);
+    const [currentTab, setCurrentTab] = React.useState(pageIndex);
+
     const classes = useStyles()
 
     const handleTabChange = (event, newValue) => {
-        setValue(newValue);
+        setCurrentTab(newValue);
 
         switch (newValue) {
             case homeIndex:
@@ -65,7 +66,7 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
             default:
                 break;
         }
-    };
+    }
 
     return (
         <main>
@@ -80,7 +81,7 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
                                 {pageTitle}
                             </Typography>
 
-                            <Tabs centered value={value} onChange={handleTabChange} aria-label='simple tabs example'>
+                            <Tabs centered value={currentTab} onChange={handleTabChange} aria-label='tabs navigation'>
                                 <Tab label='Home' {...a11yProps(homeIndex)} />
                                 <Tab label='Buy' {...a11yProps(buyIndex)} />
                                 <Tab label='Explore' {...a11yProps(exploreIndex)} />
