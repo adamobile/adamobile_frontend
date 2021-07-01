@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { navigate } from 'gatsby'
 import {
   Box,
   Container,
@@ -7,7 +8,6 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import CarGridFilter from '../components/carGridFilter'
 import CarCard from '../components/carCard'
-import { CarDetail, showCarDetails } from '../components/carDetail'
 import Layout from '../components/layout'
 const cars = require('../res/all.json')
 
@@ -33,18 +33,17 @@ const ExplorePage = (props) => {
     <Layout pageTitle='Explore' pageIndex={2}>
       <Container className={classes.root}>
         <Box>
-          <CarGridFilter items={props.cars} setFilteredItems={setFilteredItems} />
+          <CarGridFilter items={cars} setFilteredItems={setFilteredItems} />
         </Box>
         <Box className={classes.gridListContainer}>
-          <GridList cellHeight='auto' spacing={20} cols={4}>
+          <GridList cellHeight='auto' spacing={10} cols={4}>
             {filteredItems.map((item) => (
               <CarCard key={item.id} id={item.id} car={item} issold={soldItems.includes(item.id)} showdetail={() => {
-                showCarDetails(item)
+                navigate(`/detail/${item.id}`, {state: {selectedItem: item }})
               }} />
             ))}
           </GridList>
         </Box>
-        <CarDetail />
       </Container>
     </Layout>
   )

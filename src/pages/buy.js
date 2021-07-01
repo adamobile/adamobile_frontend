@@ -9,8 +9,8 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import CarCard from '../components/carCard'
-import { CarDetail, showCarDetails } from '../components/carDetail'
 import Layout from '../components/layout'
+import { navigate } from 'gatsby'
 const cars = require('../res/all.json')
 
 const useStyles = makeStyles((theme) => ({
@@ -71,12 +71,11 @@ const BuyPage = (props) => {
                     <GridList id='gridList' cellHeight={350} className={classes.gridList} cols={2.5}>
                         {cars.filter(item => soldItems.includes(item.id)).map((item) => (
                             <CarCard key={item.id} id={item.id} car={item} issold={soldItems.includes(item.id).toString()} showdetail={() => {
-                                showCarDetails(item)
+                                navigate('/detail/', { state: { selectedItem: item } })
                             }} />
                         ))}
                     </GridList>
                 </Box>
-                <CarDetail />
             </Container>
         </Layout>
     )
