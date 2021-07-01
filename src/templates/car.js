@@ -4,7 +4,6 @@ import {
     Typography,
     Chip,
     Card,
-    CardActionArea,
     CardContent,
     CardMedia,
     Container,
@@ -29,7 +28,7 @@ const ItemTitle = withStyles({
 })(DodgerTypography)
 
 const useStyles = makeStyles((theme) => ({
-    root:{
+    root: {
         display: 'flex',
         justifyContent: 'center'
     },
@@ -54,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const CarDetail = ({ pageContext: { car } }) => {
-    
+
     const classes = useStyles()
 
     const getChips = (trait) => {
@@ -72,11 +71,11 @@ const CarDetail = ({ pageContext: { car } }) => {
                     <CardMedia
                         component="img"
                         className={classes.cardMedia}
-                        image={`../images/cars/thumb_${car.id}.png`}
+                        image={`../cars/thumb_${car.id}.png`}
                         title={car.id}
                     />
                     <CardContent className={classes.cardContent}>
-                        <ItemTitle>Adamobile {car.id}</ItemTitle>
+                        <ItemTitle>Adamobile #{car.id}</ItemTitle>
                         <Box className={classes.chips}>
                             {Object.keys(car).filter(trait => car[trait].length).map((trait) => (
                                 getChips(car[trait])
