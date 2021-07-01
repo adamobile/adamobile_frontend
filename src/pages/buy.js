@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import CarCard from '../components/carCard'
 import Layout from '../components/layout'
 import { navigate } from 'gatsby'
-const cars = require('../res/all.json')
+const cars = require('../../all.json')
 
 const useStyles = makeStyles((theme) => ({
 

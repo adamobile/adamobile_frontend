@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { navigate } from 'gatsby'
 import {
   Box,
   Container,
@@ -9,7 +8,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import CarGridFilter from '../components/carGridFilter'
 import CarCard from '../components/carCard'
 import Layout from '../components/layout'
-const cars = require('../res/all.json')
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const ExplorePage = (props) => {
+const ExplorePage = ({ pageContext: { cars } }) => {
 
   const [filteredItems, setFilteredItems] = React.useState(cars)
   const [soldItems, setSoldItems] = React.useState([])
@@ -38,9 +36,7 @@ const ExplorePage = (props) => {
         <Box className={classes.gridListContainer}>
           <GridList cellHeight='auto' spacing={10} cols={4}>
             {filteredItems.map((item) => (
-              <CarCard key={item.id} id={item.id} car={item} issold={soldItems.includes(item.id)} showdetail={() => {
-                navigate(`/detail/${item.id}`, {state: {selectedItem: item }})
-              }} />
+              <CarCard key={item.id} id={item.id} car={item} issold={soldItems.includes(item.id)} />
             ))}
           </GridList>
         </Box>

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {navigate} from 'gatsby'
 import {
   GridListTile,
   Card,
@@ -25,24 +26,24 @@ const DodgerTypography = withStyles({
 
 const CarCard = (props) => {
 
-  const {car, issold, showdetail} = props
+  const { car, issold } = props
   const classes = useStyles()
   return (
     <GridListTile {...props}>
-      <Card className={classes.cardRoot} onClick={showdetail}>
-        <CardActionArea>
-        <CardMedia
-          component="img"
-          className={classes.cardMedia}
-          image={`../thumb_${car.id.slice(1)}.png`}
-          title={car.id}
-        />
-      <CardContent className={classes.cardContent}>
-        <DodgerTypography gutterBottom variant='h5' component='h2'>
-          {car.id} {issold? 'SOLD!': ''}
-        </DodgerTypography>
-      </CardContent>
-      </CardActionArea>
+      <Card className={classes.cardRoot} onClick={() => {navigate(`/explore/car/${car.id}`)}}>
+        <CardActionArea >
+          <CardMedia
+            component="img"
+            className={classes.cardMedia}
+            image={`../images/cars/thumb_${car.id}.png`}
+            title={car.id}
+          />
+          <CardContent className={classes.cardContent}>
+            <DodgerTypography gutterBottom variant='h5' component='h2'>
+              {car.id} {issold ? 'SOLD!' : ''}
+            </DodgerTypography>
+          </CardContent>
+        </CardActionArea>
       </Card>
     </GridListTile>
   )
