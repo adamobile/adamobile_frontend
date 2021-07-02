@@ -9,6 +9,12 @@ exports.createPages = async ({ actions: { createPage } }) => {
         context: { cars },
       });
 
+      createPage({
+        path: `/stats/`,
+        component: require.resolve("./src/templates/stats.js"),
+        context: { cars },
+      });
+
     cars.forEach((car) => {
       createPage({
         path: `/explore/car/${car.id}/`,

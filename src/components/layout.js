@@ -12,12 +12,12 @@ import { Link } from 'gatsby'
 import { Stats } from '../components/stats'
 import Stripe from '../images/stripe.png'
 
-import {Telegram, Twitter, Instagram, Email} from '@material-ui/icons';
+import { Telegram, Twitter, Instagram, Email } from '@material-ui/icons';
 
 const FlexBox = withStyles({
     root: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
     }
 })(Box);
 
@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
         width: 150,
         height: 150,
         marginRight: 20
+    },
+    cardano: {
+        width: 75,
+        height: 75,
     },
     header: {
         justifyContent: 'space-around',
@@ -57,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
     },
     footer: {
         marginTop: 20,
+        padding: 10,
         justifyContent: 'center',
         backgroundImage: `url(${Stripe})`,
         backgroundSize: 'cover',
@@ -80,11 +85,11 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
 
                     <FlexBox id='header' className={classes.header}>
                         <FlexBox>
-                            <Link to='/'><StaticImage src='../images/logo.png' alt='logo' className={classes.logo} /></Link>
+                            <Link to='/'><StaticImage placeholder='transparent' src='../images/logo.png' alt='logo' className={classes.logo} /></Link>
                             <Typography className={classes.title}>Adamobile</Typography>
                         </FlexBox>
                         <FlexBox>
-                            <Link activeClassName={classes.activeLink} className={classes.link}  to='/buy/'><Typography className={classes.linkText}>Buy</Typography></Link>
+                            <Link activeClassName={classes.activeLink} className={classes.link} to='/buy/'><Typography className={classes.linkText}>Buy</Typography></Link>
                             <Link activeClassName={classes.activeLink} className={classes.link} to='/explore/'><Typography className={classes.linkText}>Explore</Typography></Link>
                             <Link activeClassName={classes.activeLink} className={classes.link} to='/stats/'><Typography className={classes.linkText}>Stats</Typography></Link>
                             <Link activeClassName={classes.activeLink} className={classes.link} to='/faq/'><Typography className={classes.linkText}>fAQ</Typography></Link>
@@ -96,7 +101,10 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
                     {children}
 
                     <FlexBox id='footer' className={classes.footer}>
-                        <StaticImage src='../images/logo.png' alt='logo' className={classes.logo} />
+                        <FlexBox className={classes.verticalFlex} style={{marginRight: 50}}>
+                            <Typography>Powered by</Typography>
+                            <a href='https://cardano.org/'><StaticImage placeholder='transparent' src='../images/cardano.png' alt='cardano' className={classes.cardano} /></a>
+                        </FlexBox>
                         <FlexBox className={classes.verticalFlex}>
                             <Link className={classes.link} to='/buy/'><Typography className={classes.link}>Buy</Typography></Link>
                             <Link className={classes.link} to='/explore/'><Typography className={classes.link}>Explore</Typography></Link>
@@ -104,10 +112,10 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
                             <Link className={classes.link} to='/faq/'><Typography className={classes.link}>FAQ</Typography></Link>
                         </FlexBox>
                         <FlexBox className={classes.verticalFlex}>
-                            <a href='https://twitter.com/adamobile_cnft' className={classes.link}><FlexBox justifyContent='flex-start'><Twitter/><Typography>Twitter</Typography></FlexBox></a>
-                            <a href='https://t.me/adamobile_cnft' className={classes.link}><FlexBox justifyContent='flex-start'><Telegram/><Typography>Telegram</Typography></FlexBox></a>
-                            <a href='https://www.instagram.com/adamobile_cnft/' className={classes.link}><FlexBox justifyContent='flex-start'><Instagram/><Typography>Instagram</Typography></FlexBox></a>
-                            <a href='mailto:adamobile@protonmail.com' className={classes.link}><FlexBox justifyContent='flex-start'><Email/><Typography>Email</Typography></FlexBox></a>
+                            <a href='https://twitter.com/adamobile_cnft' className={classes.link}><Twitter /></a>
+                            <a href='https://t.me/adamobile_cnft' className={classes.link}><Telegram /></a>
+                            <a href='https://www.instagram.com/adamobile_cnft/' className={classes.link}><Instagram /></a>
+                            <a href='mailto:adamobile@protonmail.com' className={classes.link}><Email /></a>
                         </FlexBox>
                     </FlexBox>
                 </Box>

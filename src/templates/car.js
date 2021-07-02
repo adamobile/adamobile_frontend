@@ -71,7 +71,7 @@ const CarDetail = ({ pageContext: { car } }) => {
                     <CardMedia
                         component="img"
                         className={classes.cardMedia}
-                        image={`../cars/thumb_${car.id}.png`}
+                        image={`../../cars/thumb_${car.id}.png`}
                         title={car.id}
                     />
                     <CardContent className={classes.cardContent}>
