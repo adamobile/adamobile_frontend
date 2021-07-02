@@ -1,100 +1,116 @@
 import * as React from 'react'
-import { ThemeProvider, makeStyles } from '@material-ui/core/styles'
+import { StaticImage } from "gatsby-plugin-image"
+import { ThemeProvider, makeStyles, withStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from '../theme/theme'
 import '../theme/typography.css'
 import {
     Typography,
-    AppBar,
-    Toolbar,
-    Tab,
-    Tabs,
+    Box,
 } from '@material-ui/core'
-import { navigate } from 'gatsby'
+import { Link } from 'gatsby'
 import { Stats } from '../components/stats'
+import Stripe from '../images/stripe.png'
 
-const homeIndex = 0
-const buyIndex = 1
-const exploreIndex = 2
-const statsIndex = 3
-const faqIndex = 4
+import {Telegram, Twitter, Instagram, Email} from '@material-ui/icons';
 
-function a11yProps(index) {
-    return {
-        id: `navigation-tab-${index}`,
-        'aria-controls': `tabpanel-${index}`,
-    };
-}
+const FlexBox = withStyles({
+    root: {
+        display: 'flex',
+        alignItems: 'center'
+    }
+})(Box);
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        height: '100%'
+    },
+    logo: {
+        width: 150,
+        height: 150,
+        marginRight: 20
+    },
+    header: {
+        justifyContent: 'space-around',
+        backgroundImage: `url(${Stripe})`,
+        backgroundSize: 'cover'
+    },
+    headerLinks: {
     },
     title: {
         fontSize: theme.typography.pxToRem(28),
-        fontWeight: 800,
+        fontFamily: 'dodger',
         flexGrow: 1,
-    }
+    },
+    link: {
+        color: 'white',
+        marginRight: theme.spacing(4),
+        textDecoration: 'none',
+    },
+    activeLink: {
+        color: theme.palette.primary.main
+    },
+    linkText: {
+        fontSize: theme.typography.pxToRem(20),
+        fontFamily: 'dodger',
+    },
+    footer: {
+        marginTop: 20,
+        justifyContent: 'center',
+        backgroundImage: `url(${Stripe})`,
+        backgroundSize: 'cover',
+    },
+    verticalFlex: {
+        flexDirection: 'column',
+    },
+
 }))
 
 const Layout = ({ pageTitle, pageIndex, children }) => {
 
-    const [currentTab, setCurrentTab] = React.useState(pageIndex);
-
     const classes = useStyles()
-
-    const handleTabChange = (event, newValue) => {
-        setCurrentTab(newValue);
-
-        switch (newValue) {
-            case homeIndex:
-                navigate('/inProgress/')
-                break;
-            case buyIndex:
-                navigate('/buy/')
-                break;
-            case exploreIndex:
-                navigate('/explore/')
-                break;
-            case statsIndex:
-                navigate('/stats/')
-                break;
-            case faqIndex:
-                navigate('/faq/')
-                break;
-
-            default:
-                break;
-        }
-    }
 
     return (
         <main>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
 
-                <div className={classes.root}>
+                <Box className={classes.root}>
 
-                    <AppBar position='static'>
-                        <Toolbar>
-                            <Typography variant='h6' className={classes.title}>
-                                {pageTitle}
-                            </Typography>
+                    <FlexBox id='header' className={classes.header}>
+                        <FlexBox>
+                            <Link to='/'><StaticImage src='../images/logo.png' alt='logo' className={classes.logo} /></Link>
+                            <Typography className={classes.title}>Adamobile</Typography>
+                        </FlexBox>
+                        <FlexBox>
+                            <Link activeClassName={classes.activeLink} className={classes.link}  to='/buy/'><Typography className={classes.linkText}>Buy</Typography></Link>
+                            <Link activeClassName={classes.activeLink} className={classes.link} to='/explore/'><Typography className={classes.linkText}>Explore</Typography></Link>
+                            <Link activeClassName={classes.activeLink} className={classes.link} to='/stats/'><Typography className={classes.linkText}>Stats</Typography></Link>
+                            <Link activeClassName={classes.activeLink} className={classes.link} to='/faq/'><Typography className={classes.linkText}>fAQ</Typography></Link>
+                        </FlexBox>
+                    </FlexBox>
 
-                            <Tabs centered value={currentTab} onChange={handleTabChange} aria-label='tabs navigation'>
-                                <Tab label='Home' {...a11yProps(homeIndex)} />
-                                <Tab label='Buy' {...a11yProps(buyIndex)} />
-                                <Tab label='Explore' {...a11yProps(exploreIndex)} />
-                                <Tab label='Stats' {...a11yProps(statsIndex)} />
-                                <Tab label='FAQ' {...a11yProps(faqIndex)} />
-                            </Tabs>
-                        </Toolbar>
-                    </AppBar>
                     <Stats />
 
                     {children}
 
-                </div>
+                    <FlexBox id='footer' className={classes.footer}>
+                        <StaticImage src='../images/logo.png' alt='logo' className={classes.logo} />
+                        <FlexBox className={classes.verticalFlex}>
+                            <Link className={classes.link} to='/buy/'><Typography className={classes.link}>Buy</Typography></Link>
+                            <Link className={classes.link} to='/explore/'><Typography className={classes.link}>Explore</Typography></Link>
+                            <Link className={classes.link} to='/stats/'><Typography className={classes.link}>Stats</Typography></Link>
+                            <Link className={classes.link} to='/faq/'><Typography className={classes.link}>FAQ</Typography></Link>
+                        </FlexBox>
+                        <FlexBox className={classes.verticalFlex}>
+                            <a href='https://twitter.com/adamobile_cnft' className={classes.link}><FlexBox justifyContent='flex-start'><Twitter/><Typography>Twitter</Typography></FlexBox></a>
+                            <a href='https://t.me/adamobile_cnft' className={classes.link}><FlexBox justifyContent='flex-start'><Telegram/><Typography>Telegram</Typography></FlexBox></a>
+                            <a href='https://www.instagram.com/adamobile_cnft/' className={classes.link}><FlexBox justifyContent='flex-start'><Instagram/><Typography>Instagram</Typography></FlexBox></a>
+                            <a href='mailto:adamobile@protonmail.com' className={classes.link}><FlexBox justifyContent='flex-start'><Email/><Typography>Email</Typography></FlexBox></a>
+                        </FlexBox>
+                    </FlexBox>
+                </Box>
             </ThemeProvider>
         </main>
     )

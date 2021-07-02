@@ -4,7 +4,8 @@ import {
     Typography,
     Grid,
 } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { Link } from 'gatsby'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -12,7 +13,17 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 20,
         marginBottom: 20,
     },
+    link: {
+        color: 'white',
+        textDecoration: 'none',
+    },
 }))
+
+const DodgerTypography = withStyles({
+    root: {
+        fontFamily: 'dodger'
+    }
+})(Typography);
 
 let updateStats = () => { }
 const Stats = (props) => {
@@ -20,7 +31,6 @@ const Stats = (props) => {
     const [stats, setStats] = React.useState({
         total: 999,
         minted: 0,
-        minting: 0,
         available: 999,
     })
     updateStats = (newStats) => {
@@ -29,20 +39,19 @@ const Stats = (props) => {
     const classes = useStyles()
     return (
         <Container className={classes.root}>
-            <Grid container justify="center" spacing={10}>
-                <Grid key='total' item>
-                    <Typography>Total: {stats.total}</Typography>
+            <Link className={classes.link} to='/stats/'>
+                <Grid container justify="center" spacing={10}>
+                    <Grid key='total' item>
+                        <DodgerTypography>Total {stats.total}</DodgerTypography>
+                    </Grid>
+                    <Grid key='minted' item>
+                        <DodgerTypography>Minted {stats.minted}</DodgerTypography>
+                    </Grid>
+                    <Grid key='available' item>
+                        <DodgerTypography>Available {stats.available}</DodgerTypography>
+                    </Grid>
                 </Grid>
-                <Grid key='minted' item>
-                    <Typography>Minted: {stats.minted}</Typography>
-                </Grid>
-                <Grid key='minting' item>
-                    <Typography>Minting: {stats.minting}</Typography>
-                </Grid>
-                <Grid key='available' item>
-                    <Typography>Available: {stats.available}</Typography>
-                </Grid>
-            </Grid>
+            </Link>
         </Container>
     )
 }

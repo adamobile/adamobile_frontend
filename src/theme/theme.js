@@ -30,7 +30,7 @@ const theme = createMuiTheme({
       background: 'primary',
       color: 'white'
     },
-  }
+  },
 })
 
 export default theme
