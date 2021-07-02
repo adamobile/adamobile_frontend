@@ -5,6 +5,7 @@ import {
   GridList,
   useMediaQuery,
 } from '@material-ui/core'
+import Pagination from '@material-ui/lab/Pagination';
 import { makeStyles } from '@material-ui/core/styles'
 import CarGridFilter from '../components/carGridFilter'
 import CarCard from '../components/carCard'
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ExplorePage = ({ pageContext: { cars } }) => {
 
-  const [filteredItems, setFilteredItems] = React.useState(cars)
+  const [filteredItems, setFilteredItems] = React.useState(cars.slice(0, 10))
   const [soldItems, setSoldItems] = React.useState([])
   
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
@@ -34,6 +35,12 @@ const ExplorePage = ({ pageContext: { cars } }) => {
   const columnCount = () => {
     return isSmall ? 2 : isMedium ? 3 : 4
   }
+
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event, value) => {
+    setPage(value)
+    setFilteredItems(cars.slice(((value - 1) * 10), value * 10))
+  };
 
   const classes = useStyles()
   return (
@@ -48,6 +55,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
               <CarCard key={item.id} id={item.id} car={item} issold={soldItems.includes(item.id)} />
             ))}
           </GridList>
+          <Pagination page={page} onChange={handleChange} count={5} shape="rounded" showFirstButton showLastButton/>
         </Box>
       </Container>
     </Layout>

@@ -14,8 +14,6 @@ import '../theme/typography.css'
 const useStyles = makeStyles((theme) => ({
   cardRoot: {
     background: theme.palette.background.paper,
-    maxWidth: 300,
-    minWidth: 200,
   },
 }))
 

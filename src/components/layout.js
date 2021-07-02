@@ -7,12 +7,24 @@ import '../theme/typography.css'
 import {
     Typography,
     Box,
+    IconButton,
+    Menu,
+    MenuItem,
 } from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'gatsby'
 import { Stats } from '../components/stats'
 import Stripe from '../images/stripe.png'
-
 import { Telegram, Twitter, Instagram, Email } from '@material-ui/icons';
+
+const options = [
+    'Buy',
+    'Explore',
+    'Stats',
+    'FAQ',
+  ]
+
+  const ITEM_HEIGHT = 48
 
 const FlexBox = withStyles({
     root: {
@@ -40,7 +52,18 @@ const useStyles = makeStyles((theme) => ({
         backgroundImage: `url(${Stripe})`,
         backgroundSize: 'cover'
     },
+    headerLinksMenu: {
+        [theme.breakpoints.down('sm')]: {
+            display: 'block',
+        },
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
+        },
+    },
     headerLinks: {
+        [theme.breakpoints.down('sm')]: {
+            display: 'none',
+        },
     },
     title: {
         fontSize: theme.typography.pxToRem(28),
@@ -76,6 +99,17 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
 
     const classes = useStyles()
 
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     return (
         <main>
             <ThemeProvider theme={theme}>
@@ -88,12 +122,43 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
                             <Link to='/'><StaticImage placeholder='transparent' src='../images/logo.png' alt='logo' className={classes.logo} /></Link>
                             <Typography className={classes.title}>Adamobile</Typography>
                         </FlexBox>
-                        <FlexBox>
+                        <FlexBox className={classes.headerLinks}>
                             <Link activeClassName={classes.activeLink} className={classes.link} to='/buy/'><Typography className={classes.linkText}>Buy</Typography></Link>
                             <Link activeClassName={classes.activeLink} className={classes.link} to='/explore/'><Typography className={classes.linkText}>Explore</Typography></Link>
                             <Link activeClassName={classes.activeLink} className={classes.link} to='/stats/'><Typography className={classes.linkText}>Stats</Typography></Link>
                             <Link activeClassName={classes.activeLink} className={classes.link} to='/faq/'><Typography className={classes.linkText}>fAQ</Typography></Link>
                         </FlexBox>
+
+                        <Box className={classes.headerLinksMenu}>
+                            <IconButton
+                                aria-label="menu"
+                                aria-controls="menu"
+                                aria-haspopup="true"
+                                onClick={handleClick}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Menu
+                                id="menu"
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={open}
+                                onClose={handleClose}
+                                PaperProps={{
+                                    style: {
+                                        maxHeight: ITEM_HEIGHT * 4.5,
+                                        width: '20ch',
+                                    },
+                                }}
+                            >
+                                {options.map((option) => (
+                                    <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </Box>
+
                     </FlexBox>
 
                     <Stats />
@@ -101,7 +166,7 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
                     {children}
 
                     <FlexBox id='footer' className={classes.footer}>
-                        <FlexBox className={classes.verticalFlex} style={{marginRight: 50}}>
+                        <FlexBox className={classes.verticalFlex} style={{ marginRight: 50 }}>
                             <Typography>Powered by</Typography>
                             <a href='https://cardano.org/'><StaticImage placeholder='transparent' src='../images/cardano.png' alt='cardano' className={classes.cardano} /></a>
                         </FlexBox>
