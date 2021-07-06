@@ -18,6 +18,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@material-ui/styles": "^4.11.4",
+    "fs": "^0.0.1-security",
     "gatsby": "^3.4.1",
     "gatsby-link": "^3.7.0",
     "gatsby-plugin-image": "^1.8.0",
