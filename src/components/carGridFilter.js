@@ -45,10 +45,10 @@ const MultipleMenuItem = withStyles((theme) => ({
 
 const CarGridFilter = ({ items, setFilteredItems }) => {
 
-  const [typeFilter, setTypeFilter] = React.useState('')
-  const [colorFilter, setColorFilter] = React.useState('')
-  const [rimsFilter, setRimsFilter] = React.useState('')
-  const [stickerFilter, setStickerFilter] = React.useState('')
+  const [typeFilter, setTypeFilter] = React.useState([])
+  const [colorFilter, setColorFilter] = React.useState([])
+  const [rimsFilter, setRimsFilter] = React.useState([])
+  const [stickerFilter, setStickerFilter] = React.useState([])
   const [extrasFilter, setExtrasFilter] = React.useState([])
 
   const handleTypeFilterChange = (event) => {
@@ -83,30 +83,20 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
 
   const filterItems = (args) => {
 
-    var tmp = [...items]
-    if (args.type) {
-      tmp = tmp.filter(item => item.type === args.type)
-    }
-    if (args.color) {
-      tmp = tmp.filter(item => item.color === args.color)
-    }
-    if (args.rims) {
-      tmp = tmp.filter(item => item.rims === args.rims)
-    }
-    if (args.sticker) {
-      tmp = tmp.filter(item => item.sticker === args.sticker)
-    }
-    if (args.extras.length > 0) {
-      tmp = tmp.filter(item => args.extras.every(extraFilter => item.extras.includes(extraFilter)))
-    }
-    setFilteredItems([...tmp])
+    const filteredType = args.type? new Set(items.filter(item => item.type === args.type)): new Set() 
+    const filteredColor = args.color? new Set(items.filter(item => item.color === args.color)): new Set() 
+    const filteredRims = args.rims? new Set(items.filter(item => item.rims === args.rims)): new Set() 
+    const filteredSticker = args.sticker? new Set(items.filter(item => item.sticker === args.sticker)): new Set() 
+    const filteredExtras = args.extras.length>0? new Set(items.filter(item => args.extras.every(extraFilter => item.extras.includes(extraFilter)))): new Set() 
+    const union = filteredType.union(filteredColor).union(filteredRims).union.filteredSticker.union(filteredExtras)
+    setFilteredItems([...union])
   }
 
   const resetFilters = () => {
-    setTypeFilter('')
-    setColorFilter('')
-    setRimsFilter('')
-    setStickerFilter('')
+    setTypeFilter([])
+    setColorFilter([])
+    setRimsFilter([])
+    setStickerFilter([])
     setExtrasFilter([])
     setFilteredItems([...items])
   }
@@ -120,6 +110,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           Type
         </InputLabel>
         <Select
+        multiple
           labelId='typeFilterLabel'
           id='typeFilterId'
           className={classes.selectEmpty}
@@ -140,6 +131,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           Color
         </InputLabel>
         <Select
+        multiple
           labelId='colorFilterLabel'
           id='colorFilterId'
           className={classes.selectEmpty}
@@ -163,6 +155,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           Rims
         </InputLabel>
         <Select
+        multiple
           labelId='rimsFilterLabel'
           id='rimsFilterId'
           className={classes.selectEmpty}
@@ -192,6 +185,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           Sticker
         </InputLabel>
         <Select
+        multiple
           labelId='stickerFilterLabel'
           id='stickerFilterId'
           className={classes.selectEmpty}

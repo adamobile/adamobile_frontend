@@ -26,8 +26,13 @@ const useStyles = makeStyles((theme) => ({
 
 const ExplorePage = ({ pageContext: { cars } }) => {
 
-  const [filteredItems, setFilteredItems] = React.useState(cars.slice(0, 10))
+
+  const [visibleItems, setVisibleItems] = React.useState([])
+  const [filteredItems, setFilteredItems] = React.useState([...cars])
   const [soldItems, setSoldItems] = React.useState([])
+  React.useEffect(() => {
+    setVisibleItems(filteredItems.slice(((page - 1) * pageCount), page * pageCount))
+  }, [filteredItems])
 
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isMedium = useMediaQuery(theme.breakpoints.down('lg'))
@@ -39,7 +44,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
   const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
     setPage(value)
-    setFilteredItems(cars.slice(((value - 1) * pageCount), value * pageCount))
+    setVisibleItems(filteredItems.slice(((value - 1) * pageCount), value * pageCount))
   };
 
   const classes = useStyles()
@@ -51,7 +56,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
         </Box>
         <Box className={classes.gridListContainer}>
           <GridList cellHeight='auto' spacing={10} cols={columnCount()}>
-            {filteredItems.map((item) => (
+            {visibleItems.map((item) => (
               <CarCard key={item.id} id={item.id} car={item} issold={soldItems.includes(item.id)} />
             ))}
           </GridList>
