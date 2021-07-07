@@ -71,11 +71,11 @@ const CarDetail = ({ pageContext: { car } }) => {
                     <CardMedia
                         component="img"
                         className={classes.cardMedia}
-                        image={`../../cars/thumb_${car.id}.png`}
+                        image={`../../cars/${car.id.slice(1)}.png`}
                         title={car.id}
                     />
                     <CardContent className={classes.cardContent}>
-                        <ItemTitle>Adamobile #{car.id}</ItemTitle>
+                        <ItemTitle>Adamobile {car.id}</ItemTitle>
                         <Box className={classes.chips}>
                             {Object.keys(car).filter(trait => car[trait].length).map((trait) => (
                                 getChips(car[trait])

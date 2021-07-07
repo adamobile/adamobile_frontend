@@ -33,18 +33,18 @@ const CarCard = (props) => {
       <Card className={classes.cardRoot}
         onClick={
           () => {
-            navigate(`/explore/car/${car.id}`)
+            navigate(`/explore/car/${car.id.slice(1)}`)
           }}>
         <CardActionArea >
           <CardMedia
             component="img"
             className={classes.cardMedia}
-            image={`../cars/thumb_${car.id}.png`}
+            image={`../cars/${car.id.slice(1)}.png`}
             title={car.id}
           />
           <CardContent className={classes.cardContent}>
             <DodgerTypography gutterBottom variant='h5' component='h2'>
-              {`#${car.id}`} {issold ? 'SOLD!' : ''}
+              {`${car.id}`} {issold ? 'SOLD!' : ''}
             </DodgerTypography>
           </CardContent>
         </CardActionArea>
