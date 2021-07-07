@@ -12,6 +12,7 @@ import {
     TableContainer,
     Table,
     TableBody,
+    TableHead,
     TableRow,
     TableCell,
     Paper,
@@ -31,9 +32,12 @@ const useStyles = makeStyles((theme) => ({
     grid: {
         justifyContent: 'center',
         textAlign: 'center',
-        padding: 16,
     },
     pie: {
+        marginTop: 20
+    },
+    table: {
+        overflow: 'hidden'
     },
 }))
 
@@ -86,7 +90,7 @@ const StatsPage = () => {
             <Container className={classes.root}>
                 <Grid container spacing={10} justifyContent='center' className={classes.grid}>
 
-                    <Button onClick={() => showDetailStats('Available', { available: 876, sold: 76 })}>
+                    {/* <Button onClick={() => showDetailStats('Available', { available: 876, sold: 76 })}>
                         <Grid item key='available'>
                             <Typography>Available/Minted</Typography>
                             <PieChart
@@ -97,7 +101,7 @@ const StatsPage = () => {
                                 ]}
                             />
                         </Grid>
-                    </Button>
+                    </Button> */}
 
                     <Button onClick={() => showDetailStats('Type', stats.Type)}>
                         <Grid item key='type' item>
@@ -160,11 +164,20 @@ const StatsPage = () => {
                 <DialogTitle>{detailStat.title} (Total {allCount})</DialogTitle>
                 <DialogContent>
                     <TableContainer component={Paper}>
-                        <Table>
+                        <Table className={classes.table}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell></TableCell>
+                                    <TableCell align="right">Trait</TableCell>
+                                    <TableCell align="right">Number</TableCell>
+                                    <TableCell align="right">Percentage</TableCell>
+                                </TableRow>
+                            </TableHead>
                             <TableBody>
                                 {Object.keys(detailStat.data).map(key => (
                                     <TableRow key={key}>
-                                        <TableCell component="th" scope="row">{key}</TableCell>
+                                        <TableCell><img src={`../clipart/${key}.png`} alt={key} height={60} /></TableCell>
+                                        <TableCell align="right">{key}</TableCell>
                                         <TableCell align="right"> {detailStat.data[key]}</TableCell>
                                         <TableCell align="right"> {formatter.format(detailStat.data[key] / allCount * 100)}%</TableCell>
                                     </TableRow>
