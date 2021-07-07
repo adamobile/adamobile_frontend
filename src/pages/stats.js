@@ -9,9 +9,20 @@ import {
     Dialog,
     DialogTitle,
     DialogContent,
-    DialogContentText,
+    TableContainer,
+    Table,
+    TableBody,
+    TableRow,
+    TableCell,
+    Paper,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+
+const allCount = 1007
+const formatter = new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+})
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,11 +61,7 @@ const StatsPage = () => {
     }
 
     const pieData = (data, reset) => {
-
-        if (reset) {
-            resetColor()
-        }
-
+        resetColor()
         return Object.keys(data).map(key => {
             return { title: key, value: data[key], color: nextColor() }
         })
@@ -77,7 +84,7 @@ const StatsPage = () => {
     return (
         <Layout pageTitle='Stats' pageIndex={3}>
             <Container className={classes.root}>
-                <Grid container spacing={10} justify='center' className={classes.grid}>
+                <Grid container spacing={10} justifyContent='center' className={classes.grid}>
 
                     <Button onClick={() => showDetailStats('Available', { available: 876, sold: 76 })}>
                         <Grid item key='available'>
@@ -85,10 +92,9 @@ const StatsPage = () => {
                             <PieChart
                                 className={classes.pie}
                                 data={[
-                                    { title: 'Minted', value: 13, color: '#E38627' },
-                                    { title: 'Available', value: 986, color: '#C13C37' },
+                                    { title: 'Minted', value: 13, color: nextColor() },
+                                    { title: 'Available', value: 986, color: nextColor() },
                                 ]}
-                                animate={true}
                             />
                         </Grid>
                     </Button>
@@ -99,7 +105,6 @@ const StatsPage = () => {
                             <PieChart
                                 className={classes.pie}
                                 data={pieData(stats.Type)}
-                                animate={true}
                             />
                         </Grid>
                     </Button>
@@ -109,8 +114,7 @@ const StatsPage = () => {
                             <Typography>Color</Typography>
                             <PieChart
                                 className={classes.pie}
-                                data={pieData(stats.Color, true)}
-                                animate={true}
+                                data={pieData(stats.Color)}
                             />
                         </Grid>
                     </Button>
@@ -121,7 +125,6 @@ const StatsPage = () => {
                             <PieChart
                                 className={classes.pie}
                                 data={pieData(stats.Rims)}
-                                animate={true}
                             />
                         </Grid>
                     </Button>
@@ -132,7 +135,6 @@ const StatsPage = () => {
                             <PieChart
                                 className={classes.pie}
                                 data={pieData(stats.Sticker)}
-                                animate={true}
                             />
                         </Grid>
                     </Button>
@@ -155,14 +157,21 @@ const StatsPage = () => {
                 onClose={handleClose}
             >
 
-                <DialogTitle>{detailStat.title}</DialogTitle>
+                <DialogTitle>{detailStat.title} (Total {allCount})</DialogTitle>
                 <DialogContent>
-                    {
-                        Object.keys(detailStat.data).map(key => {
-                            return <Typography>{key} {detailStat.data[key]}/{Object.values(detailStat.data).reduce((a, b) => a + b, 0)}</Typography>
-                        })
-                    }
-
+                    <TableContainer component={Paper}>
+                        <Table>
+                            <TableBody>
+                                {Object.keys(detailStat.data).map(key => (
+                                    <TableRow key={key}>
+                                        <TableCell component="th" scope="row">{key}</TableCell>
+                                        <TableCell align="right"> {detailStat.data[key]}</TableCell>
+                                        <TableCell align="right"> {formatter.format(detailStat.data[key] / allCount * 100)}%</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </DialogContent>
             </Dialog>
 
