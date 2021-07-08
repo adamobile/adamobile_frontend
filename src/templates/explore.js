@@ -29,16 +29,15 @@ const useStyles = makeStyles((theme) => ({
 
 const ExplorePage = ({ pageContext: { cars } }) => {
 
-
+  const initialPage = sessionStorage.getItem('page')? parseInt(sessionStorage.getItem('page')) : 1
   const [visibleItems, setVisibleItems] = React.useState([])
   const [filteredItems, setFilteredItems] = React.useState([...cars])
   const [soldItems, setSoldItems] = React.useState([])
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = React.useState(initialPage);
   const [pageCount, setPageCount] = React.useState(101);
   
   React.useEffect(() => {
-    setPage(1)
-    setVisibleItems(filteredItems.slice(0, itemsPerPage))
+    setVisibleItems(filteredItems.slice(((page - 1) * itemsPerPage), Math.min(filteredItems.length, page * itemsPerPage)))
     setPageCount(Math.ceil(filteredItems.length / itemsPerPage))
   }, [filteredItems])
 
@@ -51,8 +50,9 @@ const ExplorePage = ({ pageContext: { cars } }) => {
   const itemsPerPage = 12
   const handleChange = (event, value) => {
     setPage(value)
+    sessionStorage.setItem('page', value)
     setVisibleItems(filteredItems.slice(((value - 1) * itemsPerPage), Math.min(filteredItems.length, value * itemsPerPage)))
-  };
+  }
 
   const classes = useStyles()
   return (

@@ -123,13 +123,8 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           value={typeFilter}
           onChange={handleTypeFilterChange}
         >
-          {['Microcar', 'Hatchback', 'Sedan', 'Supercar', 'SUV'].map((xyz) => {
-            return <MenuItem value={xyz}>
-              <ListItemIcon>
-                <Avatar alt={xyz} src={`../clipart/${xyz}.png`} />
-              </ListItemIcon>
-              <ListItemText primary={xyz} />
-            </MenuItem>
+          {['Microcar', 'Hatchback', 'Sedan', 'Supercar', 'SUV'].map((type) => {
+            return <MenuItem value={type}>{type}</MenuItem>
           })}
         </Select>
       </FormControl>
