@@ -34,10 +34,12 @@ const ExplorePage = ({ pageContext: { cars } }) => {
   const [filteredItems, setFilteredItems] = React.useState([...cars])
   const [soldItems, setSoldItems] = React.useState([])
   const [page, setPage] = React.useState(1);
+  const [pageCount, setPageCount] = React.useState(101);
   
   React.useEffect(() => {
-    setPage(0)
-    setVisibleItems(filteredItems.slice(0, pageCount))
+    setPage(1)
+    setVisibleItems(filteredItems.slice(0, itemsPerPage))
+    setPageCount(Math.ceil(filteredItems.length / itemsPerPage))
   }, [filteredItems])
 
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
@@ -46,10 +48,10 @@ const ExplorePage = ({ pageContext: { cars } }) => {
   const columnCount = () => {
     return isSmall ? 2 : isMedium ? 3 : 4
   }
-  const pageCount = 10
+  const itemsPerPage = 12
   const handleChange = (event, value) => {
     setPage(value)
-    setVisibleItems(filteredItems.slice(((value - 1) * pageCount), Math.min(filteredItems.length, value * pageCount)))
+    setVisibleItems(filteredItems.slice(((value - 1) * itemsPerPage), Math.min(filteredItems.length, value * itemsPerPage)))
   };
 
   const classes = useStyles()
@@ -65,7 +67,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
               <CarCard key={item.id} id={item.id} car={item} issold={soldItems.includes(item.id)} />
             ))}
           </GridList>
-          <Pagination className={classes.pagination} page={page} onChange={handleChange} count={101} shape="rounded" showFirstButton showLastButton />
+          <Pagination className={classes.pagination} page={page} onChange={handleChange} count={pageCount} shape="rounded" showFirstButton showLastButton />
         </Box>
       </Container>
     </Layout>

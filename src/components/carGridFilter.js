@@ -83,14 +83,15 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
 
   const filterItems = (args) => {
 
-    const filteredType = args.type.length>0? items.filter(item => args.type.some(typeFilter => item.type === typeFilter)): []
-    const filteredColor = args.color.length>0? items.filter(item => args.color.some(colorFilter => item.color === colorFilter)): []
-    const filteredRims = args.rims.length>0? items.filter(item => args.rims.some(rimsFilter => item.rims === rimsFilter)): []
-    const filteredSticker = args.sticker.length>0? items.filter(item => args.sticker.some(stickerFilter => item.sticker === stickerFilter)): []
-    const filteredExtras = args.extras.length>0? items.filter(item => args.extras.some(extraFilter => item.extras.includes(extraFilter))): []
-    const all = new Set([...filteredType, ...filteredColor, ...filteredRims, ...filteredSticker, ...filteredExtras])
-    console.log(all);
-    setFilteredItems([...all])
+    const filteredType = args.type.length>0? items.filter(item => args.type.some(typeFilter => item.type === typeFilter)): [...items]
+    const filteredColor = args.color.length>0? items.filter(item => args.color.some(colorFilter => item.color === colorFilter)): [...items]
+    const filteredRims = args.rims.length>0? items.filter(item => args.rims.some(rimsFilter => item.rims === rimsFilter)): [...items]
+    const filteredSticker = args.sticker.length>0? items.filter(item => args.sticker.some(stickerFilter => item.sticker === stickerFilter)): [...items]
+    const filteredExtras = args.extras.length>0? items.filter(item => args.extras.some(extraFilter => item.extras.includes(extraFilter))): [...items]
+
+    setFilteredItems(items.filter(item => {
+      return filteredType.includes(item) && filteredColor.includes(item) && filteredRims.includes(item) && filteredSticker.includes(item) && filteredExtras.includes(item)
+    }))
   }
 
   const resetFilters = () => {
