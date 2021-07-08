@@ -45,32 +45,24 @@ const MultipleMenuItem = withStyles((theme) => ({
 
 const CarGridFilter = ({ items, setFilteredItems }) => {
 
-  const [typeFilter, setTypeFilter] = React.useState([])
-  const [colorFilter, setColorFilter] = React.useState([])
-  const [rimsFilter, setRimsFilter] = React.useState([])
-  const [stickerFilter, setStickerFilter] = React.useState([])
-  const [extrasFilter, setExtrasFilter] = React.useState([])
+  var initialFilters = sessionStorage.getItem('filters') ? JSON.parse(sessionStorage.getItem('filters')) : { type: [], color: [], rims: [], sticker: [], extras: [] }
+
+  const [typeFilter, setTypeFilter] = React.useState(initialFilters.type)
+  const [colorFilter, setColorFilter] = React.useState(initialFilters.color)
+  const [rimsFilter, setRimsFilter] = React.useState(initialFilters.rims)
+  const [stickerFilter, setStickerFilter] = React.useState(initialFilters.sticker)
+  const [extrasFilter, setExtrasFilter] = React.useState(initialFilters.extras)
 
   const getFilters = () => {
-    return { typeFilter: typeFilter , colorFilter: colorFilter, rimsFilter: rimsFilter, stickerFilter: stickerFilter, extrasFilter: extrasFilter}
+    return { type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter }
   }
 
   React.useEffect(() => {
     sessionStorage.setItem('filters', JSON.stringify(getFilters()))
   }, [typeFilter, colorFilter, rimsFilter, stickerFilter, extrasFilter])
 
-  const setInitialFilters = () => {
-    if (sessionStorage.getItem('filters')) {
-      const filters = JSON.parse(sessionStorage.getItem('filters'))
-      setTypeFilter(filters.typeFilter)
-      setColorFilter(filters.colorFilter)
-      setRimsFilter(filters.rimsFilter)
-      setStickerFilter(filters.stickerFilter)
-      setExtrasFilter(filters.extrasFilter)
-    }
-  }
   React.useEffect(() => {
-    setInitialFilters()
+    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter })
   }, [])
 
   const handleTypeFilterChange = (event) => {
