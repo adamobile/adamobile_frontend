@@ -51,6 +51,28 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
   const [stickerFilter, setStickerFilter] = React.useState([])
   const [extrasFilter, setExtrasFilter] = React.useState([])
 
+  const getFilters = () => {
+    return { typeFilter: typeFilter , colorFilter: colorFilter, rimsFilter: rimsFilter, stickerFilter: stickerFilter, extrasFilter: extrasFilter}
+  }
+
+  React.useEffect(() => {
+    sessionStorage.setItem('filters', JSON.stringify(getFilters()))
+  }, [typeFilter, colorFilter, rimsFilter, stickerFilter, extrasFilter])
+
+  const setInitialFilters = () => {
+    if (sessionStorage.getItem('filters')) {
+      const filters = JSON.parse(sessionStorage.getItem('filters'))
+      setTypeFilter(filters.typeFilter)
+      setColorFilter(filters.colorFilter)
+      setRimsFilter(filters.rimsFilter)
+      setStickerFilter(filters.stickerFilter)
+      setExtrasFilter(filters.extrasFilter)
+    }
+  }
+  React.useEffect(() => {
+    setInitialFilters()
+  }, [])
+
   const handleTypeFilterChange = (event) => {
     const newTypeFilter = event.target.value
     setTypeFilter(newTypeFilter)
@@ -83,11 +105,11 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
 
   const filterItems = (args) => {
 
-    const filteredType = args.type.length>0? items.filter(item => args.type.some(typeFilter => item.type === typeFilter)): [...items]
-    const filteredColor = args.color.length>0? items.filter(item => args.color.some(colorFilter => item.color === colorFilter)): [...items]
-    const filteredRims = args.rims.length>0? items.filter(item => args.rims.some(rimsFilter => item.rims === rimsFilter)): [...items]
-    const filteredSticker = args.sticker.length>0? items.filter(item => args.sticker.some(stickerFilter => item.sticker === stickerFilter)): [...items]
-    const filteredExtras = args.extras.length>0? items.filter(item => args.extras.some(extraFilter => item.extras.includes(extraFilter))): [...items]
+    const filteredType = args.type.length > 0 ? items.filter(item => args.type.some(typeFilter => item.type === typeFilter)) : [...items]
+    const filteredColor = args.color.length > 0 ? items.filter(item => args.color.some(colorFilter => item.color === colorFilter)) : [...items]
+    const filteredRims = args.rims.length > 0 ? items.filter(item => args.rims.some(rimsFilter => item.rims === rimsFilter)) : [...items]
+    const filteredSticker = args.sticker.length > 0 ? items.filter(item => args.sticker.some(stickerFilter => item.sticker === stickerFilter)) : [...items]
+    const filteredExtras = args.extras.length > 0 ? items.filter(item => args.extras.some(extraFilter => item.extras.includes(extraFilter))) : [...items]
 
     setFilteredItems(items.filter(item => {
       return filteredType.includes(item) && filteredColor.includes(item) && filteredRims.includes(item) && filteredSticker.includes(item) && filteredExtras.includes(item)
@@ -112,7 +134,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           Type
         </InputLabel>
         <Select
-        multiple
+          multiple
           labelId='typeFilterLabel'
           id='typeFilterId'
           className={classes.selectEmpty}
@@ -133,7 +155,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           Color
         </InputLabel>
         <Select
-        multiple
+          multiple
           labelId='colorFilterLabel'
           id='colorFilterId'
           className={classes.selectEmpty}
@@ -157,7 +179,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           Rims
         </InputLabel>
         <Select
-        multiple
+          multiple
           labelId='rimsFilterLabel'
           id='rimsFilterId'
           className={classes.selectEmpty}
@@ -187,7 +209,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           Sticker
         </InputLabel>
         <Select
-        multiple
+          multiple
           labelId='stickerFilterLabel'
           id='stickerFilterId'
           className={classes.selectEmpty}
