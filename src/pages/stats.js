@@ -18,6 +18,7 @@ import {
     Paper,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import '../theme/typography.css'
 
 const allCount = 1007
 const formatter = new Intl.NumberFormat('en-US', {
@@ -34,7 +35,14 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
     },
     pie: {
-        marginTop: 20
+        marginTop: 10
+    },
+    pieTitle: {
+        position:'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        fontFamily: 'dodger'
     },
     table: {
         overflow: 'hidden'
@@ -84,6 +92,7 @@ const StatsPage = () => {
 
 
 
+    const shiftSize = 7
     const classes = useStyles()
     return (
         <Layout pageTitle='Stats' pageIndex={3}>
@@ -105,8 +114,11 @@ const StatsPage = () => {
 
                     <Button onClick={() => showDetailStats('Type', stats.Type)}>
                         <Grid item key='type' item>
-                            <Typography>Type</Typography>
+                            <Typography className={classes.pieTitle}>Type</Typography>
                             <PieChart
+                                radius={PieChart.defaultProps.radius - shiftSize}
+                                segmentsShift={0.5}
+                                lineWidth={50}
                                 className={classes.pie}
                                 data={pieData(stats.Type)}
                             />
@@ -115,8 +127,11 @@ const StatsPage = () => {
 
                     <Button onClick={() => showDetailStats('Color', stats.Color)}>
                         <Grid key='color' item>
-                            <Typography>Color</Typography>
+                            <Typography className={classes.pieTitle}>Color</Typography>
                             <PieChart
+                                radius={PieChart.defaultProps.radius - shiftSize}
+                                segmentsShift={0.5}
+                                lineWidth={50}
                                 className={classes.pie}
                                 data={pieData(stats.Color)}
                             />
@@ -125,8 +140,11 @@ const StatsPage = () => {
 
                     <Button onClick={() => showDetailStats('Rims', stats.Rims)}>
                         <Grid key='rims' item>
-                            <Typography>Rims</Typography>
+                            <Typography className={classes.pieTitle}>Rims</Typography>
                             <PieChart
+                                radius={PieChart.defaultProps.radius - shiftSize}
+                                segmentsShift={0.5}
+                                lineWidth={50}
                                 className={classes.pie}
                                 data={pieData(stats.Rims)}
                             />
@@ -135,8 +153,11 @@ const StatsPage = () => {
 
                     <Button onClick={() => showDetailStats('Sticker', stats.Sticker)}>
                         <Grid key='sticker' item>
-                            <Typography>Sticker</Typography>
+                            <Typography className={classes.pieTitle}>Sticker</Typography>
                             <PieChart
+                                radius={PieChart.defaultProps.radius - shiftSize}
+                                segmentsShift={0.5}
+                                lineWidth={50}
                                 className={classes.pie}
                                 data={pieData(stats.Sticker)}
                             />
@@ -145,8 +166,11 @@ const StatsPage = () => {
 
                     <Button onClick={() => showDetailStats('Extras', stats.Extras)}>
                         <Grid key='extras' item>
-                            <Typography>Extras</Typography>
+                            <Typography className={classes.pieTitle}>Extras</Typography>
                             <PieChart
+                                radius={PieChart.defaultProps.radius - shiftSize}
+                                segmentsShift={0.5}
+                                lineWidth={50}
                                 className={classes.pie}
                                 data={pieData(stats.Extras)}
                             />
