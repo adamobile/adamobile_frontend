@@ -62,7 +62,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
           <CarGridFilter items={cars} setFilteredItems={setFilteredItems} />
         </Box>
         <Box className={classes.gridListContainer}>
-          <GridList cellHeight='auto' spacing={10} cols={columnCount()}>
+          <GridList cellHeight={250} spacing={20} cols={columnCount()}>
             {visibleItems.map((item) => (
               <CarCard key={item.id} id={item.id} car={item} issold={soldItems.includes(item.id)} />
             ))}
