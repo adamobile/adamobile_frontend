@@ -7,6 +7,7 @@ import {
     CardContent,
     CardMedia,
     Container,
+    Avatar,
 } from '@material-ui/core'
 import {
     withStyles,
@@ -60,7 +61,11 @@ const CarDetail = ({ pageContext: { car } }) => {
         if (Array.isArray(trait)) {
             return trait.map((extra) => (getChips(extra)))
         } else {
-            return <Chip key={trait} className={classes.chip} label={trait} />
+            return <Chip
+                className={classes.chip}
+                key={trait}
+                label={trait}
+                avatar={<Avatar alt={trait} src={`../../clipart/${trait}.png`} />} />
         }
     }
 
