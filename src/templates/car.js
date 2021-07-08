@@ -8,13 +8,20 @@ import {
     CardMedia,
     Container,
     Avatar,
+    Button,
+    Dialog,
+    Snackbar,
+    DialogContent,
+    TextField,
 } from '@material-ui/core'
+import MuiAlert from '@material-ui/lab/Alert';
 import {
-    withStyles,
-    makeStyles
+    withStyles, makeStyles
 } from '@material-ui/core/styles'
 import '../theme/typography.css'
+import theme from '../theme/theme'
 import Layout from '../components/layout'
+import { Share, FileCopy, Twitter, Instagram, Telegram } from '@material-ui/icons'
 
 const DodgerTypography = withStyles({
     root: {
@@ -27,6 +34,15 @@ const ItemTitle = withStyles({
         margin: 10,
     }
 })(DodgerTypography)
+
+const FlexBox = withStyles({
+    root: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: theme.spacing(2)
+    }
+})(Box);
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,14 +65,55 @@ const useStyles = makeStyles((theme) => ({
     },
     image: {
         width: '90%'
-    }
+    },
+    shareButton: {
+        float: 'right',
+    },
+    shareUrlTextField: {
+        width: '80%'
+    },
+    dialogContent: {
+        textAlign: 'center'
+    },
+    snackbar: {
+        '& > *': {
+            background: theme.palette.success.main,
+            fontSize: theme.typography.pxToRem(18),
+            textAlign: 'center',
+            display: 'block',
+        }
+    },
 }));
 
+const shareUrl = window.location.href
 
 const CarDetail = ({ pageContext: { car } }) => {
+    
+    const shareOnTwitter = () => { window.open(`https://twitter.com/intent/tweet?text=Check%20out%20Adamobile%20%23${car.id.slice(1)}%0A&url=${shareUrl}%0A&hashtags=CNFT,Adamobile,${car.id.slice(1)}`)}
+    const shareOnTelegram = () => { window.open(`https://t.me/share/url?url=${shareUrl}&text=Check%20out%20Adamobile%20%23${car.id.slice(1)}`) }
+    const shareOnInstagram = () => { }
+
+    const [dialogOpen, setDialogOpen] = React.useState(false)
+    const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+
+    const handleDialogClose = () => {
+        setDialogOpen(false)
+    }
+
+    const showShareMenu = () => {
+        setDialogOpen(true)
+    }
+
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false)
+    }
+
+    const copyLink = () => {
+        navigator.clipboard.writeText(shareUrl)
+        setSnackbarOpen(true)
+    }
 
     const classes = useStyles()
-
     const getChips = (trait) => {
         if (Array.isArray(trait)) {
             return trait.map((extra) => (getChips(extra)))
@@ -73,6 +130,7 @@ const CarDetail = ({ pageContext: { car } }) => {
         <Layout pageIndex={2} pageTitle='Explore'>
             <Container className={classes.root}>
                 <Card className={classes.cardRoot}>
+                    <Button className={classes.shareButton} onClick={showShareMenu}><Share /></Button>
                     <CardMedia
                         component="img"
                         className={classes.cardMedia}
@@ -89,6 +147,39 @@ const CarDetail = ({ pageContext: { car } }) => {
                     </CardContent>
                 </Card>
             </Container>
+
+            <Dialog onClose={handleDialogClose} open={dialogOpen}>
+                <DialogContent dividers className={classes.dialogContent}>
+                    <DodgerTypography>Share</DodgerTypography>
+                    <DodgerTypography>Adamobile {car.id}</DodgerTypography>
+                    <img src={`../../cars/${car.id.slice(1)}.png`} alt={car.id} width={350} />
+                    <FlexBox>
+                        <TextField
+                            className={classes.shareUrlTextField}
+                            InputProps={{
+                                readOnly: true,
+                            }}
+                            value={shareUrl}
+                        />
+                        <Button onClick={copyLink}><FileCopy /></Button>
+                    </FlexBox>
+                    <FlexBox>
+                        <Button onClick={shareOnTwitter}> <Twitter /> </Button>
+                        <Button onClick={shareOnTelegram}> <Telegram /> </Button>
+                        <Button onClick={shareOnInstagram}> <Instagram /> </Button>
+                    </FlexBox>
+
+                </DialogContent>
+            </Dialog>
+            <Snackbar
+                classes={{
+                    root: classes.snackbar,
+                  }}
+                open={snackbarOpen}
+                onClose={handleSnackbarClose}
+                message="Link copied!"
+                autoHideDuration={3000}
+            />
         </Layout>
     )
 }
