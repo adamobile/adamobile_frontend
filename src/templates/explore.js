@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
   },
+  pagination: {
+    margin: theme.spacing(4),
+  },
 }))
 
 const ExplorePage = ({ pageContext: { cars } }) => {
@@ -30,8 +33,11 @@ const ExplorePage = ({ pageContext: { cars } }) => {
   const [visibleItems, setVisibleItems] = React.useState([])
   const [filteredItems, setFilteredItems] = React.useState([...cars])
   const [soldItems, setSoldItems] = React.useState([])
+  const [page, setPage] = React.useState(1);
+  
   React.useEffect(() => {
-    setVisibleItems(filteredItems.slice(((page - 1) * pageCount), page * pageCount))
+    setPage(0)
+    setVisibleItems(filteredItems.slice(0, pageCount))
   }, [filteredItems])
 
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
@@ -41,10 +47,9 @@ const ExplorePage = ({ pageContext: { cars } }) => {
     return isSmall ? 2 : isMedium ? 3 : 4
   }
   const pageCount = 10
-  const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
     setPage(value)
-    setVisibleItems(filteredItems.slice(((value - 1) * pageCount), value * pageCount))
+    setVisibleItems(filteredItems.slice(((value - 1) * pageCount), Math.min(filteredItems.length, value * pageCount)))
   };
 
   const classes = useStyles()
@@ -60,7 +65,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
               <CarCard key={item.id} id={item.id} car={item} issold={soldItems.includes(item.id)} />
             ))}
           </GridList>
-          <Pagination page={page} onChange={handleChange} count={101} shape="rounded" showFirstButton showLastButton />
+          <Pagination className={classes.pagination} page={page} onChange={handleChange} count={101} shape="rounded" showFirstButton showLastButton />
         </Box>
       </Container>
     </Layout>

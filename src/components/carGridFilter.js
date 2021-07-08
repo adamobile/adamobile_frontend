@@ -83,13 +83,14 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
 
   const filterItems = (args) => {
 
-    const filteredType = args.type? new Set(items.filter(item => item.type === args.type)): new Set() 
-    const filteredColor = args.color? new Set(items.filter(item => item.color === args.color)): new Set() 
-    const filteredRims = args.rims? new Set(items.filter(item => item.rims === args.rims)): new Set() 
-    const filteredSticker = args.sticker? new Set(items.filter(item => item.sticker === args.sticker)): new Set() 
-    const filteredExtras = args.extras.length>0? new Set(items.filter(item => args.extras.every(extraFilter => item.extras.includes(extraFilter)))): new Set() 
-    const union = filteredType.union(filteredColor).union(filteredRims).union.filteredSticker.union(filteredExtras)
-    setFilteredItems([...union])
+    const filteredType = args.type.length>0? items.filter(item => args.type.some(typeFilter => item.type === typeFilter)): []
+    const filteredColor = args.color.length>0? items.filter(item => args.color.some(colorFilter => item.color === colorFilter)): []
+    const filteredRims = args.rims.length>0? items.filter(item => args.rims.some(rimsFilter => item.rims === rimsFilter)): []
+    const filteredSticker = args.sticker.length>0? items.filter(item => args.sticker.some(stickerFilter => item.sticker === stickerFilter)): []
+    const filteredExtras = args.extras.length>0? items.filter(item => args.extras.some(extraFilter => item.extras.includes(extraFilter))): []
+    const all = new Set([...filteredType, ...filteredColor, ...filteredRims, ...filteredSticker, ...filteredExtras])
+    console.log(all);
+    setFilteredItems([...all])
   }
 
   const resetFilters = () => {
@@ -197,7 +198,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           <MenuItem value='Tiger'>Tiger</MenuItem>
           <MenuItem value='Fox'>Fox</MenuItem>
           <MenuItem value='Cat'>Cat</MenuItem>
-          <MenuItem value='Racing'>Racing</MenuItem>
+          <MenuItem value='Racer'>Racer</MenuItem>
           <MenuItem value='Adamobile'>ADAmobile</MenuItem>
           <MenuItem value='Cardano'>Cardano</MenuItem>
           <MenuItem value='ADA'>ADA</MenuItem>
@@ -205,7 +206,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           <MenuItem value='BTC'>BTC</MenuItem>
           <MenuItem value='Smile'>Smile</MenuItem>
           <MenuItem value='Mandala'>Mandala</MenuItem>
-          <MenuItem value='Eye'>Eye</MenuItem>
+          <MenuItem value='Eye'>Devil Eye</MenuItem>
         </Select>
       </FormControl>
 
