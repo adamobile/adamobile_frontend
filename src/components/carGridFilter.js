@@ -6,6 +6,9 @@ import {
   InputLabel,
   Container,
   Button,
+  ListItemIcon,
+  ListItemText,
+  Avatar,
 } from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 
@@ -59,40 +62,27 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
 
   React.useEffect(() => {
     sessionStorage.setItem('filters', JSON.stringify(getFilters()))
+    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter })
   }, [typeFilter, colorFilter, rimsFilter, stickerFilter, extrasFilter])
 
-  React.useEffect(() => {
-    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter })
-  }, [])
-
   const handleTypeFilterChange = (event) => {
-    const newTypeFilter = event.target.value
-    setTypeFilter(newTypeFilter)
-    filterItems({ type: newTypeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter })
+    setTypeFilter(event.target.value)
   }
 
   const handleColorFilterChange = (event) => {
-    const newColorFilter = event.target.value
-    setColorFilter(newColorFilter)
-    filterItems({ type: typeFilter, color: newColorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter })
+    setColorFilter(event.target.value)
   }
 
   const handleRimsFilterChange = (event) => {
-    const newRimsFilter = event.target.value
-    setRimsFilter(newRimsFilter)
-    filterItems({ type: typeFilter, color: colorFilter, rims: newRimsFilter, sticker: stickerFilter, extras: extrasFilter })
+    setRimsFilter(event.target.value)
   }
 
   const handleStickerFilterChange = (event) => {
-    const newStickerFilter = event.target.value
-    setStickerFilter(newStickerFilter)
-    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: newStickerFilter, extras: extrasFilter })
+    setStickerFilter(event.target.value)
   }
 
   const handleExtrasFilterChange = (event) => {
-    const newExtrasFilter = event.target.value
-    setExtrasFilter(newExtrasFilter)
-    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: newExtrasFilter })
+    setExtrasFilter(event.target.value)
   }
 
   const filterItems = (args) => {
@@ -116,7 +106,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
     setExtrasFilter([])
     setFilteredItems([...items])
   }
-
+  // ['', '', '', '', '']
   const classes = useStyles()
   return (
     <Container className={classes.filterContainer}>
@@ -133,12 +123,14 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           value={typeFilter}
           onChange={handleTypeFilterChange}
         >
-          <MenuItem value=''>All</MenuItem>
-          <MenuItem value='Microcar'>Micro</MenuItem>
-          <MenuItem value='Hatchback'>Hatchback</MenuItem>
-          <MenuItem value='Sedan'>Sedan</MenuItem>
-          <MenuItem value='Supercar'>Super</MenuItem>
-          <MenuItem value='SUV'>SUV</MenuItem>
+          {['Microcar', 'Hatchback', 'Sedan', 'Supercar', 'SUV'].map((xyz) => {
+            return <MenuItem value={xyz}>
+              <ListItemIcon>
+                <Avatar alt={xyz} src={`../clipart/${xyz}.png`} />
+              </ListItemIcon>
+              <ListItemText primary={xyz} />
+            </MenuItem>
+          })}
         </Select>
       </FormControl>
 
@@ -154,7 +146,6 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           value={colorFilter}
           onChange={handleColorFilterChange}
         >
-          <MenuItem value=''>All</MenuItem>
           <MenuItem value='Black'>Black</MenuItem>
           <MenuItem value='White'>White</MenuItem>
           <MenuItem value='Yellow'>Yellow</MenuItem>
@@ -178,7 +169,6 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           value={rimsFilter}
           onChange={handleRimsFilterChange}
         >
-          <MenuItem value=''>All</MenuItem>
           <MenuItem value='Wings'>Wings</MenuItem>
           <MenuItem value='Double wings'>Double wings</MenuItem>
           <MenuItem value='Feathers'>Feathers</MenuItem>
@@ -208,7 +198,6 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           value={stickerFilter}
           onChange={handleStickerFilterChange}
         >
-          <MenuItem value=''>All</MenuItem>
           <MenuItem value='Dog'>Dog</MenuItem>
           <MenuItem value='Tiger'>Tiger</MenuItem>
           <MenuItem value='Fox'>Fox</MenuItem>
