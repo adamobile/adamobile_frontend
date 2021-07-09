@@ -33,21 +33,10 @@ const FlexBox = withStyles({
     }
 })(Box)
 
-// const StyledMenuItem = withStyles(theme => ({
-//     root: {
-//         fontFamily: 'dodger',
-//         '&:focus': {
-//             '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-//                 color: theme.palette.common.white
-//             }
-//         }
-//     }
-// }))(MenuItem)
-
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        height: '100%'
+        height: '100%',
     },
     logo: {
         width: 150,
@@ -169,7 +158,7 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
                                 }}
                             >
                                 {options.map((option) => (
-                                    <MenuItem selected={window.location.href === option.toLocaleLowerCase()} key={option} onClick={() => { handleMenuAction(`/${option.toLocaleLowerCase()}/`) }}>
+                                    <MenuItem selected={typeof window !== 'undefined' && window.location.href === option.toLocaleLowerCase()} key={option} onClick={() => { handleMenuAction(`/${option.toLocaleLowerCase()}/`) }}>
                                         {option}
                                     </MenuItem>
                                 ))}

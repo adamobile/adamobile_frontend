@@ -13,6 +13,14 @@ const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
+        '& .MuiTypography-root': {
+            [theme.breakpoints.down('md')]: {
+                fontSize: theme.typography.pxToRem(14),
+            },
+            [theme.breakpoints.up('md')]: {
+                fontSize: theme.typography.pxToRem(20),
+            },
+        },
     },
     link: {
         color: 'white',
@@ -56,7 +64,7 @@ const Stats = (props) => {
         const timer = setTimeout(() => {
             updateStats()
         }, 10 * 1000)
-        return () => { timer.clearTimeout() }
+        // return () => { timer.clearTimeout() }
     }, [])
 
 
@@ -64,7 +72,7 @@ const Stats = (props) => {
     return (
         <Container className={classes.root}>
             <Link className={classes.link} to='/stats/'>
-                <Grid container justify="center" spacing={10}>
+                <Grid container justify="center" spacing={4}>
                     <Grid key='total' item>
                         <DodgerTypography>Total {stats.total}</DodgerTypography>
                     </Grid>
