@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link, navigate } from 'gatsby'
-import { Stats } from '../components/stats'
+import Stats from '../components/stats'
 import Stripe from '../images/stripe.png'
 import { Telegram, Twitter, Instagram, Email } from '@material-ui/icons';
 

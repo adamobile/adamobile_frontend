@@ -7,6 +7,7 @@ import {
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { Link } from 'gatsby'
 import '../theme/theme'
+const axios = require('axios')
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,17 +26,39 @@ const DodgerTypography = withStyles({
     }
 })(Typography);
 
-let updateStats = () => { }
+
 const Stats = (props) => {
 
     const [stats, setStats] = React.useState({
-        total: 999,
-        minted: 0,
-        available: 999,
+        total: '-',
+        minted: '-',
+        available: '-',
     })
-    updateStats = (newStats) => {
-        setStats(newStats)
+
+    const updateStats = () => {
+
+        axios.get('http://localhost:8001/stats')
+            .then(function (response) {
+                setStats(JSON.parse(response.data))
+            })
+            .catch(function (error) {
+                setStats({
+                    total: '-',
+                    minted: '-',
+                    available: '-',
+                })
+                console.log(error)
+            })
     }
+
+    React.useEffect(() => {
+        updateStats()
+        /*         setTimeout(() => {
+                    updateStats()
+                }, 10 * 1000) */
+    }, [])
+
+
     const classes = useStyles()
     return (
         <Container className={classes.root}>
@@ -56,4 +79,4 @@ const Stats = (props) => {
     )
 }
 
-export { Stats, updateStats }
+export default Stats
