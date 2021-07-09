@@ -122,9 +122,15 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           className={classes.selectEmpty}
           value={typeFilter}
           onChange={handleTypeFilterChange}
+          renderValue={(selected) => selected.join(", ")}
         >
           {['Microcar', 'Hatchback', 'Sedan', 'Supercar', 'SUV'].map((type) => {
-            return <MenuItem value={type}>{type}</MenuItem>
+            return <MenuItem value={type}>
+              <ListItemIcon>
+                <img src={`../clipart/${type}.png`} alt={type} height={60} />
+              </ListItemIcon>
+              <ListItemText>{type}</ListItemText>
+            </MenuItem>
           })}
         </Select>
       </FormControl>
