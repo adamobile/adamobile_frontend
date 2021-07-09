@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StaticImage } from "gatsby-plugin-image"
+import { StaticImage } from 'gatsby-plugin-image'
 import { ThemeProvider, makeStyles, withStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from '../theme/theme'
@@ -12,7 +12,7 @@ import {
     MenuItem,
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
-import { Link } from 'gatsby'
+import { Link, navigate } from 'gatsby'
 import { Stats } from '../components/stats'
 import Stripe from '../images/stripe.png'
 import { Telegram, Twitter, Instagram, Email } from '@material-ui/icons';
@@ -22,16 +22,27 @@ const options = [
     'Explore',
     'Stats',
     'FAQ',
-  ]
+]
 
-  const ITEM_HEIGHT = 48
+const ITEM_HEIGHT = 48
 
 const FlexBox = withStyles({
     root: {
         display: 'flex',
         alignItems: 'center',
     }
-})(Box);
+})(Box)
+
+const StyledMenuItem = withStyles(theme => ({
+    root: {
+        fontFamily: 'dodger',
+        '&:focus': {
+            '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                color: theme.palette.common.white
+            }
+        }
+    }
+}))(MenuItem)
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     logo: {
         width: 150,
         height: 150,
-        marginRight: 20
+        marginRight: theme.spacing(2)
     },
     cardano: {
         width: 75,
@@ -56,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             display: 'block',
         },
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up('md')]: {
             display: 'none',
         },
     },
@@ -66,7 +77,12 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     title: {
-        fontSize: theme.typography.pxToRem(28),
+        [theme.breakpoints.down('md')]: {
+            fontSize: theme.typography.pxToRem(20),
+        },
+        [theme.breakpoints.up('md')]: {
+            fontSize: theme.typography.pxToRem(28),
+        },
         fontFamily: 'dodger',
         flexGrow: 1,
     },
@@ -106,7 +122,8 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleMenuAction = (dest) => {
+        navigate(dest)
         setAnchorEl(null);
     };
 
@@ -131,19 +148,19 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
 
                         <Box className={classes.headerLinksMenu}>
                             <IconButton
-                                aria-label="menu"
-                                aria-controls="menu"
-                                aria-haspopup="true"
+                                aria-label='menu'
+                                aria-controls='menu'
+                                aria-haspopup='true'
                                 onClick={handleClick}
                             >
                                 <MenuIcon />
                             </IconButton>
                             <Menu
-                                id="menu"
+                                id='menu'
                                 anchorEl={anchorEl}
                                 keepMounted
                                 open={open}
-                                onClose={handleClose}
+                                onClose={handleMenuAction}
                                 PaperProps={{
                                     style: {
                                         maxHeight: ITEM_HEIGHT * 4.5,
@@ -152,9 +169,9 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
                                 }}
                             >
                                 {options.map((option) => (
-                                    <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
+                                    <StyledMenuItem selected={window.location.href === option.toLocaleLowerCase()} key={option} onClick={() => { handleMenuAction(`/${option.toLocaleLowerCase()}/`) }}>
                                         {option}
-                                    </MenuItem>
+                                    </StyledMenuItem>
                                 ))}
                             </Menu>
                         </Box>

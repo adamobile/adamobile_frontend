@@ -6,12 +6,12 @@ import {
 } from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { Link } from 'gatsby'
+import '../theme/theme'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '80%',
-        marginTop: 20,
-        marginBottom: 20,
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
     },
     link: {
         color: 'white',
