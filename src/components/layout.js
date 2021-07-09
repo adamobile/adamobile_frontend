@@ -33,16 +33,16 @@ const FlexBox = withStyles({
     }
 })(Box)
 
-const StyledMenuItem = withStyles(theme => ({
-    root: {
-        fontFamily: 'dodger',
-        '&:focus': {
-            '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-                color: theme.palette.common.white
-            }
-        }
-    }
-}))(MenuItem)
+// const StyledMenuItem = withStyles(theme => ({
+//     root: {
+//         fontFamily: 'dodger',
+//         '&:focus': {
+//             '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+//                 color: theme.palette.common.white
+//             }
+//         }
+//     }
+// }))(MenuItem)
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -169,9 +169,9 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
                                 }}
                             >
                                 {options.map((option) => (
-                                    <StyledMenuItem selected={window.location.href === option.toLocaleLowerCase()} key={option} onClick={() => { handleMenuAction(`/${option.toLocaleLowerCase()}/`) }}>
+                                    <MenuItem selected={window.location.href === option.toLocaleLowerCase()} key={option} onClick={() => { handleMenuAction(`/${option.toLocaleLowerCase()}/`) }}>
                                         {option}
-                                    </StyledMenuItem>
+                                    </MenuItem>
                                 ))}
                             </Menu>
                         </Box>
