@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     },
     snackbar: {
         '& > *': {
-            background: theme.palette.success.main,
+            background: theme.palette.background.main,
             fontSize: theme.typography.pxToRem(18),
             textAlign: 'center',
             display: 'block',
