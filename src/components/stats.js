@@ -39,7 +39,7 @@ const Stats = (props) => {
 
         axios.get('http://localhost:8001/stats')
             .then(function (response) {
-                setStats(JSON.parse(response.data))
+                setStats(response.data)
             })
             .catch(function (error) {
                 setStats({
@@ -53,9 +53,10 @@ const Stats = (props) => {
 
     React.useEffect(() => {
         updateStats()
-        /*         setTimeout(() => {
-                    updateStats()
-                }, 10 * 1000) */
+        const timer = setTimeout(() => {
+            updateStats()
+        }, 10 * 1000)
+        return () => { timer.clearTimeout() }
     }, [])
 
 
