@@ -61,10 +61,12 @@ const StatsPage = () => {
     const colorYellow = '#f3a90a'
     const colorPink = '#c346c8'
     const colorOrange = '#e65711'
-    const colors = [colorBlack, colorBlue, colorRed, colorGreen, colorWhite, colorYellow, colorOrange, colorPink]
+    
+    const carColors = [colorBlack, colorBlue, colorRed, colorGreen, colorWhite, colorYellow, colorOrange, colorPink]
+    const gradientColors = ['#bb3b3b', '#6e0d0d', '#3d0505', '#af1818', '#ffffff']
 
     var currentColorIndex = -1
-    const nextColor = () => {
+    const nextColor = (colors) => {
         currentColorIndex++
         return colors[currentColorIndex % colors.length]
     }
@@ -72,10 +74,10 @@ const StatsPage = () => {
         currentColorIndex = -1
     }
 
-    const pieData = (data, reset) => {
+    const pieData = (data, colors) => {
         resetColor()
         return Object.keys(data).map(key => {
-            return { title: key, value: data[key], color: nextColor() }
+            return { title: key, value: data[key], color: nextColor(colors) }
         })
     }
 
@@ -120,7 +122,7 @@ const StatsPage = () => {
                                 segmentsShift={0.5}
                                 lineWidth={50}
                                 className={classes.pie}
-                                data={pieData(stats.Type)}
+                                data={pieData(stats.Type, gradientColors)}
                             />
                         </Grid>
                     </Button>
@@ -133,7 +135,7 @@ const StatsPage = () => {
                                 segmentsShift={0.5}
                                 lineWidth={50}
                                 className={classes.pie}
-                                data={pieData(stats.Color)}
+                                data={pieData(stats.Color, carColors)}
                             />
                         </Grid>
                     </Button>
@@ -146,7 +148,7 @@ const StatsPage = () => {
                                 segmentsShift={0.5}
                                 lineWidth={50}
                                 className={classes.pie}
-                                data={pieData(stats.Rims)}
+                                data={pieData(stats.Rims, gradientColors)}
                             />
                         </Grid>
                     </Button>
@@ -159,7 +161,7 @@ const StatsPage = () => {
                                 segmentsShift={0.5}
                                 lineWidth={50}
                                 className={classes.pie}
-                                data={pieData(stats.Sticker)}
+                                data={pieData(stats.Sticker, gradientColors)}
                             />
                         </Grid>
                     </Button>
@@ -172,7 +174,7 @@ const StatsPage = () => {
                                 segmentsShift={0.5}
                                 lineWidth={50}
                                 className={classes.pie}
-                                data={pieData(stats.Extras)}
+                                data={pieData(stats.Extras, gradientColors)}
                             />
                         </Grid>
                     </Button>
