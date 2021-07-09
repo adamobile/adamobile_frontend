@@ -24,13 +24,18 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
-  selectEmpty: {
+  select: {
     marginTop: theme.spacing(2),
   },
+  menuItem: {
+    '& .MuiListItemIcon-root': {
+      marginRight: theme.spacing(1),
+    }
+  },
   filterLabel: {
-    fontSize: theme.typography.pxToRem(24),
   },
   resetFiltersButton: {
+    marginRight: theme.spacing(2),
     marginTop: theme.spacing(2),
   },
 }))
@@ -106,7 +111,18 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
     setExtrasFilter([])
     setFilteredItems([...items])
   }
-  // ['', '', '', '', '']
+
+  const getMenuItem = (value) => {
+    return <MenuItem value={value} className={classes.menuItem}>
+      <ListItemIcon>
+        <img src={`../clipart/${value}.png`} alt={value} height={60} />
+      </ListItemIcon>
+      <ListItemText>
+        {value}
+      </ListItemText>
+    </MenuItem>
+  }
+
   const classes = useStyles()
   return (
     <Container className={classes.filterContainer}>
@@ -125,12 +141,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           renderValue={(selected) => selected.join(", ")}
         >
           {['Microcar', 'Hatchback', 'Sedan', 'Supercar', 'SUV'].map((type) => {
-            return <MenuItem value={type}>
-              <ListItemIcon>
-                <img src={`../clipart/${type}.png`} alt={type} height={60} />
-              </ListItemIcon>
-              <ListItemText>{type}</ListItemText>
-            </MenuItem>
+            return getMenuItem(type)
           })}
         </Select>
       </FormControl>
@@ -146,15 +157,11 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           className={classes.selectEmpty}
           value={colorFilter}
           onChange={handleColorFilterChange}
+          renderValue={(selected) => selected.join(", ")}
         >
-          <MenuItem value='Black'>Black</MenuItem>
-          <MenuItem value='White'>White</MenuItem>
-          <MenuItem value='Yellow'>Yellow</MenuItem>
-          <MenuItem value='Red'>Red</MenuItem>
-          <MenuItem value='Blue'>Blue</MenuItem>
-          <MenuItem value='Green'>Green</MenuItem>
-          <MenuItem value='Pink'>Pink</MenuItem>
-          <MenuItem value='Orange'>Orange</MenuItem>
+          {['Black', 'White', 'Yellow', 'Red', 'Blue', 'Green', 'Pink', 'Orange'].map((color) => {
+            return getMenuItem(color)
+          })}
         </Select>
       </FormControl>
 
@@ -169,21 +176,11 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           className={classes.selectEmpty}
           value={rimsFilter}
           onChange={handleRimsFilterChange}
+          renderValue={(selected) => selected.join(", ")}
         >
-          <MenuItem value='Wings'>Wings</MenuItem>
-          <MenuItem value='Double wings'>Double wings</MenuItem>
-          <MenuItem value='Feathers'>Feathers</MenuItem>
-          <MenuItem value='Blades'>Blades</MenuItem>
-          <MenuItem value='Columns'>Columns</MenuItem>
-          <MenuItem value='Shanks'>Shanks</MenuItem>
-          <MenuItem value='Cardanos'>Cardanos</MenuItem>
-          <MenuItem value='Teddies'>Teddies</MenuItem>
-          <MenuItem value='Rockets'>Rockets</MenuItem>
-          <MenuItem value='Skis'>Skis</MenuItem>
-          <MenuItem value='Monster'>Monster</MenuItem>
-          <MenuItem value='Tank'>Tank</MenuItem>
-          <MenuItem value='Robot'>Robot</MenuItem>
-          <MenuItem value='Gone'>Gone</MenuItem>
+          {['Wings', 'Double wings', 'Feathers', 'Blades', 'Columns', 'Shanks', 'Cardanos', 'Teddies', 'Rockets', 'Skis', 'Monster', 'Tank', 'Robot', 'Gone'].map((rims) => {
+            return getMenuItem(rims)
+          })}
         </Select>
       </FormControl>
 
@@ -198,20 +195,11 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           className={classes.selectEmpty}
           value={stickerFilter}
           onChange={handleStickerFilterChange}
+          renderValue={(selected) => selected.join(", ")}
         >
-          <MenuItem value='Dog'>Dog</MenuItem>
-          <MenuItem value='Tiger'>Tiger</MenuItem>
-          <MenuItem value='Fox'>Fox</MenuItem>
-          <MenuItem value='Cat'>Cat</MenuItem>
-          <MenuItem value='Racer'>Racer</MenuItem>
-          <MenuItem value='Adamobile'>ADAmobile</MenuItem>
-          <MenuItem value='Cardano'>Cardano</MenuItem>
-          <MenuItem value='ADA'>ADA</MenuItem>
-          <MenuItem value='ETH'>ETH</MenuItem>
-          <MenuItem value='BTC'>BTC</MenuItem>
-          <MenuItem value='Smile'>Smile</MenuItem>
-          <MenuItem value='Mandala'>Mandala</MenuItem>
-          <MenuItem value='Eye'>Devil Eye</MenuItem>
+          {['Dog', 'Tiger', 'Fox', 'Cat', 'Racer', 'Adamobile', 'Cardano', 'ADA', 'ETH', 'BTC', 'Smile', 'Mandala', 'Devil eye'].map((sticker) => {
+            return getMenuItem(sticker)
+          })}
         </Select>
       </FormControl>
 
@@ -226,26 +214,11 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
           className={classes.selectEmpty}
           value={extrasFilter}
           onChange={handleExtrasFilterChange}
+          renderValue={(selected) => selected.join(", ")}
         >
-          <MenuItem value='Front horn'>Front horn</MenuItem>
-          <MenuItem value='Top horn'>Top horn</MenuItem>
-          <MenuItem value='Front spikes'>Front spikes</MenuItem>
-          <MenuItem value='Top spikes'>Top spikes</MenuItem>
-          <MenuItem value='Rear spikes'>Rear spikes</MenuItem>
-          <MenuItem value='Front lights'>Front lights</MenuItem>
-          <MenuItem value='Top lights'>Top lights</MenuItem>
-          <MenuItem value='Police lights'>Police lights</MenuItem>
-          <MenuItem value='Shark fin'>Shark fin</MenuItem>
-          <MenuItem value='Golden lion'>Golden lion</MenuItem>
-          <MenuItem value='Turbine'>Turbine</MenuItem>
-          <MenuItem value='Monster exhaust'>Monster exhaust</MenuItem>
-          <MenuItem value='Spoiler'>Spoiler</MenuItem>
-          <MenuItem value='Taxi'>Taxi</MenuItem>
-          <MenuItem value='Antenna'>Antenna</MenuItem>
-          <MenuItem value='Firefighter'>Firefighter</MenuItem>
-          <MenuItem value='Ship'>Ship</MenuItem>
-          <MenuItem value='Tent'>Tent</MenuItem>
-          <MenuItem value='Devil horns'>Devil horns</MenuItem>
+          {['Front horn', 'Top horn', 'Front spikes', 'Top spikes', 'Rear spikes', 'Front lights', 'Top lights', 'Police lights', 'Shark fin', 'Golden lion', 'Turbine', 'Monster exhaust', 'Spoiler', 'Taxi', 'Antenna', 'Firefighter', 'Ship', 'Tent', 'Devil horns'].map((extras) => {
+            return getMenuItem(extras)
+          })}
         </Select>
       </FormControl>
 
