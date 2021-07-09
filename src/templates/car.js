@@ -21,7 +21,7 @@ import {
 import '../theme/typography.css'
 import theme from '../theme/theme'
 import Layout from '../components/layout'
-import { Share, FileCopy, Twitter, Instagram, Telegram } from '@material-ui/icons'
+import { Share, FileCopy, Twitter, Email, Telegram, WhatsApp } from '@material-ui/icons'
 
 const DodgerTypography = withStyles({
     root: {
@@ -85,13 +85,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const shareUrl = window.location.href
 
 const CarDetail = ({ pageContext: { car } }) => {
     
-    const shareOnTwitter = () => { window.open(`https://twitter.com/intent/tweet?text=Check%20out%20Adamobile%20%23${car.id.slice(1)}%0A&url=${shareUrl}%0A&hashtags=CNFT,Adamobile,${car.id.slice(1)}`)}
-    const shareOnTelegram = () => { window.open(`https://t.me/share/url?url=${shareUrl}&text=Check%20out%20Adamobile%20%23${car.id.slice(1)}`) }
-    const shareOnInstagram = () => { }
+    const shareUrl = window.location.href
+    const shareViaTwitter = () => { window.open(`https://twitter.com/intent/tweet?text=Check%20out%20Adamobile%20%23${car.id.slice(1)}%0A&url=${shareUrl}%0A&hashtags=CNFT,Adamobile,${car.id.slice(1)}`,  '_blank')}
+    const shareViaTelegram = () => { window.open(`https://t.me/share/url?url=${shareUrl}&text=Check%20out%20Adamobile%20%23${car.id.slice(1)}`, '_blank') }
+    const shareViaWhatsapp = () => { window.open(`https://wa.me/?text=check%20out%20Adamobile%20%23${car.id.slice(1)} at ${shareUrl}`, '_blank') }
+    const shareViaMail = () => { window.location.href = `mailto:?subject=Check%20out%20Adamobile%20%23${car.id.slice(1)}
+    &body=Check%20out%20Adamobile%20%23${car.id.slice(1)} at ${shareUrl}`}
 
     const [dialogOpen, setDialogOpen] = React.useState(false)
     const [snackbarOpen, setSnackbarOpen] = React.useState(false)
@@ -164,9 +166,10 @@ const CarDetail = ({ pageContext: { car } }) => {
                         <Button onClick={copyLink}><FileCopy /></Button>
                     </FlexBox>
                     <FlexBox>
-                        <Button onClick={shareOnTwitter}> <Twitter /> </Button>
-                        <Button onClick={shareOnTelegram}> <Telegram /> </Button>
-                        <Button onClick={shareOnInstagram}> <Instagram /> </Button>
+                        <Button onClick={shareViaTwitter}> <Twitter /> </Button>
+                        <Button onClick={shareViaTelegram}> <Telegram /> </Button>
+                        <Button onClick={shareViaWhatsapp}> <WhatsApp /> </Button>
+                        <Button onClick={shareViaMail}> <Email /> </Button>
                     </FlexBox>
 
                 </DialogContent>
