@@ -8,6 +8,7 @@ import {
     Button,
     Snackbar,
     Link,
+    Checkbox,
 } from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import CarCard from '../components/carCard'
@@ -20,21 +21,20 @@ const useStyles = makeStyles((theme) => ({
 
     root: {
     },
-    topRow: {
-        display: 'flex',
+    infos: {
         justifyContent: 'space-around',
-        marginBottom: theme.spacing(5),
+        marginTop: theme.spacing(5),
         '& .MuiTypography-root': {
-            fontSize: theme.typography.pxToRem(18),
-            lineHeight: 2,
+            fontSize: theme.typography.pxToRem(20),
+            lineHeight: 3,
         },
     },
     shareButton: {
         float: 'right',
     },
     textField: {
-        marginTop: 16,
-        width: '80%'
+        width: '100%',
+        minWidth: 300
     },
     gridRoot: {
         flexGrow: 1,
@@ -79,12 +79,19 @@ const BuyPage = ({ pageContext: { cars } }) => {
         { id: '#0315', wallet: 'other' },
         { id: '#1605', wallet: 'yet another' },
         { id: '#2218', wallet: 'yours' },])
+    const [acceptTerms, setAcceptTerms] = React.useState(false)
     const [customerWallet, setCustomerWallet] = React.useState('')
     const [snackbarOpen, setSnackbarOpen] = React.useState(false)
     const [snackbarTitle, setSnackbarTitle] = React.useState('')
 
+    const handleAcceptTermsValueChange = (event) => {
+        setAcceptTerms(event.target.checked)
+        sessionStorage.setItem('acceptTerms', acceptTerms)
+    }
+
     const handleCustomerWalletChange = (event) => {
         setCustomerWallet(event.target.value)
+        sessionStorage.setItem('customerWallet', customerWallet)
     }
 
     const handleSnackbarClose = () => {
@@ -106,21 +113,17 @@ const BuyPage = ({ pageContext: { cars } }) => {
             <Container className={classes.root}>
                 <Box className={classes.topRow}>
                     <Box>
-                        <Typography component='li'>Send the Exact amount of ADA to the given address</Typography>
-                        <Typography component='li'>Send ADA from a wallet that support native assets like <Link to='https://yoroi-wallet.com/'>Yoroi</Link>, <Link to='https://daedaluswallet.io'>Daedalus</Link>, or <Link to='https://adalite.io'>AdaLite</Link></Typography>
-                        <Typography component='li'>Do not sent ADA from an exchange! The NFT and funds will be lost!</Typography>
-                        <Typography component='li'>Always send one transaction at a time. If you'd like to purchase multiple NFTs please send multiple transactions</Typography>
-                        <Typography component='li'>Enter your wallet address below to see the items you already purchased</Typography>
-                        <TextField
-                                style={{ marginTop: 24, width: '100%', }}
-                                label="Your wallet address"
-                                value={customerWallet}
-                                onChange={handleCustomerWalletChange}
-                            />
+                        <Typography component='li'>Send the Exact amount of ADA to the given address. If you like to purchase multiple Adamobiles please send multiple transactions</Typography>
+                        <Typography component='li'>Send ADA from a wallet that support native assets like <Link href='https://yoroi-wallet.com/'>Yoroi</Link>, <Link href='https://daedaluswallet.io'>Daedalus</Link>, or <Link href='https://adalite.io'>AdaLite</Link>. Do not sent ADA from an exchange! Your Adamobile and funds will be lost!</Typography>
+                        <Typography component='li'>You will get a refund if you send less than the given amount or all Adamobiles have been already sold</Typography>
+                        <Box display='flex' alignItems='center' margin={2}>
+                            <Checkbox checked={acceptTerms} color='primary' onChange={handleAcceptTermsValueChange} />
+                            <Typography>I accept the aforementioned terms of use</Typography>
+                        </Box>
                     </Box>
-                    <Box style={{ marginLeft: 24 }}>
-                        <img src={Address} alt='Wallet address' width={200} style={{ marginRight: 16 }} />
-                        <Box display='flex'>
+                    <Box marginTop={2} display={acceptTerms ? 'flex' : 'none'} flexDirection='column' alignItems='center' >
+                        <img src={Address} alt='Wallet address' width={300} />
+                        <Box display='flex' marginTop={2}>
                             <TextField
                                 label="Our wallet address"
                                 className={classes.textField}
@@ -131,7 +134,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
                             />
                             <Button onClick={() => { copyValue(address, 'Address copied!') }}><FileCopy /></Button>
                         </Box>
-                        <Box display='flex'>
+                        <Box display='flex' marginTop={2}>
                             <TextField
                                 label="Amount ADA"
                                 className={classes.textField}
@@ -146,6 +149,13 @@ const BuyPage = ({ pageContext: { cars } }) => {
                 </Box>
 
                 <Box>
+                    <Typography style={{ marginTop: 24}} component='li'>Enter your wallet address below to see the items you already purchased</Typography>
+                    <TextField
+                        style={{marginBottom: 24, width: '50%', }}
+                        label="Your wallet address"
+                        value={customerWallet}
+                        onChange={handleCustomerWalletChange}
+                    />
                     <GridList id='gridList' cellHeight={250} className={classes.gridList} cols={2.5}>
                         {getFilteredItems().map((item) => (
                             <CarCard key={item.id} id={item.id} car={item} issold={soldItems.includes(item.id)} />
