@@ -11,6 +11,7 @@ import CarGridFilter from '../components/carGridFilter'
 import CarCard from '../components/carCard'
 import Layout from '../components/layout'
 import theme from '../theme/theme'
+const axios = require('axios')
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,13 +30,33 @@ const useStyles = makeStyles((theme) => ({
 
 const ExplorePage = ({ pageContext: { cars } }) => {
 
-  const initialPage = sessionStorage.getItem('page')? parseInt(sessionStorage.getItem('page')) : 1
+  const initialPage = sessionStorage.getItem('page') ? parseInt(sessionStorage.getItem('page')) : 1
   const [visibleItems, setVisibleItems] = React.useState([])
   const [filteredItems, setFilteredItems] = React.useState([...cars])
   const [soldItems, setSoldItems] = React.useState([])
   const [page, setPage] = React.useState(initialPage);
   const [pageCount, setPageCount] = React.useState(101);
-  
+
+  const updateSoldItems = () => {
+
+    axios.get('http://localhost:8001/sold')
+      .then(function (response) {
+        setSoldItems(response.data)
+      })
+      .catch(function (error) {
+        setSoldItems([])
+        console.log(error)
+      })
+  }
+
+  React.useEffect(() => {
+    updateSoldItems()
+    const timerId = setTimeout(() => {
+        updateSoldItems()
+    }, 10 * 1000)
+    return () => { clearInterval(timerId) }
+}, [])
+
   React.useEffect(() => {
     setVisibleItems(filteredItems.slice(((page - 1) * itemsPerPage), Math.min(filteredItems.length, page * itemsPerPage)))
     setPageCount(Math.ceil(filteredItems.length / itemsPerPage))
@@ -63,8 +84,8 @@ const ExplorePage = ({ pageContext: { cars } }) => {
         </Box>
         <Box className={classes.gridListContainer}>
           <GridList cellHeight={250} spacing={20} cols={columnCount()}>
-            {visibleItems.map((item) => (
-              <CarCard key={item.id} id={item.id} car={item} issold={soldItems.includes(item.id)} />
+            {visibleItems.map((car) => (
+              <CarCard key={car.id} id={car.id} car={car} issold={soldItems.map(sold => sold.id).includes(car.id)} />
             ))}
           </GridList>
           <Pagination className={classes.pagination} page={page} onChange={handleChange} count={pageCount} shape="rounded" showFirstButton showLastButton />

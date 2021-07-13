@@ -16,6 +16,7 @@ import Layout from '../components/layout'
 import Address from '../images/address.png'
 import '../theme/theme'
 import { FileCopy } from '@material-ui/icons'
+const axios = require('axios')
 
 const useStyles = makeStyles((theme) => ({
 
@@ -63,9 +64,12 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-// document.getElementById(newSoldItems[newSoldItems.length - 1]).scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
+
 const BuyPage = ({ pageContext: { cars } }) => {
-    const address = 'addr1qx9ksp5xuytqap4fssa56g9jleqtxwf3w33d0ejv0x0we7djcdes9txqhldvlyysy8ryq4uqgyzkl2enq0nawkqu2lvs0yldxe'
+
+    const initialAcceptTerms = sessionStorage.getItem('acceptTerms') ? sessionStorage.getItem('acceptTerms') : false
+    const initialCustomerWallet = sessionStorage.getItem('customerWallet') ? sessionStorage.getItem('customerWallet') : ''
+    const address = 'addr_test1qqnsmr08vaekgpvkmjldszu6mgdwtepq9d2ysqsavjqc52qpj5hc4gx57srr7veddvkjgdargmzf9ayfll6yw72afn6sjaxnlr'
     const amount = '25'
     const copyValue = (value, title) => {
         navigator.clipboard.writeText(value)
@@ -74,24 +78,53 @@ const BuyPage = ({ pageContext: { cars } }) => {
     }
 
     const classes = useStyles()
-    const [soldItems, setSoldItems] = React.useState(
-        [{ id: '#0101', wallet: 'addr1qx9ksp5xuytqap4fssa56g9jleqtxwf3w33d0ejv0x0we7djcdes9txqhldvlyysy8ryq4uqgyzkl2enq0nawkqu2lvs0yldxe' },
-        { id: '#0315', wallet: 'other' },
-        { id: '#1605', wallet: 'yet another' },
-        { id: '#2218', wallet: 'yours' },])
-    const [acceptTerms, setAcceptTerms] = React.useState(false)
-    const [customerWallet, setCustomerWallet] = React.useState('')
+    const [soldItems, setSoldItems] = React.useState([])
+    const [acceptTerms, setAcceptTerms] = React.useState(initialAcceptTerms)
+    const [customerWallet, setCustomerWallet] = React.useState(initialCustomerWallet)
     const [snackbarOpen, setSnackbarOpen] = React.useState(false)
     const [snackbarTitle, setSnackbarTitle] = React.useState('')
 
+    const updateSoldItems = () => {
+
+        axios.get(`http://localhost:8001/sold?receiver=${customerWallet}`)
+            .then(function (response) {
+                setSoldItems(response.data)
+            })
+            .catch(function (error) {
+                setSoldItems([])
+                console.log(error)
+            })
+    }
+
+    React.useEffect(() => {
+        updateSoldItems()
+    }, [customerWallet])
+
+    React.useEffect(() => {
+        if (soldItems.length > 0) {
+            var item = document.getElementById(soldItems[soldItems.length - 1].id)
+            if (item) {
+                item.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
+            }
+        }
+    }, [soldItems])
+
+    React.useEffect(() => {
+        updateSoldItems()
+        const timerId = setTimeout(() => {
+            updateSoldItems()
+        }, 10 * 1000)
+        return () => { clearInterval(timerId) }
+    }, [])
+
     const handleAcceptTermsValueChange = (event) => {
         setAcceptTerms(event.target.checked)
-        sessionStorage.setItem('acceptTerms', acceptTerms)
+        sessionStorage.setItem('acceptTerms', event.target.checked)
     }
 
     const handleCustomerWalletChange = (event) => {
         setCustomerWallet(event.target.value)
-        sessionStorage.setItem('customerWallet', customerWallet)
+        sessionStorage.setItem('customerWallet', event.target.value)
     }
 
     const handleSnackbarClose = () => {
@@ -104,7 +137,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
             return soldCars
         }
 
-        const customerItems = soldItems.filter(sold => sold.wallet === customerWallet)
+        const customerItems = soldItems.filter(sold => sold.receiver === customerWallet)
         return soldCars.filter(car => customerItems.map(sold => sold.id).includes(car.id))
     }
 
@@ -149,9 +182,9 @@ const BuyPage = ({ pageContext: { cars } }) => {
                 </Box>
 
                 <Box>
-                    <Typography style={{ marginTop: 24}} component='li'>Enter your wallet address below to see the items you already purchased</Typography>
+                    <Typography style={{ marginTop: 24 }} component='li'>Enter your wallet address below to see the items you already purchased</Typography>
                     <TextField
-                        style={{marginBottom: 24, width: '50%', }}
+                        style={{ marginBottom: 24, width: '50%', }}
                         label="Your wallet address"
                         value={customerWallet}
                         onChange={handleCustomerWalletChange}
