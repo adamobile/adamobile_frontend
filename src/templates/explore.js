@@ -11,6 +11,7 @@ import CarGridFilter from '../components/carGridFilter'
 import CarCard from '../components/carCard'
 import Layout from '../components/layout'
 import theme from '../theme/theme'
+import { getSessionItem, setSessionItem } from '../utils/utils';
 const axios = require('axios')
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ExplorePage = ({ pageContext: { cars } }) => {
 
-  const initialPage = sessionStorage.getItem('page') ? parseInt(sessionStorage.getItem('page')) : 1
+  const initialPage = getSessionItem('page', 1)
   const [visibleItems, setVisibleItems] = React.useState([])
   const [filteredItems, setFilteredItems] = React.useState([...cars])
   const [soldItems, setSoldItems] = React.useState([])
@@ -39,7 +40,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
 
   const updateSoldItems = () => {
 
-    axios.get('http://localhost:8001/sold')
+    axios.get(`${process.env.GATSBY_API_URL}/sold`)
       .then(function (response) {
         setSoldItems(response.data)
       })
@@ -71,7 +72,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
   const itemsPerPage = 12
   const handleChange = (event, value) => {
     setPage(value)
-    sessionStorage.setItem('page', value)
+    setSessionItem('page', value)
     setVisibleItems(filteredItems.slice(((value - 1) * itemsPerPage), Math.min(filteredItems.length, value * itemsPerPage)))
   }
 

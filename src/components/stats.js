@@ -45,7 +45,7 @@ const Stats = (props) => {
 
     const updateStats = () => {
 
-        axios.get('http://localhost:8001/stats')
+        axios.get(`${process.env.GATSBY_API_URL}/stats`)
             .then(function (response) {
                 setStats(response.data)
             })

@@ -86,13 +86,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 const CarDetail = ({ pageContext: { car } }) => {
-    
-    const shareUrl = window.location.href
-    const shareViaTwitter = () => { window.open(`https://twitter.com/intent/tweet?text=Check%20out%20Adamobile%20%23${car.id.slice(1)}%0A&url=${shareUrl}%0A&hashtags=CNFT,Adamobile,${car.id.slice(1)}`,  '_blank')}
+
+    const shareUrl = typeof window !== 'undefined' ? window.location.href: null
+    const shareViaTwitter = () => { window.open(`https://twitter.com/intent/tweet?text=Check%20out%20Adamobile%20%23${car.id.slice(1)}%0A&url=${shareUrl}%0A&hashtags=CNFT,Adamobile,${car.id.slice(1)}`, '_blank') }
     const shareViaTelegram = () => { window.open(`https://t.me/share/url?url=${shareUrl}&text=Check%20out%20Adamobile%20%23${car.id.slice(1)}`, '_blank') }
     const shareViaWhatsapp = () => { window.open(`https://wa.me/?text=check%20out%20Adamobile%20%23${car.id.slice(1)} at ${shareUrl}`, '_blank') }
-    const shareViaMail = () => { window.location.href = `mailto:?subject=Check%20out%20Adamobile%20%23${car.id.slice(1)}
-    &body=Check%20out%20Adamobile%20%23${car.id.slice(1)} at ${shareUrl}`}
+    const shareViaMail = () => {
+        window.location.href = `mailto:?subject=Check%20out%20Adamobile%20%23${car.id.slice(1)}
+    &body=Check%20out%20Adamobile%20%23${car.id.slice(1)} at ${shareUrl}`
+    }
 
     const [dialogOpen, setDialogOpen] = React.useState(false)
     const [snackbarOpen, setSnackbarOpen] = React.useState(false)
@@ -176,7 +178,7 @@ const CarDetail = ({ pageContext: { car } }) => {
             <Snackbar
                 classes={{
                     root: classes.snackbar,
-                  }}
+                }}
                 open={snackbarOpen}
                 onClose={handleSnackbarClose}
                 message="Link copied!"

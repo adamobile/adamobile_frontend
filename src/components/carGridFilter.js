@@ -8,9 +8,9 @@ import {
   Button,
   ListItemIcon,
   ListItemText,
-  Avatar,
 } from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { getSessionItem, setSessionItem } from '../utils/utils'
 
 const useStyles = makeStyles((theme) => ({
   filterContainer: {
@@ -53,7 +53,7 @@ const MultipleMenuItem = withStyles((theme) => ({
 
 const CarGridFilter = ({ items, setFilteredItems }) => {
 
-  var initialFilters = sessionStorage.getItem('filters') ? JSON.parse(sessionStorage.getItem('filters')) : { type: [], color: [], rims: [], sticker: [], extras: [] }
+  var initialFilters = getSessionItem('filters', { type: [], color: [], rims: [], sticker: [], extras: [] })
 
   const [typeFilter, setTypeFilter] = React.useState(initialFilters.type)
   const [colorFilter, setColorFilter] = React.useState(initialFilters.color)
@@ -66,7 +66,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
   }
 
   React.useEffect(() => {
-    sessionStorage.setItem('filters', JSON.stringify(getFilters()))
+    setSessionItem('filters', JSON.stringify(getFilters()))
     filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter })
   }, [typeFilter, colorFilter, rimsFilter, stickerFilter, extrasFilter])
 

@@ -16,6 +16,7 @@ import Layout from '../components/layout'
 import Address from '../images/address.png'
 import '../theme/theme'
 import { FileCopy } from '@material-ui/icons'
+import { getSessionItem, setSessionItem } from '../utils/utils'
 const axios = require('axios')
 
 const useStyles = makeStyles((theme) => ({
@@ -67,8 +68,8 @@ const useStyles = makeStyles((theme) => ({
 
 const BuyPage = ({ pageContext: { cars } }) => {
 
-    const initialAcceptTerms = sessionStorage.getItem('acceptTerms') ? sessionStorage.getItem('acceptTerms') : false
-    const initialCustomerWallet = sessionStorage.getItem('customerWallet') ? sessionStorage.getItem('customerWallet') : ''
+    const initialAcceptTerms = getSessionItem('acceptTerms', false)
+    const initialCustomerWallet = getSessionItem('customerWallet', '')
     const address = 'addr_test1qqnsmr08vaekgpvkmjldszu6mgdwtepq9d2ysqsavjqc52qpj5hc4gx57srr7veddvkjgdargmzf9ayfll6yw72afn6sjaxnlr'
     const amount = '25'
     const copyValue = (value, title) => {
@@ -86,7 +87,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
 
     const updateSoldItems = () => {
 
-        axios.get(`http://localhost:8001/sold?receiver=${customerWallet}`)
+        axios.get(`${process.env.GATSBY_API_URL}/sold?receiver=${customerWallet}`)
             .then(function (response) {
                 setSoldItems(response.data)
             })
@@ -119,12 +120,12 @@ const BuyPage = ({ pageContext: { cars } }) => {
 
     const handleAcceptTermsValueChange = (event) => {
         setAcceptTerms(event.target.checked)
-        sessionStorage.setItem('acceptTerms', event.target.checked)
+        setSessionItem('acceptTerms', event.target.checked)
     }
 
     const handleCustomerWalletChange = (event) => {
         setCustomerWallet(event.target.value)
-        sessionStorage.setItem('customerWallet', event.target.value)
+        setSessionItem('customerWallet', event.target.value)
     }
 
     const handleSnackbarClose = () => {
