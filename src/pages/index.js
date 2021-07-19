@@ -82,7 +82,7 @@ const IndexPage = (props) => {
 
   const classes = useStyles()
   return (
-    <Layout>
+    <Layout hasTopMargin={false}>
       <FlexBoxCenter className={classes.main}>
         <Box className={classes.actionButtonContainer}>
           <TextHeader className={classes.actionButtonContainerText}>Get your Adamobile now!</TextHeader>

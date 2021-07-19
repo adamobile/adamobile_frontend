@@ -22,6 +22,9 @@ const axios = require('axios')
 const useStyles = makeStyles((theme) => ({
 
     root: {
+        minHeight: '60vh',
+        width: '95%',
+        maxWidth: 1000,
     },
     infos: {
         justifyContent: 'space-around',

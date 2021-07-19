@@ -53,7 +53,7 @@ const MultipleMenuItem = withStyles((theme) => ({
 
 const CarGridFilter = ({ items, setFilteredItems }) => {
 
-  var initialFilters = getSessionItem('filters', { type: [], color: [], rims: [], sticker: [], extras: [] })
+  var initialFilters = getSessionItem('filters', { type: [], color: [], rims: [], sticker: [], extras: [] }, true)
 
   const [typeFilter, setTypeFilter] = React.useState(initialFilters.type)
   const [colorFilter, setColorFilter] = React.useState(initialFilters.color)

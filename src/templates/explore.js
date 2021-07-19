@@ -16,7 +16,8 @@ const axios = require('axios')
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '80%',
+    width: '95%',
+    maxWidth: 1000,
   },
   gridListContainer: {
     display: 'flex',
@@ -53,10 +54,10 @@ const ExplorePage = ({ pageContext: { cars } }) => {
   React.useEffect(() => {
     updateSoldItems()
     const timerId = setTimeout(() => {
-        updateSoldItems()
+      updateSoldItems()
     }, 10 * 1000)
     return () => { clearInterval(timerId) }
-}, [])
+  }, [])
 
   React.useEffect(() => {
     setVisibleItems(filteredItems.slice(((page - 1) * itemsPerPage), Math.min(filteredItems.length, page * itemsPerPage)))

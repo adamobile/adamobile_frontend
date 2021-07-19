@@ -29,6 +29,9 @@ const formatter = new Intl.NumberFormat('en-US', {
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: 32,
+        minHeight: '60vh',
+        width: '95%',
+        maxWidth: 1000,
     },
     grid: {
         justifyContent: 'center',

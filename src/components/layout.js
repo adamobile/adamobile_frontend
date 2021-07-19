@@ -127,7 +127,7 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
 
                 <Box className={classes.root}>
 
-                    <Box className={classes.header}>
+                    <Box className={classes.header} marginBottom={8}>
                         <FlexBox id='header' className={classes.headerFirstRow}>
                             <FlexBox>
                                 <Link to='/'><StaticImage placeholder='transparent' src='../images/logo.png' alt='logo' className={classes.logo} /></Link>
@@ -172,7 +172,6 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
                         </FlexBox>
                         <Stats />
                     </Box>
-
 
                     {children}
 

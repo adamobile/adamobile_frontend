@@ -1,5 +1,8 @@
-const getSessionItem = (key, other) => {
-    if (typeof sessionStorage !== 'undefined') {
+const getSessionItem = (key, other, isJson) => {
+    if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem(key) !== null) {
+        if(isJson){
+            return JSON.parse(sessionStorage.getItem(key))
+        }
         return sessionStorage.getItem(key)
     }
     return other
