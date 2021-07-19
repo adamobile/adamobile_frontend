@@ -50,9 +50,11 @@ const useStyles = makeStyles((theme) => ({
         height: 75,
     },
     header: {
-        justifyContent: 'space-around',
         backgroundImage: `url(${Stripe})`,
         backgroundSize: 'cover'
+    },
+    headerFirstRow: {
+        justifyContent: 'space-around',
     },
     headerLinksMenu: {
         [theme.breakpoints.down('sm')]: {
@@ -125,51 +127,52 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
 
                 <Box className={classes.root}>
 
-                    <FlexBox id='header' className={classes.header}>
-                        <FlexBox>
-                            <Link to='/'><StaticImage placeholder='transparent' src='../images/logo.png' alt='logo' className={classes.logo} /></Link>
-                            <Typography className={classes.title}>Adamobile</Typography>
+                    <Box className={classes.header}>
+                        <FlexBox id='header' className={classes.headerFirstRow}>
+                            <FlexBox>
+                                <Link to='/'><StaticImage placeholder='transparent' src='../images/logo.png' alt='logo' className={classes.logo} /></Link>
+                                <Typography className={classes.title}>Adamobile</Typography>
+                            </FlexBox>
+                            <FlexBox className={classes.headerLinks}>
+                                <Link activeClassName={classes.activeLink} className={classes.link} to='/buy/'><Typography className={classes.linkText}>Buy</Typography></Link>
+                                <Link activeClassName={classes.activeLink} className={classes.link} to='/explore/'><Typography className={classes.linkText}>Explore</Typography></Link>
+                                <Link activeClassName={classes.activeLink} className={classes.link} to='/stats/'><Typography className={classes.linkText}>Stats</Typography></Link>
+                                <Link activeClassName={classes.activeLink} className={classes.link} to='/faq/'><Typography className={classes.linkText}>fAQ</Typography></Link>
+                            </FlexBox>
+
+                            <Box className={classes.headerLinksMenu}>
+                                <IconButton
+                                    aria-label='menu'
+                                    aria-controls='menu'
+                                    aria-haspopup='true'
+                                    onClick={handleClick}
+                                >
+                                    <MenuIcon />
+                                </IconButton>
+                                <Menu
+                                    id='menu'
+                                    anchorEl={anchorEl}
+                                    keepMounted
+                                    open={open}
+                                    onClose={handleMenuAction}
+                                    PaperProps={{
+                                        style: {
+                                            maxHeight: ITEM_HEIGHT * 4.5,
+                                            width: '20ch',
+                                        },
+                                    }}
+                                >
+                                    {options.map((option) => (
+                                        <MenuItem selected={typeof window !== 'undefined' && window.location.href === option.toLocaleLowerCase()} key={option} onClick={() => { handleMenuAction(`/${option.toLocaleLowerCase()}/`) }}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </Menu>
+                            </Box>
                         </FlexBox>
-                        <FlexBox className={classes.headerLinks}>
-                            <Link activeClassName={classes.activeLink} className={classes.link} to='/buy/'><Typography className={classes.linkText}>Buy</Typography></Link>
-                            <Link activeClassName={classes.activeLink} className={classes.link} to='/explore/'><Typography className={classes.linkText}>Explore</Typography></Link>
-                            <Link activeClassName={classes.activeLink} className={classes.link} to='/stats/'><Typography className={classes.linkText}>Stats</Typography></Link>
-                            <Link activeClassName={classes.activeLink} className={classes.link} to='/faq/'><Typography className={classes.linkText}>fAQ</Typography></Link>
-                        </FlexBox>
+                        <Stats />
+                    </Box>
 
-                        <Box className={classes.headerLinksMenu}>
-                            <IconButton
-                                aria-label='menu'
-                                aria-controls='menu'
-                                aria-haspopup='true'
-                                onClick={handleClick}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Menu
-                                id='menu'
-                                anchorEl={anchorEl}
-                                keepMounted
-                                open={open}
-                                onClose={handleMenuAction}
-                                PaperProps={{
-                                    style: {
-                                        maxHeight: ITEM_HEIGHT * 4.5,
-                                        width: '20ch',
-                                    },
-                                }}
-                            >
-                                {options.map((option) => (
-                                    <MenuItem selected={typeof window !== 'undefined' && window.location.href === option.toLocaleLowerCase()} key={option} onClick={() => { handleMenuAction(`/${option.toLocaleLowerCase()}/`) }}>
-                                        {option}
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </Box>
-
-                    </FlexBox>
-
-                    <Stats />
 
                     {children}
 

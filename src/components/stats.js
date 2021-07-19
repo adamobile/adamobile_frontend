@@ -11,7 +11,6 @@ const axios = require('axios')
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
         '& .MuiTypography-root': {
             [theme.breakpoints.down('md')]: {
