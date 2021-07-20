@@ -1,58 +1,116 @@
 import * as React from 'react'
+import { StaticImage } from 'gatsby-plugin-image'
+import { Link } from 'gatsby'
 import {
-    Box,
-    Container,
-    Typography,
+  Typography,
+  Box,
+  Button,
 } from '@material-ui/core'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
 import '../theme/typography.css'
-import { makeStyles } from '@material-ui/core/styles'
 import Layout from '../components/layout'
+import MainBackground from '../images/home_bg.png'
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '80%',
-    },
-    infoBox: {
-        textAlign: 'left'
-    },
-    info: {
-        color: 'white',
-        fontSize: theme.typography.pxToRem(20),
-        fontFamily: 'lato',
-    },
-    stayTunedBox: {
-        marginTop: 50,
-        textAlign: 'center'
-    },
-    stayTuned: {
-        fontSize: theme.typography.pxToRem(40),
-        color: 'rgb(176, 34, 38)',
-        fontFamily: 'dodger',
-    },
-    wrapped: {
-        maxWidth: '100%'
-    }
+  main: {
+    position: 'relative',minHeight: '80vh',
+    backgroundImage: `url(${MainBackground})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
+  },
+  actionButtonContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    height: 100,
+    background: 'white',
+    borderRadius: 20,
+    marginBottom: 100,
+  },
+  actionButtonContainerText: {
+    color: 'black',
+    marginTop: 20,
+    marginRight: 20,
+    marginLeft: 20,
+  },
+  actionButton: {
+    height: 150,
+    width: 150,
+  },
+  actionButtonText: {
+    position: 'absolute',
+    zIndex: 1,
+    textAlign: 'center',
+  },
+  bottomFlexBox: {
+    marginRight: '20%',
+    marginLeft: '20%',
+    marginTop: 50,
+  }
 }))
 
-const Main = () => {
-    const classes = useStyles();
-    return (
-        <Layout pageTitle='Home' pageIndex={0}>
-          <Container className={classes.root}>
-            <Box id='banner'>
-                <img className={classes.wrapped}
-                    src='../banner.png'
-                    alt='Adamobile banner' />
-            </Box>
-            <Box className={classes.infoBox}>
-                <Typography className={classes.info}>Adamobiles are NFT-Collectables on the cardano blockchain<br />You can buy, sell, or gift Adamobiles. Or simply enjoy them parked in your wallet</Typography>
-            </Box>
-            <Box className={classes.stayTunedBox}>
-                <Typography className={classes.stayTuned}>Engines starting soon<br />Stay tuned!</Typography>
-            </Box>
-        </Container>
-        </Layout>
-    )
+const FlexBoxCenter = withStyles({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  }
+})(Box)
+
+const FlexBoxEvenly = withStyles({
+  root: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+  }
+})(Box)
+
+const TextHeader = withStyles({
+  root: {
+    fontFamily: 'dodger',
+    variant: 'h2'
+  }
+})(Typography)
+const TextBody = withStyles({
+  root: {
+    fontFamily: 'lato',
+    variant: 'body2'
+  }
+})(Typography)
+
+const IndexPage = (props) => {
+
+  const classes = useStyles()
+  return (
+    <Layout hasTopMargin={false}>
+      <FlexBoxCenter className={classes.main}>
+        <Box className={classes.actionButtonContainer}>
+          <TextHeader className={classes.actionButtonContainerText}>Get your Adamobile now!</TextHeader>
+          <Link to='/buy/'>
+            <Button className={classes.actionButton}>
+              <StaticImage placeholder='transparent' src='../images/action_button.png' alt='action button'/>
+              <TextHeader className={classes.actionButtonText} >Start<br />engine</TextHeader>
+            </Button>
+          </Link>
+        </Box>
+      </FlexBoxCenter>
+      <FlexBoxEvenly className={classes.bottomFlexBox}>
+        <StaticImage style={{objectFit: 'contain'}} placeholder='transparent' src='../images/red_car.png' alt='red car' />
+        <Box width='50%' marginLeft={2}>
+          <TextHeader variant='h2'>Adamobile</TextHeader>
+          <TextBody variant='body1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non blandit quam. Sed id pretium enim. Nam iaculis pulvinar arcu non molestie. Nunc sed semper lacus, mollis tristique justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum semper id ipsum quis convallis. Aliquam erat volutpat. Morbi sed hendrerit metus. Quisque scelerisque laoreet dolor, et ornare eros sollicitudin eget. Cras leo nisl, finibus at luctus fermentum, iaculis quis massa. Nulla ligula nibh, pretium nec orci id, tempus aliquam augue.</TextBody>
+        </Box>
+      </FlexBoxEvenly>
+
+      <FlexBoxEvenly className={classes.bottomFlexBox}>
+        <Box width='60%' marginRight={2}>
+          <TextHeader variant='h2'>1004 unique items</TextHeader>
+          <TextBody variant='body1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non blandit quam. Sed id pretium enim. Nam iaculis pulvinar arcu non molestie. Nunc sed semper lacus, mollis tristique justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum semper id ipsum quis convallis. Aliquam erat volutpat. Morbi sed hendrerit metus. Quisque scelerisque laoreet dolor, et ornare eros sollicitudin eget. Cras leo nisl, finibus at luctus fermentum, iaculis quis massa. Nulla ligula nibh, pretium nec orci id, tempus aliquam augue.</TextBody>
+        </Box>
+        <StaticImage style={{maxWidth: 200}} placeholder='transparent' src='../images/home_accessories.png' alt='accessories' />
+      </FlexBoxEvenly>
+    </Layout>
+  )
 }
 
-export default Main
+export default IndexPage
