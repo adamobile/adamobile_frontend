@@ -46,10 +46,15 @@ const FlexBox = withStyles({
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '95%',
+        maxWidth: 1000,
+        minHeight: '100vh',
     },
     cardRoot: {
-        maxWidth: 400,
+        width: 400,
+        height: 600,
     },
     chips: {
         display: 'flex',
@@ -63,10 +68,12 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'dodger'
     },
     image: {
-        width: '90%'
+        width: '80%',
     },
     shareButton: {
         float: 'right',
+        marginTop: 8,
+        marginRight: 8,
     },
     shareUrlTextField: {
         width: '80%'
@@ -87,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CarDetail = ({ pageContext: { car } }) => {
 
-    const shareUrl = typeof window !== 'undefined' ? window.location.href: null
+    const shareUrl = typeof window !== 'undefined' ? window.location.href : null
     const shareViaTwitter = () => { window.open(`https://twitter.com/intent/tweet?text=Check%20out%20Adamobile%20%23${car.id.slice(1)}%0A&url=${shareUrl}%0A&hashtags=CNFT,Adamobile,${car.id.slice(1)}`, '_blank') }
     const shareViaTelegram = () => { window.open(`https://t.me/share/url?url=${shareUrl}&text=Check%20out%20Adamobile%20%23${car.id.slice(1)}`, '_blank') }
     const shareViaWhatsapp = () => { window.open(`https://wa.me/?text=check%20out%20Adamobile%20%23${car.id.slice(1)} at ${shareUrl}`, '_blank') }

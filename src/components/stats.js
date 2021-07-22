@@ -16,10 +16,14 @@ const useStyles = makeStyles((theme) => ({
             [theme.breakpoints.down('md')]: {
                 fontSize: theme.typography.pxToRem(14),
             },
+            [theme.breakpoints.down('sm')]: {
+                fontSize: theme.typography.pxToRem(10),
+            },
             [theme.breakpoints.up('md')]: {
                 fontSize: theme.typography.pxToRem(20),
             },
         },
+        marginTop: 120,
     },
     link: {
         color: 'white',

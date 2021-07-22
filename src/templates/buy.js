@@ -22,9 +22,10 @@ const axios = require('axios')
 const useStyles = makeStyles((theme) => ({
 
     root: {
-        minHeight: '60vh',
+        minHeight: '100vh',
         width: '95%',
         maxWidth: 1000,
+        marginTop: 60,
     },
     infos: {
         justifyContent: 'space-around',
@@ -146,7 +147,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
     }
 
     return (
-        <Layout pageTitle='Buy' pageIndex={1}>
+        <Layout addStats={true}>
             <Container className={classes.root}>
                 <Box className={classes.topRow}>
                     <Box>

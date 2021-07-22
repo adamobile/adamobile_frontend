@@ -27,11 +27,11 @@ const formatter = new Intl.NumberFormat('en-US', {
 })
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        padding: 32,
-        minHeight: '60vh',
+    statsRoot: {
+        minHeight: '100vh',
         width: '95%',
         maxWidth: 1000,
+        marginTop: 60,
     },
     grid: {
         justifyContent: 'center',
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 10
     },
     pieTitle: {
-        position:'absolute',
+        position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
@@ -64,7 +64,7 @@ const StatsPage = () => {
     const colorYellow = '#f3a90a'
     const colorPink = '#c346c8'
     const colorOrange = '#e65711'
-    
+
     const carColors = [colorBlack, colorBlue, colorRed, colorGreen, colorWhite, colorYellow, colorOrange, colorPink]
     const gradientColors = ['#bb3b3b', '#6e0d0d', '#3d0505', '#af1818', '#ffffff']
 
@@ -96,26 +96,12 @@ const StatsPage = () => {
     }
 
 
-
     const shiftSize = 7
     const classes = useStyles()
     return (
-        <Layout pageTitle='Stats' pageIndex={3}>
-            <Container className={classes.root}>
+        <Layout addStats={true}>
+            <Container className={classes.statsRoot}>
                 <Grid container spacing={10} justifyContent='center' className={classes.grid}>
-
-                    {/* <Button onClick={() => showDetailStats('Available', { available: 876, sold: 76 })}>
-                        <Grid item key='available'>
-                            <Typography>Available/Minted</Typography>
-                            <PieChart
-                                className={classes.pie}
-                                data={[
-                                    { title: 'Minted', value: 13, color: nextColor() },
-                                    { title: 'Available', value: 986, color: nextColor() },
-                                ]}
-                            />
-                        </Grid>
-                    </Button> */}
 
                     <Button onClick={() => showDetailStats('Type', stats.Type)}>
                         <Grid item key='type' item>

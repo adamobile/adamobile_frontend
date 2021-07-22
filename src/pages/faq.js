@@ -14,10 +14,11 @@ import theme from '../theme/theme';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        minHeight: '60vh',
+    faqRoot: {
+        minHeight: '100vh',
         width: '95%',
         maxWidth: 1000,
+        marginTop: 120,
     },
     heading: {
         fontSize: theme.typography.pxToRem(18),
@@ -35,8 +36,8 @@ const FaqPage = () => {
     };
 
     return (
-        <Layout pageTitle='FAQ' pageIndex={4}>
-            <Container className={classes.root}>
+        <Layout addStats={false}>
+            <Container className={classes.faqRoot}>
                 <Box background={theme.palette.background.default}>
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                         <AccordionSummary

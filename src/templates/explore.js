@@ -15,9 +15,11 @@ import { getSessionItem, setSessionItem } from '../utils/utils';
 const axios = require('axios')
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  exploreRoot: {
     width: '95%',
     maxWidth: 1000,
+    minHeight: '100vh',
+    marginTop: 60,
   },
   gridListContainer: {
     display: 'flex',
@@ -79,8 +81,8 @@ const ExplorePage = ({ pageContext: { cars } }) => {
 
   const classes = useStyles()
   return (
-    <Layout pageTitle='Explore' pageIndex={2}>
-      <Container className={classes.root}>
+    <Layout pageTitle='Explore' addStats={true}>
+      <Container className={classes.exploreRoot}>
         <Box>
           <CarGridFilter items={cars} setFilteredItems={setFilteredItems} />
         </Box>

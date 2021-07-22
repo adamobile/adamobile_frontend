@@ -10,8 +10,8 @@ import {
     IconButton,
     Menu,
     MenuItem,
-    Icon,
     SvgIcon,
+    Paper,
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link, navigate } from 'gatsby'
@@ -35,10 +35,20 @@ const FlexBox = withStyles({
     }
 })(Box)
 
+const Spacer = withStyles({
+    root: {
+        color: 'black',
+        fontSize: theme.typography.pxToRem(20),
+        fontWeight: 600,
+        marginLeft: theme.spacing(2),
+        marginRight: theme.spacing(2),
+    }
+})(Typography)
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        height: '100%',
+        minHeight: '100ve',
     },
     logo: {
         width: 150,
@@ -49,24 +59,38 @@ const useStyles = makeStyles((theme) => ({
         width: 75,
         height: 75,
     },
+
     header: {
-        backgroundImage: `url(${Stripe})`,
-        backgroundSize: 'cover'
-    },
-    headerFirstRow: {
+        position: 'absolute',
+        top: 0,
+        width: '100%',
         justifyContent: 'space-around',
+        height: 100,
+        zIndex: 1,
     },
+
     headerLinksMenu: {
-        [theme.breakpoints.down('sm')]: {
-            display: 'block',
-        },
         [theme.breakpoints.up('md')]: {
             display: 'none',
         },
     },
-    headerLinks: {
+    headerLinksContainer: {
+        background: 'white',
+        borderRadius: 20,
+        padding: theme.spacing(2),
         [theme.breakpoints.down('sm')]: {
             display: 'none',
+        },
+    },
+    headerLinks: {
+        '& > a': {
+            color: 'black',
+            textDecoration: 'none',
+            marginRight: 0,
+            '& > .MuiTypography-root': {
+                fontSize: theme.typography.pxToRem(20),
+                fontFamily: 'dodger',
+            },
         },
     },
     title: {
@@ -79,32 +103,28 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'dodger',
         flexGrow: 1,
     },
-    link: {
-        color: 'white',
-        marginRight: theme.spacing(4),
-        textDecoration: 'none',
-    },
     activeLink: {
         color: theme.palette.primary.main
     },
-    linkText: {
-        fontSize: theme.typography.pxToRem(20),
-        fontFamily: 'dodger',
-    },
     footer: {
-        marginTop: 20,
-        padding: 10,
+        marginTop: theme.spacing(2),
+        padding: theme.spacing(1),
         justifyContent: 'center',
-        backgroundImage: `url(${Stripe})`,
-        backgroundSize: 'cover',
+        '& > *': {
+            '& > *': {
+                color: 'white',
+            },
+        },
     },
     verticalFlex: {
         flexDirection: 'column',
+        marginLeft: theme.spacing(3),
+        marginRight: theme.spacing(3),
     },
 
 }))
 
-const Layout = ({ pageTitle, pageIndex, children }) => {
+const Layout = ({ children, addStats }) => {
 
     const classes = useStyles()
 
@@ -126,65 +146,68 @@ const Layout = ({ pageTitle, pageIndex, children }) => {
                 <CssBaseline />
 
                 <Box className={classes.root}>
-
-                    <Box className={classes.header} marginBottom={8}>
-                        <FlexBox id='header' className={classes.headerFirstRow}>
-                            <FlexBox>
-                                <Link to='/'><StaticImage placeholder='transparent' src='../images/logo.png' alt='logo' className={classes.logo} /></Link>
-                                <Typography className={classes.title}>Adamobile</Typography>
-                            </FlexBox>
-                            <FlexBox className={classes.headerLinks}>
-                                <Link activeClassName={classes.activeLink} className={classes.link} to='/buy/'><Typography className={classes.linkText}>Buy</Typography></Link>
-                                <Link activeClassName={classes.activeLink} className={classes.link} to='/explore/'><Typography className={classes.linkText}>Explore</Typography></Link>
-                                <Link activeClassName={classes.activeLink} className={classes.link} to='/stats/'><Typography className={classes.linkText}>Stats</Typography></Link>
-                                <Link activeClassName={classes.activeLink} className={classes.link} to='/faq/'><Typography className={classes.linkText}>fAQ</Typography></Link>
-                            </FlexBox>
-
-                            <Box className={classes.headerLinksMenu}>
-                                <IconButton
-                                    aria-label='menu'
-                                    aria-controls='menu'
-                                    aria-haspopup='true'
-                                    onClick={handleClick}
-                                >
-                                    <MenuIcon />
-                                </IconButton>
-                                <Menu
-                                    id='menu'
-                                    anchorEl={anchorEl}
-                                    keepMounted
-                                    open={open}
-                                    onClose={handleMenuAction}
-                                    PaperProps={{
-                                        style: {
-                                            maxHeight: ITEM_HEIGHT * 4.5,
-                                            width: '20ch',
-                                        },
-                                    }}
-                                >
-                                    {options.map((option) => (
-                                        <MenuItem selected={typeof window !== 'undefined' && window.location.href === option.toLocaleLowerCase()} key={option} onClick={() => { handleMenuAction(`/${option.toLocaleLowerCase()}/`) }}>
-                                            {option}
-                                        </MenuItem>
-                                    ))}
-                                </Menu>
-                            </Box>
+                    <FlexBox className={classes.header}>
+                        <FlexBox>
+                            <Link to='/'><StaticImage placeholder='transparent' src='../images/logo.png' alt='logo' className={classes.logo} /></Link>
+                            <Typography className={classes.title}>Adamobile</Typography>
                         </FlexBox>
-                        <Stats />
-                    </Box>
+                        <Paper className={classes.headerLinksContainer}>
+                            <FlexBox className={classes.headerLinks}>
+                                <Link activeClassName={classes.activeLink} to='/buy/'><Typography className={classes.linkText}>Buy</Typography></Link>
+                                <Spacer>|</Spacer>
+                                <Link activeClassName={classes.activeLink} to='/explore/'><Typography className={classes.linkText}>Explore</Typography></Link>
+                                <Spacer>|</Spacer>
+                                <Link activeClassName={classes.activeLink} to='/stats/'><Typography className={classes.linkText}>Stats</Typography></Link>
+                                <Spacer>|</Spacer>
+                                <Link activeClassName={classes.activeLink} to='/faq/'><Typography className={classes.linkText}>fAQ</Typography></Link>
+                            </FlexBox>
+                        </Paper>
+
+                        <Box className={classes.headerLinksMenu}>
+                            <IconButton
+                                aria-label='menu'
+                                aria-controls='menu'
+                                aria-haspopup='true'
+                                onClick={handleClick}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Menu
+                                id='menu'
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={open}
+                                onClose={handleMenuAction}
+                                PaperProps={{
+                                    style: {
+                                        maxHeight: ITEM_HEIGHT * 4.5,
+                                        width: '20ch',
+                                    },
+                                }}
+                            >
+                                {options.map((option) => (
+                                    <MenuItem selected={typeof window !== 'undefined' && window.location.href === option.toLocaleLowerCase()} key={option} onClick={() => { handleMenuAction(`/${option.toLocaleLowerCase()}/`) }}>
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </Box>
+                    </FlexBox>
+
+                    {addStats && <Stats />}
 
                     {children}
 
-                    <FlexBox id='footer' className={classes.footer}>
+                    <FlexBox className={classes.footer}>
                         <FlexBox className={classes.verticalFlex} style={{ marginRight: 50 }}>
                             <Typography>Powered by</Typography>
                             <a href='https://cardano.org/'><StaticImage placeholder='transparent' src='../images/cardano.png' alt='cardano' className={classes.cardano} /></a>
                         </FlexBox>
                         <FlexBox className={classes.verticalFlex}>
-                            <Link className={classes.link} to='/buy/'><Typography className={classes.link}>Buy</Typography></Link>
-                            <Link className={classes.link} to='/explore/'><Typography className={classes.link}>Explore</Typography></Link>
-                            <Link className={classes.link} to='/stats/'><Typography className={classes.link}>Stats</Typography></Link>
-                            <Link className={classes.link} to='/faq/'><Typography className={classes.link}>FAQ</Typography></Link>
+                            <Link to='/buy/'><Typography className={classes.link}>Buy</Typography></Link>
+                            <Link to='/explore/'><Typography className={classes.link}>Explore</Typography></Link>
+                            <Link to='/stats/'><Typography className={classes.link}>Stats</Typography></Link>
+                            <Link to='/faq/'><Typography className={classes.link}>FAQ</Typography></Link>
                         </FlexBox>
                         <FlexBox className={classes.verticalFlex}>
                             <a href='https://twitter.com/adamobile_cnft' className={classes.link}><Twitter /></a>
