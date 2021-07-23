@@ -93,7 +93,9 @@ const BuyPage = ({ pageContext: { cars } }) => {
 
         axios.get(`${process.env.GATSBY_API_URL}/sold?receiver=${customerWallet}`)
             .then(function (response) {
-                setSoldItems(response.data)
+                if (Array.isArray(response.data)) {
+                    setSoldItems(response.data)
+                  }
             })
             .catch(function (error) {
                 setSoldItems([])

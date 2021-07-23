@@ -45,7 +45,9 @@ const ExplorePage = ({ pageContext: { cars } }) => {
 
     axios.get(`${process.env.GATSBY_API_URL}/sold`)
       .then(function (response) {
-        setSoldItems(response.data)
+        if (Array.isArray(response.data)) {
+          setSoldItems(response.data)
+        }
       })
       .catch(function (error) {
         setSoldItems([])

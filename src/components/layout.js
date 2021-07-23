@@ -16,7 +16,6 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link, navigate } from 'gatsby'
 import Stats from '../components/stats'
-import Stripe from '../images/stripe.png'
 import { Telegram, Twitter, Instagram } from '@material-ui/icons';
 
 const options = [
@@ -51,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
         minHeight: '100ve',
     },
     logo: {
-        width: 150,
-        height: 150,
+        width: 120,
+        height: 120,
         marginRight: theme.spacing(2)
     },
     cardano: {
@@ -153,13 +152,13 @@ const Layout = ({ children, addStats }) => {
                         </FlexBox>
                         <Paper className={classes.headerLinksContainer}>
                             <FlexBox className={classes.headerLinks}>
-                                <Link activeClassName={classes.activeLink} to='/buy/'><Typography className={classes.linkText}>Buy</Typography></Link>
+                                <Link activeStyle={{color: theme.palette.primary.main,}} to='/buy/'><Typography className={classes.linkText}>Buy</Typography></Link>
                                 <Spacer>|</Spacer>
-                                <Link activeClassName={classes.activeLink} to='/explore/'><Typography className={classes.linkText}>Explore</Typography></Link>
+                                <Link activeStyle={{color: theme.palette.primary.main,}} to='/explore/'><Typography className={classes.linkText}>Explore</Typography></Link>
                                 <Spacer>|</Spacer>
-                                <Link activeClassName={classes.activeLink} to='/stats/'><Typography className={classes.linkText}>Stats</Typography></Link>
+                                <Link activeStyle={{color: theme.palette.primary.main,}} to='/stats/'><Typography className={classes.linkText}>Stats</Typography></Link>
                                 <Spacer>|</Spacer>
-                                <Link activeClassName={classes.activeLink} to='/faq/'><Typography className={classes.linkText}>fAQ</Typography></Link>
+                                <Link activeStyle={{color: theme.palette.primary.main,}} to='/faq/'><Typography className={classes.linkText}>fAQ</Typography></Link>
                             </FlexBox>
                         </Paper>
 
