@@ -50,7 +50,7 @@ const Stats = (props) => {
 
         axios.get(`${process.env.GATSBY_API_URL}/stats`)
             .then(function (response) {
-                if (Array.isArray(response.data)) {
+                if (response.data) {
                     setStats(response.data)
                 }
             })
