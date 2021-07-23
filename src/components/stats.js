@@ -66,10 +66,10 @@ const Stats = (props) => {
 
     React.useEffect(() => {
         updateStats()
-        const timer = setTimeout(() => {
+        const timerId = setTimeout(() => {
             updateStats()
         }, 10 * 1000)
-        // return () => { timer.clearTimeout() }
+        return () => { clearInterval(timerId) }
     }, [])
 
 

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.background.paper,
   },
   cardMedia: {
-    height: 200,
+    height: 150,
   },
 }))
 
@@ -51,6 +51,7 @@ const CarCard = (props) => {
             image={`../cars/${car.id.slice(1)}.png`}
             title={car.id}
             onLoad={()=> setImageLoaded(true)}
+            style={{objectFit: 'contain'}}
           />
           <CardContent className={classes.cardContent}>
             <DodgerTypography gutterBottom variant='h5' component='h2'>

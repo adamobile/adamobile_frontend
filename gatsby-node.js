@@ -1,4 +1,5 @@
 const cars = require('./all.json')
+cars.sort(() => Math.random() - 0.5)
 
 exports.createPages = async ({ actions: { createPage } }) => {
     
