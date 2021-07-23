@@ -116,6 +116,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     verticalFlex: {
+        width: 90,
         flexDirection: 'column',
         marginLeft: theme.spacing(3),
         marginRight: theme.spacing(3),
@@ -198,7 +199,7 @@ const Layout = ({ children, addStats }) => {
                     {children}
 
                     <FlexBox className={classes.footer}>
-                        <FlexBox className={classes.verticalFlex} style={{ marginRight: 50 }}>
+                        <FlexBox className={classes.verticalFlex}>
                             <Typography>Powered by</Typography>
                             <a href='https://cardano.org/'><StaticImage placeholder='transparent' src='../images/cardano.png' alt='cardano' className={classes.cardano} /></a>
                         </FlexBox>
