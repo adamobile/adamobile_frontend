@@ -174,7 +174,7 @@ const StatsPage = () => {
             <Dialog
                 open={dialogOpen}
                 onClose={handleClose}
-                onClick={()=>{setDialogOpen(false)}}
+                onClick={() => { setDialogOpen(false) }}
             >
 
                 <DialogTitle>{detailStat.title} (Total {allCount})</DialogTitle>

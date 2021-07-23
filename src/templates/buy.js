@@ -10,7 +10,7 @@ import {
     Link,
     Checkbox,
 } from '@material-ui/core'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import CarCard from '../components/carCard'
 import Layout from '../components/layout'
 import Address from '../images/address.png'
@@ -95,7 +95,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
             .then(function (response) {
                 if (Array.isArray(response.data)) {
                     setSoldItems(response.data)
-                  }
+                }
             })
             .catch(function (error) {
                 setSoldItems([])

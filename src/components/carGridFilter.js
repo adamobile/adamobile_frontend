@@ -9,7 +9,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { getSessionItem, setSessionItem } from '../utils/utils'
 
 const useStyles = makeStyles((theme) => ({
@@ -39,17 +39,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
 }))
-
-const MultipleMenuItem = withStyles((theme) => ({
-  root: {
-    '&:selection': {
-      backgroundColor: theme.palette.primary.main,
-      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-        color: theme.palette.common.white,
-      },
-    },
-  },
-}))(MenuItem);
 
 const CarGridFilter = ({ items, setFilteredItems }) => {
 

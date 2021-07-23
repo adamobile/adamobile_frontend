@@ -11,7 +11,6 @@ import { makeStyles, withStyles } from '@material-ui/core/styles'
 import '../theme/typography.css'
 import Layout from '../components/layout'
 import MainBackground from '../images/home_bg.png'
-import theme from '../theme/theme'
 
 const useStyles = makeStyles((theme) => ({
   main: {
