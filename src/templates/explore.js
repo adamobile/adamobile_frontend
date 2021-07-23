@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
 
 const ExplorePage = ({ pageContext: { cars } }) => {
 
+  cars.sort(() => Math.random() - 0.5)
+
   const initialPage = getSessionItem('page', 1)
   const [visibleItems, setVisibleItems] = React.useState([])
   const [filteredItems, setFilteredItems] = React.useState([...cars])
