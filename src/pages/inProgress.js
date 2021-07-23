@@ -54,6 +54,12 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '5%',
     marginTop: 50,
     maxWidth: 800,
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+    },
+    [theme.breakpoints.up('md')]: {
+      flexDirection: 'row',
+    },
   },
   bottomTitle: {
     [theme.breakpoints.down('md')]: {
@@ -61,6 +67,28 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up('md')]: {
       fontSize: theme.typography.pxToRem(24),
+    },
+  },
+  topInfoText: {
+
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      marginTop: theme.spacing(2),
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '50%',
+      marginLeft: theme.spacing(2),
+    },
+  },
+  bottonInfoText: {
+
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      marginTop: theme.spacing(2),
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '50%',
+      marginRight: theme.spacing(0.5),
     },
   }
 }))
@@ -109,15 +137,15 @@ const IndexPage = (props) => {
       </FlexBoxCenter>
       <FlexBoxCenter flexDirection='column' alignItems='center' justifyContent='flex-end'>
         <FlexBoxEvenly className={classes.bottomFlexBox}>
-          <StaticImage objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../images/red_car.png' alt='red car' />
-          <Box width='50%' marginLeft={4}>
+          <StaticImage style={{ float: 'top' }} objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../images/red_car.png' alt='red car' />
+          <Box className={classes.topInfoText}>
             <TextHeader className={classes.bottomTitle}>Adamobile</TextHeader>
             <TextBody variant='body1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non blandit quam. Sed id pretium enim. Nam iaculis pulvinar arcu non molestie. Nunc sed semper lacus, mollis tristique justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum semper id ipsum quis convallis. Aliquam erat volutpat. Morbi sed hendrerit metus. Quisque scelerisque laoreet dolor, et ornare eros sollicitudin eget. Cras leo nisl, finibus at luctus fermentum, iaculis quis massa. Nulla ligula nibh, pretium nec orci id, tempus aliquam augue.</TextBody>
           </Box>
         </FlexBoxEvenly>
 
         <FlexBoxEvenly className={classes.bottomFlexBox}>
-          <Box width='60%' marginRight={4}>
+          <Box className={classes.bottonInfoText}>
             <TextHeader className={classes.bottomTitle}>1004 unique items</TextHeader>
             <TextBody variant='body1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non blandit quam. Sed id pretium enim. Nam iaculis pulvinar arcu non molestie. Nunc sed semper lacus, mollis tristique justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum semper id ipsum quis convallis. Aliquam erat volutpat. Morbi sed hendrerit metus. Quisque scelerisque laoreet dolor, et ornare eros sollicitudin eget. Cras leo nisl, finibus at luctus fermentum, iaculis quis massa. Nulla ligula nibh, pretium nec orci id, tempus aliquam augue.</TextBody>
           </Box>

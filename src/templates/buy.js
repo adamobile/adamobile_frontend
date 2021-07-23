@@ -191,7 +191,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
                 <Box>
                     <Typography style={{ marginTop: 24 }} component='li'>Enter your wallet address below to see the items you already purchased</Typography>
                     <TextField
-                        style={{ marginBottom: 24, width: '50%', }}
+                        style={{ marginBottom: 24, width: '50%', minWidth: 300, }}
                         label="Your wallet address"
                         value={customerWallet}
                         onChange={handleCustomerWalletChange}
