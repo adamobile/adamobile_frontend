@@ -36,7 +36,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
 
   const initialPage = getSessionItem('page', 1)
   const [visibleItems, setVisibleItems] = React.useState([])
-  const [filteredItems, setFilteredItems] = React.useState([...cars])
+  const [filteredItems, setFilteredItems] = React.useState([])
   const [soldItems, setSoldItems] = React.useState([])
   const [page, setPage] = React.useState(initialPage);
   const [pageCount, setPageCount] = React.useState(101);
@@ -57,6 +57,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
 
   React.useEffect(() => {
     cars.sort(() => Math.random() - 0.5)
+    setFilteredItems(...cars)
     updateSoldItems()
     const timerId = setTimeout(() => {
       updateSoldItems()
