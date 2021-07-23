@@ -57,7 +57,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
 
   React.useEffect(() => {
     cars.sort(() => Math.random() - 0.5)
-    setFilteredItems(...cars)
+    setFilteredItems([...cars])
     updateSoldItems()
     const timerId = setTimeout(() => {
       updateSoldItems()

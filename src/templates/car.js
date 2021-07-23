@@ -39,7 +39,7 @@ const FlexBox = withStyles({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginTop: theme.spacing(2)
+        marginTop: 60,
     }
 })(Box);
 
@@ -72,8 +72,8 @@ const useStyles = makeStyles((theme) => ({
     },
     shareButton: {
         float: 'right',
-        marginTop: 8,
-        marginRight: 8,
+        marginTop: theme.spacing(2),
+        marginRight: theme.spacing(2),
     },
     shareUrlTextField: {
         width: '80%'
