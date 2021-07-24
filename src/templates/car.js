@@ -18,7 +18,6 @@ import {
     withStyles, makeStyles
 } from '@material-ui/core/styles'
 import '../theme/typography.css'
-import theme from '../theme/theme'
 import Layout from '../components/layout'
 import { Share, FileCopy, Twitter, Email, Telegram, WhatsApp } from '@material-ui/icons'
 
