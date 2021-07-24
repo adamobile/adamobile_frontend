@@ -123,7 +123,7 @@ const FaqPage = () => {
                         <VerticalAccordionDetails>
                             <Typography>
                                 In addition to being in the top 5 crypto currencies by market capitalization Cardano has a vibrant NFT community.
-                                Cardano also has low transaction fees and relatively fast settelment times.
+                                Cardano also has low transaction fees and relatively fast settlement times.
                                 The NFTs are represented by native tokens which can be viewed, sent, and received via standrad wallets.
                                 In addition to all these advantages Cardano uses a prove of stake POS algorithm that has a very low environmental impact.
                             </Typography>
