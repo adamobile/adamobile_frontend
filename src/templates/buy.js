@@ -74,8 +74,8 @@ const BuyPage = ({ pageContext: { cars } }) => {
 
     const initialAcceptTerms = getSessionItem('acceptTerms', false)
     const initialCustomerWallet = getSessionItem('customerWallet', '')
-    const address = 'addr_test1qqnsmr08vaekgpvkmjldszu6mgdwtepq9d2ysqsavjqc52qpj5hc4gx57srr7veddvkjgdargmzf9ayfll6yw72afn6sjaxnlr'
-    const amount = '25'
+    const address = 'addr1vxfehn9hwgv6vplxpkn84w2z8ueym7arg5zw6slnxpnfe3gq2lf50'
+    const amount = '42'
     const copyValue = (value, title) => {
         navigator.clipboard.writeText(value)
         setSnackbarTitle(title)
