@@ -59,6 +59,11 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
     filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter })
   }, [typeFilter, colorFilter, rimsFilter, stickerFilter, extrasFilter])
 
+  React.useEffect(() => {
+    items.sort(() => Math.random() - 0.5)
+    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter })
+  }, [])
+
   const handleTypeFilterChange = (event) => {
     setTypeFilter(event.target.value)
   }

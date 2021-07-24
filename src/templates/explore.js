@@ -56,8 +56,6 @@ const ExplorePage = ({ pageContext: { cars } }) => {
   }
 
   React.useEffect(() => {
-    cars.sort(() => Math.random() - 0.5)
-    setFilteredItems([...cars])
     updateSoldItems()
     const timerId = setTimeout(() => {
       updateSoldItems()
@@ -76,7 +74,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
   const columnCount = () => {
     return isSmall ? 2 : isMedium ? 3 : 4
   }
-  const itemsPerPage = 12
+  const itemsPerPage = 60
   const handleChange = (event, value) => {
     setPage(value)
     setSessionItem('page', value)
