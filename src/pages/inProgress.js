@@ -140,17 +140,24 @@ const IndexPage = (props) => {
           <StaticImage style={{ float: 'top' }} objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../images/red_car.png' alt='red car' />
           <Box className={classes.topInfoText}>
             <TextHeader className={classes.bottomTitle}>Adamobile</TextHeader>
-            <TextBody variant='body1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non blandit quam. Sed id pretium enim. Nam iaculis pulvinar arcu non molestie. Nunc sed semper lacus, mollis tristique justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum semper id ipsum quis convallis. Aliquam erat volutpat. Morbi sed hendrerit metus. Quisque scelerisque laoreet dolor, et ornare eros sollicitudin eget. Cras leo nisl, finibus at luctus fermentum, iaculis quis massa. Nulla ligula nibh, pretium nec orci id, tempus aliquam augue.</TextBody>
+            <TextBody variant='body1'></TextBody>
           </Box>
         </FlexBoxEvenly>
 
-        <FlexBoxEvenly className={classes.bottomFlexBox}>
-          <Box className={classes.bottonInfoText}>
-            <TextHeader className={classes.bottomTitle}>1004 unique items</TextHeader>
-            <TextBody variant='body1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non blandit quam. Sed id pretium enim. Nam iaculis pulvinar arcu non molestie. Nunc sed semper lacus, mollis tristique justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum semper id ipsum quis convallis. Aliquam erat volutpat. Morbi sed hendrerit metus. Quisque scelerisque laoreet dolor, et ornare eros sollicitudin eget. Cras leo nisl, finibus at luctus fermentum, iaculis quis massa. Nulla ligula nibh, pretium nec orci id, tempus aliquam augue.</TextBody>
-          </Box>
-          <StaticImage objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../images/home_accessories.png' alt='accessories' />
-        </FlexBoxEvenly>
+        <Link to='/explore/' style={{textDecoration: 'none', color: 'white'}}>
+          <FlexBoxEvenly className={classes.bottomFlexBox}>
+            <Box className={classes.bottonInfoText}>
+              <TextHeader className={classes.bottomTitle}>1007 unique Adamobiles</TextHeader>
+              <br />
+              <TextBody variant='body1'>There are 25 models distributed over 5 types and 8 colors. In addition there is a lot of different rims, stickers and a whole lot cool extras!</TextBody>
+              <br />
+              <TextBody variant='body1'>Every Adamobile is a unique combination of some of these traits producing some stunning results!</TextBody>
+              <br />
+              <TextBody variant='body1'>Every single Adamobile is created manually with a lot of love for detail. Hence the odd total number of 1007!   Click me if you wanna see more?</TextBody>
+            </Box>
+            <StaticImage objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../images/home_accessories.png' alt='accessories' />
+          </FlexBoxEvenly>
+        </Link>
       </FlexBoxCenter>
     </Layout>
   )
