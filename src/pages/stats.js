@@ -78,6 +78,7 @@ const StatsPage = () => {
     }
 
     const pieData = (data, colors) => {
+        console.log(data);
         resetColor()
         return Object.keys(data).map(key => {
             return { title: key, value: data[key], color: nextColor(colors) }
