@@ -74,7 +74,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
   const columnCount = () => {
     return isSmall ? 2 : isMedium ? 3 : 4
   }
-  const itemsPerPage = 60
+  const itemsPerPage = 12
   const handleChange = (event, value) => {
     setPage(value)
     setSessionItem('page', value)
