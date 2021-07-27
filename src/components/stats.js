@@ -82,7 +82,7 @@ const Stats = (props) => {
                         <DodgerTypography>Total {stats.total}</DodgerTypography>
                     </Grid>
                     <Grid key='minted' item>
-                        <DodgerTypography>Minted {stats.minted}</DodgerTypography>
+                        <DodgerTypography>Sold {stats.minted}</DodgerTypography>
                     </Grid>
                     <Grid key='available' item>
                         <DodgerTypography>Available {stats.available}</DodgerTypography>
