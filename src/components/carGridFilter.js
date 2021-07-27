@@ -110,7 +110,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
     setRimsFilter([])
     setStickerFilter([])
     setExtrasFilter([])
-    setFilteredItems([...items])
+    setFilteredItems(getSessionItem('shuffledItems', items, true))
   }
 
   const getMenuItem = (value) => {
