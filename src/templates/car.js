@@ -19,6 +19,7 @@ import {
 } from '@material-ui/core/styles'
 import '../theme/typography.css'
 import Layout from '../components/layout'
+import theme from '../theme/theme'
 import { Share, FileCopy, Twitter, Email, Telegram, WhatsApp } from '@material-ui/icons'
 
 const DodgerTypography = withStyles({
@@ -30,6 +31,9 @@ const DodgerTypography = withStyles({
 const ItemTitle = withStyles({
     root: {
         margin: 10,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: theme.typography.pxToRem(18),
+        },
     }
 })(DodgerTypography)
 
