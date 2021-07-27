@@ -57,7 +57,6 @@ const CarCard = (props) => {
             image={`../cars/${car.id.slice(1)}.png`}
             title={car.id}
             onLoad={() => setImageLoaded(true)}
-            style={{ objectFit: 'contain' }}
           />
           <CardContent className={classes.cardContent}>
             <DodgerTypography gutterBottom className={classes.cardTitle}>

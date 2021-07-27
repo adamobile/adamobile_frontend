@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(2),
     },
     [theme.breakpoints.up('md')]: {
-      width: '50%',
+      width: '70%',
       marginRight: theme.spacing(0.5),
     },
   }
