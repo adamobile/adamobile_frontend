@@ -68,7 +68,7 @@ const Stats = (props) => {
         updateStats()
         const timerId = setTimeout(() => {
             updateStats()
-        }, 10 * 1000)
+        }, 60 * 1000)
         return () => { clearInterval(timerId) }
     }, [])
 

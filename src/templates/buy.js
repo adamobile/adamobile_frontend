@@ -120,7 +120,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
         updateSoldItems()
         const timerId = setTimeout(() => {
             updateSoldItems()
-        }, 10 * 1000)
+        }, 60 * 1000)
         return () => { clearInterval(timerId) }
     }, [])
 
