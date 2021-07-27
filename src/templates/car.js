@@ -31,9 +31,7 @@ const DodgerTypography = withStyles({
 const ItemTitle = withStyles({
     root: {
         margin: 10,
-        [theme.breakpoints.down('sm')]: {
-            fontSize: theme.typography.pxToRem(18),
-        },
+        fontSize: '1.5rem',
     }
 })(DodgerTypography)
 

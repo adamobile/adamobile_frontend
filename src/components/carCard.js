@@ -19,11 +19,17 @@ const useStyles = makeStyles((theme) => ({
   cardMedia: {
     height: 150,
   },
+  cardTitle: {
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1rem',
+    },
+    fontSize: '1.5rem',
+  },
 }))
 
 const DodgerTypography = withStyles({
   root: {
-    fontFamily: 'dodger'
+    fontFamily: 'dodger',
   }
 })(Typography);
 
@@ -50,11 +56,11 @@ const CarCard = (props) => {
             className={classes.cardMedia}
             image={`../cars/${car.id.slice(1)}.png`}
             title={car.id}
-            onLoad={()=> setImageLoaded(true)}
-            style={{objectFit: 'contain'}}
+            onLoad={() => setImageLoaded(true)}
+            style={{ objectFit: 'contain' }}
           />
           <CardContent className={classes.cardContent}>
-            <DodgerTypography gutterBottom variant='h5' component='h2'>
+            <DodgerTypography gutterBottom className={classes.cardTitle}>
               {`${car.id}`} {issold ? 'SOLD!' : ''}
             </DodgerTypography>
           </CardContent>
