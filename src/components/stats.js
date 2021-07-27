@@ -66,7 +66,7 @@ const Stats = (props) => {
 
     React.useEffect(() => {
         updateStats()
-        const timerId = setTimeout(() => {
+        const timerId = setInterval(() => {
             updateStats()
         }, 60 * 1000)
         return () => { clearInterval(timerId) }

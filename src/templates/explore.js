@@ -50,17 +50,12 @@ const ExplorePage = ({ pageContext: { cars } }) => {
         }
       })
       .catch(function (error) {
-        setSoldItems([])
         console.log(error)
       })
   }
 
   React.useEffect(() => {
     updateSoldItems()
-    const timerId = setTimeout(() => {
-      updateSoldItems()
-    }, 60 * 1000)
-    return () => { clearInterval(timerId) }
   }, [])
 
   React.useEffect(() => {
@@ -86,7 +81,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
     <Layout pageTitle='Explore' addStats={true}>
       <Container className={classes.exploreRoot}>
         <Box>
-          <CarGridFilter items={cars} setFilteredItems={setFilteredItems} />
+          <CarGridFilter items={cars} soldItems={soldItems.map(sold => sold.id)} setFilteredItems={setFilteredItems} />
         </Box>
         <Box className={classes.gridListContainer}>
           <GridList cellHeight={250} spacing={20} cols={columnCount()}>

@@ -91,7 +91,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
 
     const updateSoldItems = () => {
 
-        axios.get(`${process.env.GATSBY_API_URL}/sold?receiver=${customerWallet}`)
+        axios.get(`${process.env.GATSBY_API_URL}/sold?receiver=${customerWallet}&limit=20`)
             .then(function (response) {
                 if (Array.isArray(response.data)) {
                     setSoldItems(response.data)
@@ -118,7 +118,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
 
     React.useEffect(() => {
         updateSoldItems()
-        const timerId = setTimeout(() => {
+        const timerId = setInterval(() => {
             updateSoldItems()
         }, 60 * 1000)
         return () => { clearInterval(timerId) }

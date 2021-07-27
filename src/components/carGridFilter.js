@@ -40,24 +40,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const CarGridFilter = ({ items, setFilteredItems }) => {
+const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
 
-  var initialFilters = getSessionItem('filters', { type: [], color: [], rims: [], sticker: [], extras: [] }, true)
+  var initialFilters = getSessionItem('filters', { type: [], color: [], rims: [], sticker: [], extras: [] , sold: []}, true)
 
   const [typeFilter, setTypeFilter] = React.useState(initialFilters.type)
   const [colorFilter, setColorFilter] = React.useState(initialFilters.color)
   const [rimsFilter, setRimsFilter] = React.useState(initialFilters.rims)
   const [stickerFilter, setStickerFilter] = React.useState(initialFilters.sticker)
   const [extrasFilter, setExtrasFilter] = React.useState(initialFilters.extras)
+  const [soldFilter, setSoldFilter] = React.useState(initialFilters.sold)
 
   const getFilters = () => {
-    return { type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter }
+    return { type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter, sold: soldFilter }
   }
 
   React.useEffect(() => {
     setSessionItem('filters', JSON.stringify(getFilters()))
-    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter })
-  }, [typeFilter, colorFilter, rimsFilter, stickerFilter, extrasFilter])
+    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter, sold: soldFilter })
+  }, [typeFilter, colorFilter, rimsFilter, stickerFilter, extrasFilter, soldFilter])
 
   React.useEffect(() => {
     if (!getSessionItem('didShuffle', false)) {
@@ -68,7 +69,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
     else{
       items = getSessionItem('shuffledItems', items, true)
     }
-    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter })
+    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter, sold: soldFilter })
   }, [])
 
   const handleTypeFilterChange = (event) => {
@@ -91,6 +92,18 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
     setExtrasFilter(event.target.value)
   }
 
+  const handleSoldFilterChange = (event) => {
+    setSoldFilter(event.target.value)
+  }
+
+  const filterSold = (args) => {
+    if (args[0]==='Sold') {
+      return items.filter(item => soldItems.includes(item.id))
+    }
+
+    return items.filter(item => !soldItems.includes(item.id))
+  }
+
   const filterItems = (args) => {
 
     const filteredType = args.type.length > 0 ? items.filter(item => args.type.some(typeFilter => item.type === typeFilter)) : [...items]
@@ -98,9 +111,10 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
     const filteredRims = args.rims.length > 0 ? items.filter(item => args.rims.some(rimsFilter => item.rims === rimsFilter)) : [...items]
     const filteredSticker = args.sticker.length > 0 ? items.filter(item => args.sticker.some(stickerFilter => item.sticker === stickerFilter)) : [...items]
     const filteredExtras = args.extras.length > 0 ? items.filter(item => args.extras.some(extraFilter => item.extras.includes(extraFilter))) : [...items]
+    const filteredSold = args.sold.length === 1 ? filterSold(args.sold) : [...items]
 
     setFilteredItems(items.filter(item => {
-      return filteredType.includes(item) && filteredColor.includes(item) && filteredRims.includes(item) && filteredSticker.includes(item) && filteredExtras.includes(item)
+      return filteredType.includes(item) && filteredColor.includes(item) && filteredRims.includes(item) && filteredSticker.includes(item) && filteredExtras.includes(item) && filteredSold.includes(item)
     }))
   }
 
@@ -110,6 +124,7 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
     setRimsFilter([])
     setStickerFilter([])
     setExtrasFilter([])
+    setSoldFilter([])
     setFilteredItems(getSessionItem('shuffledItems', items, true))
   }
 
@@ -219,6 +234,26 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
         >
           {['Front horn', 'Top horn', 'Front spikes', 'Top spikes', 'Rear spikes', 'Front lights', 'Top lights', 'Police lights', 'Shark fin', 'Golden lion', 'Turbine', 'Monster exhaust', 'Spoiler', 'Taxi', 'Antenna', 'Firefighter', 'Ship', 'Tent', 'Devil horns'].map((extras) => {
             return getMenuItem(extras)
+          })}
+        </Select>
+      </FormControl>
+
+
+      <FormControl className={classes.formControl}>
+        <InputLabel shrink id='soldFilterLabel' className={classes.filterLabel}>
+          Sold
+        </InputLabel>
+        <Select
+          multiple
+          labelId='soldFilterLabel'
+          id='soldFilterId'
+          className={classes.selectEmpty}
+          value={soldFilter}
+          onChange={handleSoldFilterChange}
+          renderValue={(selected) => selected.join(", ")}
+        >
+          {['Sold', 'Available'].map((sold) => {
+            return getMenuItem(sold)
           })}
         </Select>
       </FormControl>
