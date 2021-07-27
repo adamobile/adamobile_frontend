@@ -61,10 +61,14 @@ const CarGridFilter = ({ items, setFilteredItems }) => {
 
   React.useEffect(() => {
     if (!getSessionItem('didShuffle', false)) {
-      setSessionItem('didShuffle', true)
       items.sort(() => Math.random() - 0.5)
-      filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter })
+      setSessionItem('didShuffle', true)
+      setSessionItem('shuffledItems', JSON.stringify(items))
     }
+    else{
+      items = getSessionItem('shuffledItems', items, true)
+    }
+    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter })
   }, [])
 
   const handleTypeFilterChange = (event) => {
