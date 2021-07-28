@@ -27,8 +27,16 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
   },
+  gridList: {
+    width: '100%',
+    '& > .MuiGridListTile-root': {
+      width: '100%',
+    }
+  },
   pagination: {
     margin: theme.spacing(4),
+    display: 'flex',
+    justifyContent: 'center',
   },
 }))
 
@@ -37,7 +45,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
   const initialPage = getSessionItem('page', 1)
   const [visibleItems, setVisibleItems] = React.useState([])
   const [filteredItems, setFilteredItems] = React.useState([])
-  const [soldItems, setSoldItems] = React.useState([])
+  const [soldItems, setSoldItems] = React.useState(new Map())
   const [page, setPage] = React.useState(initialPage);
   const [pageCount, setPageCount] = React.useState(101);
 
@@ -46,7 +54,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
     axios.get(`${process.env.GATSBY_API_URL}/sold`)
       .then(function (response) {
         if (Array.isArray(response.data)) {
-          setSoldItems(response.data)
+          setSoldItems(new Map(response.data.map(key => [key.id, key.receiver])))
         }
       })
       .catch(function (error) {
@@ -81,16 +89,16 @@ const ExplorePage = ({ pageContext: { cars } }) => {
     <Layout pageTitle='Explore' addStats={true}>
       <Container className={classes.exploreRoot}>
         <Box>
-          <CarGridFilter items={cars} soldItems={soldItems.map(sold => sold.id)} setFilteredItems={setFilteredItems} />
+          <CarGridFilter items={cars} soldItems={soldItems} setFilteredItems={setFilteredItems} />
         </Box>
         <Box className={classes.gridListContainer}>
-          <GridList cellHeight={250} spacing={20} cols={columnCount()}>
+          <GridList cellHeight={250} spacing={20} cols={columnCount()} className={classes.gridList}>
             {visibleItems.map((car) => (
-              <CarCard key={car.id} id={car.id} car={car} issold={soldItems.map(sold => sold.id).includes(car.id)} />
+              <CarCard key={car.id} id={car.id} car={car} receiver={soldItems.get(car.id)} />
             ))}
           </GridList>
-          <Pagination className={classes.pagination} page={page} onChange={handleChange} count={pageCount} shape="rounded" showFirstButton showLastButton />
         </Box>
+        <Pagination className={classes.pagination} page={page} onChange={handleChange} count={pageCount} shape="rounded" showFirstButton showLastButton />
       </Container>
     </Layout>
   )

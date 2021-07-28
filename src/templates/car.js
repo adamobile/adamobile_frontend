@@ -13,6 +13,7 @@ import {
     Snackbar,
     DialogContent,
     TextField,
+    Tooltip,
 } from '@material-ui/core'
 import {
     withStyles, makeStyles
@@ -93,8 +94,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const CarDetail = ({ pageContext: { car } }) => {
+const CarDetail = ({ location, pageContext: { car } }) => {
 
+    const owner = location.state.owner
     const shareUrl = typeof window !== 'undefined' ? window.location.href : null
     const shareViaTwitter = () => { window.open(`https://twitter.com/intent/tweet?text=Check%20out%20Adamobile%20%23${car.id.slice(1)}%0A&url=${shareUrl}%0A&hashtags=CNFT,Adamobile,${car.id.slice(1)}`, '_blank') }
     const shareViaTelegram = () => { window.open(`https://t.me/share/url?url=${shareUrl}&text=Check%20out%20Adamobile%20%23${car.id.slice(1)}`, '_blank') }
@@ -155,6 +157,10 @@ const CarDetail = ({ pageContext: { car } }) => {
                                 getChips(car[trait])
                             ))}
                         </Box>
+                        {owner !== null && <Tooltip title={`Owner: ${owner}`}>
+                            <Typography noWrap variant='body1' style={{marginTop: 8}}>{owner}</Typography>
+                        </Tooltip>
+                        }
                     </CardContent>
                 </Card>
             </Container>

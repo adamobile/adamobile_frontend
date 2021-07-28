@@ -98,10 +98,10 @@ const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
 
   const filterSold = (args) => {
     if (args[0]==='Sold') {
-      return items.filter(item => soldItems.includes(item.id))
+      return items.filter(item => soldItems.has(item.id))
     }
 
-    return items.filter(item => !soldItems.includes(item.id))
+    return items.filter(item => !soldItems.has(item.id))
   }
 
   const filterItems = (args) => {

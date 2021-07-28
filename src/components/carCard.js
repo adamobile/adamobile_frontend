@@ -7,6 +7,7 @@ import {
   CardContent,
   CardMedia,
   Typography,
+  Tooltip,
 } from '@material-ui/core'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
@@ -25,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     },
     fontSize: '1.5rem',
   },
+  cardSubtitle: {
+    fontSize: '1rem',
+  },
 }))
 
 const DodgerTypography = withStyles({
@@ -36,7 +40,7 @@ const DodgerTypography = withStyles({
 
 const CarCard = (props) => {
 
-  const { car, issold } = props
+  const { car, receiver: owner } = props
   const classes = useStyles()
   const [imageLoaded, setImageLoaded] = React.useState(false)
 
@@ -45,7 +49,7 @@ const CarCard = (props) => {
       <Card className={classes.cardRoot}
         onClick={
           () => {
-            navigate(`/explore/car/${car.id.slice(1)}`)
+            navigate(`/explore/car/${car.id.slice(1)}`, {state:{owner: owner}})
           }}>
         <CardActionArea >
           {
@@ -60,8 +64,12 @@ const CarCard = (props) => {
           />
           <CardContent className={classes.cardContent}>
             <DodgerTypography gutterBottom className={classes.cardTitle}>
-              {`${car.id}`} {issold ? 'SOLD!' : ''}
+              {`${car.id}`}
             </DodgerTypography>
+            {owner !== null && <Tooltip title={`Owner: ${owner}`}>
+              <Typography noWrap variant='body1'>{owner}</Typography>
+            </Tooltip>
+            }
           </CardContent>
         </CardActionArea>
       </Card>
