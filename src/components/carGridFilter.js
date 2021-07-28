@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
   },
   select: {
     marginTop: theme.spacing(2),
-    display: 'grid',
   },
   menuItem: {
     '& .MuiListItemIcon-root': {
@@ -43,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
 
-  var initialFilters = getSessionItem('filters', { type: [], color: [], rims: [], sticker: [], extras: [] , sold: []}, true)
+  var initialFilters = getSessionItem('filters', { type: [], color: [], rims: [], sticker: [], extras: [], sold: [] }, true)
 
   const [typeFilter, setTypeFilter] = React.useState(initialFilters.type)
   const [colorFilter, setColorFilter] = React.useState(initialFilters.color)
@@ -69,7 +68,7 @@ const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
       setSessionItem('didShuffle', true)
       setSessionItem('shuffledItems', JSON.stringify(shuffledItems))
     }
-    else{
+    else {
       shuffledItems = getSessionItem('shuffledItems', items, true)
     }
     filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter, sold: soldFilter }, shuffledItems)
@@ -100,7 +99,7 @@ const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
   }
 
   const filterSold = (args, shuffledItems) => {
-    if (args[0]==='Sold') {
+    if (args[0] === 'Sold') {
       return shuffledItems.filter(item => soldItems.has(item.id))
     }
 
@@ -109,15 +108,31 @@ const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
 
   const filterItems = (args, shuffledItems) => {
 
-    const filteredType = args.type.length > 0 ? shuffledItems.filter(item => args.type.some(typeFilter => item.type === typeFilter)) : [...shuffledItems]
-    const filteredColor = args.color.length > 0 ? shuffledItems.filter(item => args.color.some(colorFilter => item.color === colorFilter)) : [...shuffledItems]
-    const filteredRims = args.rims.length > 0 ? shuffledItems.filter(item => args.rims.some(rimsFilter => item.rims === rimsFilter)) : [...shuffledItems]
-    const filteredSticker = args.sticker.length > 0 ? shuffledItems.filter(item => args.sticker.some(stickerFilter => item.sticker === stickerFilter)) : [...shuffledItems]
-    const filteredExtras = args.extras.length > 0 ? shuffledItems.filter(item => args.extras.some(extraFilter => item.extras.includes(extraFilter))) : [...shuffledItems]
-    const filteredSold = args.sold.length === 1 ? filterSold(args.sold) : [...shuffledItems]
+    const shouldFilteredType = args.type.length > 0
+    const filteredType = shouldFilteredType ? shuffledItems.filter(item => args.type.some(typeFilter => item.type === typeFilter)) : []
+
+    const shouldFilterColor = args.color.length > 0
+    const filteredColor = shouldFilterColor ? shuffledItems.filter(item => args.color.some(colorFilter => item.color === colorFilter)) : []
+
+    const shouldFilterRims = args.rims.length > 0
+    const filteredRims = shouldFilterRims ? shuffledItems.filter(item => args.rims.some(rimsFilter => item.rims === rimsFilter)) : []
+
+    const shouldFilterSticker = args.sticker.length > 0
+    const filteredSticker = shouldFilterSticker ? shuffledItems.filter(item => args.sticker.some(stickerFilter => item.sticker === stickerFilter)) : []
+
+    const shouldFilterExtras = args.extras.length > 0
+    const filteredExtras = shouldFilterExtras ? shuffledItems.filter(item => args.extras.some(extraFilter => item.extras.includes(extraFilter))) : []
+
+    const shouldFilterSold = args.sold.length === 1
+    const filteredSold = shouldFilterSold ? filterSold(args.sold, shuffledItems) : []
 
     setFilteredItems(shuffledItems.filter(item => {
-      return filteredType.includes(item) && filteredColor.includes(item) && filteredRims.includes(item) && filteredSticker.includes(item) && filteredExtras.includes(item) && filteredSold.includes(item)
+      return (shouldFilteredType ? filteredType.includes(item) : true)
+        && (shouldFilterColor ? filteredColor.includes(item) : true)
+        && (shouldFilterRims ? filteredRims.includes(item) : true)
+        && (shouldFilterSticker ? filteredSticker.includes(item) : true)
+        && (shouldFilterExtras ? filteredExtras.includes(item) : true)
+        && (shouldFilterSold ? filteredSold.includes(item) : true)
     }))
   }
 
