@@ -45,7 +45,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
   const initialPage = getSessionItem('page', 1)
   const [visibleItems, setVisibleItems] = React.useState([])
   const [filteredItems, setFilteredItems] = React.useState([])
-  const [soldItems, setSoldItems] = React.useState(new Map())
+  const [soldItems, setSoldItems] = React.useState(new Map(getSessionItem('soldItems', [], true).map(key => [key.id, key.receiver])))
   const [page, setPage] = React.useState(initialPage);
   const [pageCount, setPageCount] = React.useState(101);
 
@@ -54,6 +54,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
     axios.get(`${process.env.GATSBY_API_URL}/sold`)
       .then(function (response) {
         if (Array.isArray(response.data)) {
+          setSessionItem('soldItems', JSON.stringify(response.data))
           setSoldItems(new Map(response.data.map(key => [key.id, key.receiver])))
         }
       })
