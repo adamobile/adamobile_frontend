@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CarDetail = ({ location, pageContext: { car } }) => {
 
-    const owner = location.state.owner
+    const owner = typeof window !== 'undefined' ? window.location.owner : null
     const shareUrl = typeof window !== 'undefined' ? window.location.href : null
     const shareViaTwitter = () => { window.open(`https://twitter.com/intent/tweet?text=Check%20out%20Adamobile%20%23${car.id.slice(1)}%0A&url=${shareUrl}%0A&hashtags=CNFT,Adamobile,${car.id.slice(1)}`, '_blank') }
     const shareViaTelegram = () => { window.open(`https://t.me/share/url?url=${shareUrl}&text=Check%20out%20Adamobile%20%23${car.id.slice(1)}`, '_blank') }
