@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ExplorePage = ({ pageContext: { cars } }) => {
 
-  const initialPage = getSessionItem('page', 1)
+  const initialPage = parseInt(getSessionItem('page', 1))
   const [visibleItems, setVisibleItems] = React.useState([])
   const [filteredItems, setFilteredItems] = React.useState([])
   const [soldItems, setSoldItems] = React.useState(new Map(getSessionItem('soldItems', [], true).map(key => [key.id, key.receiver])))

@@ -58,19 +58,21 @@ const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
 
   React.useEffect(() => {
     setSessionItem('filters', JSON.stringify(getFilters()))
-    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter, sold: soldFilter })
+    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter, sold: soldFilter }, getSessionItem('shuffledItems', items, true))
   }, [typeFilter, colorFilter, rimsFilter, stickerFilter, extrasFilter, soldFilter])
 
   React.useEffect(() => {
+    var shuffledItems
     if (!getSessionItem('didShuffle', false)) {
-      items.sort(() => Math.random() - 0.5)
+      shuffledItems = [...items]
+      shuffledItems.sort(() => Math.random() - 0.5)
       setSessionItem('didShuffle', true)
-      setSessionItem('shuffledItems', JSON.stringify(items))
+      setSessionItem('shuffledItems', JSON.stringify(shuffledItems))
     }
     else{
-      items = getSessionItem('shuffledItems', items, true)
+      shuffledItems = getSessionItem('shuffledItems', items, true)
     }
-    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter, sold: soldFilter })
+    filterItems({ type: typeFilter, color: colorFilter, rims: rimsFilter, sticker: stickerFilter, extras: extrasFilter, sold: soldFilter }, shuffledItems)
   }, [])
 
   const handleTypeFilterChange = (event) => {
@@ -97,24 +99,24 @@ const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
     setSoldFilter(event.target.value)
   }
 
-  const filterSold = (args) => {
+  const filterSold = (args, shuffledItems) => {
     if (args[0]==='Sold') {
-      return items.filter(item => soldItems.has(item.id))
+      return shuffledItems.filter(item => soldItems.has(item.id))
     }
 
-    return items.filter(item => !soldItems.has(item.id))
+    return shuffledItems.filter(item => !soldItems.has(item.id))
   }
 
-  const filterItems = (args) => {
+  const filterItems = (args, shuffledItems) => {
 
-    const filteredType = args.type.length > 0 ? items.filter(item => args.type.some(typeFilter => item.type === typeFilter)) : [...items]
-    const filteredColor = args.color.length > 0 ? items.filter(item => args.color.some(colorFilter => item.color === colorFilter)) : [...items]
-    const filteredRims = args.rims.length > 0 ? items.filter(item => args.rims.some(rimsFilter => item.rims === rimsFilter)) : [...items]
-    const filteredSticker = args.sticker.length > 0 ? items.filter(item => args.sticker.some(stickerFilter => item.sticker === stickerFilter)) : [...items]
-    const filteredExtras = args.extras.length > 0 ? items.filter(item => args.extras.some(extraFilter => item.extras.includes(extraFilter))) : [...items]
-    const filteredSold = args.sold.length === 1 ? filterSold(args.sold) : [...items]
+    const filteredType = args.type.length > 0 ? shuffledItems.filter(item => args.type.some(typeFilter => item.type === typeFilter)) : [...shuffledItems]
+    const filteredColor = args.color.length > 0 ? shuffledItems.filter(item => args.color.some(colorFilter => item.color === colorFilter)) : [...shuffledItems]
+    const filteredRims = args.rims.length > 0 ? shuffledItems.filter(item => args.rims.some(rimsFilter => item.rims === rimsFilter)) : [...shuffledItems]
+    const filteredSticker = args.sticker.length > 0 ? shuffledItems.filter(item => args.sticker.some(stickerFilter => item.sticker === stickerFilter)) : [...shuffledItems]
+    const filteredExtras = args.extras.length > 0 ? shuffledItems.filter(item => args.extras.some(extraFilter => item.extras.includes(extraFilter))) : [...shuffledItems]
+    const filteredSold = args.sold.length === 1 ? filterSold(args.sold) : [...shuffledItems]
 
-    setFilteredItems(items.filter(item => {
+    setFilteredItems(shuffledItems.filter(item => {
       return filteredType.includes(item) && filteredColor.includes(item) && filteredRims.includes(item) && filteredSticker.includes(item) && filteredExtras.includes(item) && filteredSold.includes(item)
     }))
   }
