@@ -135,7 +135,7 @@ const CarDetail = ({ location, pageContext: { car } }) => {
                 className={classes.chip}
                 key={trait}
                 label={trait}
-                avatar={<Avatar alt={trait} src={`../../clipart/${trait}.png`} />} />
+                avatar={<Avatar alt={trait} src={`../../../clipart/${trait}.png`} />} />
         }
     }
 
@@ -147,7 +147,7 @@ const CarDetail = ({ location, pageContext: { car } }) => {
                     <CardMedia
                         component="img"
                         className={classes.cardMedia}
-                        image={`../../cars/${car.id.slice(1)}.png`}
+                        image={`../../../cars/${car.id.slice(1)}.png`}
                         title={car.id}
                     />
                     <CardContent className={classes.cardContent}>
@@ -169,7 +169,7 @@ const CarDetail = ({ location, pageContext: { car } }) => {
                 <DialogContent dividers className={classes.dialogContent}>
                     <DodgerTypography>Share</DodgerTypography>
                     <DodgerTypography>Adamobile {car.id}</DodgerTypography>
-                    <img src={`../../cars/${car.id.slice(1)}.png`} alt={car.id} width={350} />
+                    <img src={`../../../cars/${car.id.slice(1)}.png`} alt={car.id} width={350} />
                     <FlexBox>
                         <TextField
                             className={classes.shareUrlTextField}
