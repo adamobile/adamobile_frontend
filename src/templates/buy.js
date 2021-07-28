@@ -83,7 +83,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
     }
 
     const classes = useStyles()
-    const [soldItems, setSoldItems] = React.useState([])
+    const [soldItems, setSoldItems] = React.useState(new Map())
     const [acceptTerms, setAcceptTerms] = React.useState(initialAcceptTerms)
     const [customerWallet, setCustomerWallet] = React.useState(initialCustomerWallet)
     const [snackbarOpen, setSnackbarOpen] = React.useState(false)
@@ -94,7 +94,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
         axios.get(`${process.env.GATSBY_API_URL}/sold?receiver=${customerWallet}&limit=20`)
             .then(function (response) {
                 if (Array.isArray(response.data)) {
-                    setSoldItems(response.data)
+                    setSoldItems(new Map(response.data.map(key => [key.id, key.receiver])))
                 }
             })
             .catch(function (error) {
@@ -139,13 +139,13 @@ const BuyPage = ({ pageContext: { cars } }) => {
     }
 
     const getFilteredItems = () => {
-        const soldCars = cars.filter(car => soldItems.map(sold => sold.id).includes(car.id))
+        const soldCars = cars.filter(car => soldItems.has(car.id))
         if (!customerWallet) {
             return soldCars
         }
 
-        const customerItems = soldItems.filter(sold => sold.receiver === customerWallet)
-        return soldCars.filter(car => customerItems.map(sold => sold.id).includes(car.id))
+        const customerItems = Array.from(soldItems.entries()).filter(e => e[1] === customerWallet)
+        return soldCars.filter(car => customerItems.map(e => e[0]).includes(car.id))
     }
 
     return (
@@ -198,7 +198,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
                     />
                     <GridList id='gridList' cellHeight={250} className={classes.gridList} cols={2.5}>
                         {getFilteredItems().map((item) => (
-                            <CarCard key={item.id} id={item.id} car={item} issold={soldItems.includes(item.id)} />
+                            <CarCard key={item.id} id={item.id} car={item} receiver={soldItems.get(item.id)} />
                         ))}
                     </GridList>
                 </Box>

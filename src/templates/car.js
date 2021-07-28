@@ -22,6 +22,7 @@ import '../theme/typography.css'
 import Layout from '../components/layout'
 import theme from '../theme/theme'
 import { Share, FileCopy, Twitter, Email, Telegram, WhatsApp } from '@material-ui/icons'
+const axios = require('axios')
 
 const DodgerTypography = withStyles({
     root: {
@@ -94,9 +95,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const CarDetail = ({ location, pageContext: { car } }) => {
+const CarDetail = ({ pageContext: { car } }) => {
 
-    const owner = typeof window !== 'undefined' ? window.location.owner : null
     const shareUrl = typeof window !== 'undefined' ? window.location.href : null
     const shareViaTwitter = () => { window.open(`https://twitter.com/intent/tweet?text=Check%20out%20Adamobile%20%23${car.id.slice(1)}%0A&url=${shareUrl}%0A&hashtags=CNFT,Adamobile,${car.id.slice(1)}`, '_blank') }
     const shareViaTelegram = () => { window.open(`https://t.me/share/url?url=${shareUrl}&text=Check%20out%20Adamobile%20%23${car.id.slice(1)}`, '_blank') }
@@ -108,6 +108,19 @@ const CarDetail = ({ location, pageContext: { car } }) => {
 
     const [dialogOpen, setDialogOpen] = React.useState(false)
     const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+    const [owner, setOwner] = React.useState(false)
+
+    React.useEffect(() => {
+        axios.get(`${process.env.GATSBY_API_URL}/owner?id=${car.id.slice(1)}`)
+            .then(function (response) {
+                if (response.data) {
+                    setOwner(response.data.receiver)
+                }
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }, [])
 
     const handleDialogClose = () => {
         setDialogOpen(false)
@@ -152,15 +165,15 @@ const CarDetail = ({ location, pageContext: { car } }) => {
                     />
                     <CardContent className={classes.cardContent}>
                         <ItemTitle>Adamobile {car.id}</ItemTitle>
+                        {owner !== null && <Tooltip title={`Owner: ${owner}`}>
+                            <Typography noWrap variant='body1' style={{ marginTop: 8, marginBottom: 8 }}>{owner}</Typography>
+                        </Tooltip>
+                        }
                         <Box className={classes.chips}>
                             {Object.keys(car).filter(trait => car[trait].length).map((trait) => (
                                 getChips(car[trait])
                             ))}
                         </Box>
-                        {owner !== null && <Tooltip title={`Owner: ${owner}`}>
-                            <Typography noWrap variant='body1' style={{marginTop: 8}}>{owner}</Typography>
-                        </Tooltip>
-                        }
                     </CardContent>
                 </Card>
             </Container>

@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   select: {
     marginTop: theme.spacing(2),
+    display: 'grid',
   },
   menuItem: {
     '& .MuiListItemIcon-root': {
@@ -151,7 +152,7 @@ const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
           multiple
           labelId='typeFilterLabel'
           id='typeFilterId'
-          className={classes.selectEmpty}
+          className={classes.select}
           value={typeFilter}
           onChange={handleTypeFilterChange}
           renderValue={(selected) => selected.join(", ")}
@@ -170,7 +171,7 @@ const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
           multiple
           labelId='colorFilterLabel'
           id='colorFilterId'
-          className={classes.selectEmpty}
+          className={classes.select}
           value={colorFilter}
           onChange={handleColorFilterChange}
           renderValue={(selected) => selected.join(", ")}
@@ -189,7 +190,7 @@ const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
           multiple
           labelId='rimsFilterLabel'
           id='rimsFilterId'
-          className={classes.selectEmpty}
+          className={classes.select}
           value={rimsFilter}
           onChange={handleRimsFilterChange}
           renderValue={(selected) => selected.join(", ")}
@@ -208,7 +209,7 @@ const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
           multiple
           labelId='stickerFilterLabel'
           id='stickerFilterId'
-          className={classes.selectEmpty}
+          className={classes.select}
           value={stickerFilter}
           onChange={handleStickerFilterChange}
           renderValue={(selected) => selected.join(", ")}
@@ -227,7 +228,7 @@ const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
           multiple
           labelId='extrasFilterLabel'
           id='extrasFilterId'
-          className={classes.selectEmpty}
+          className={classes.select}
           value={extrasFilter}
           onChange={handleExtrasFilterChange}
           renderValue={(selected) => selected.join(", ")}
@@ -247,7 +248,7 @@ const CarGridFilter = ({ items, soldItems, setFilteredItems }) => {
           multiple
           labelId='soldFilterLabel'
           id='soldFilterId'
-          className={classes.selectEmpty}
+          className={classes.select}
           value={soldFilter}
           onChange={handleSoldFilterChange}
           renderValue={(selected) => selected.join(", ")}

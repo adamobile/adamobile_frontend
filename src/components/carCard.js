@@ -49,7 +49,7 @@ const CarCard = (props) => {
       <Card className={classes.cardRoot}
         onClick={
           () => {
-            navigate(`/explore/car/${car.id.slice(1)}`, {state:{owner: owner}})
+            navigate(`/explore/car/${car.id.slice(1)}`)
           }}>
         <CardActionArea >
           {
