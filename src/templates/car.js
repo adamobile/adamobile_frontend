@@ -14,6 +14,7 @@ import {
     DialogContent,
     TextField,
     Tooltip,
+    Link,
 } from '@material-ui/core'
 import {
     withStyles, makeStyles
@@ -164,13 +165,13 @@ const CarDetail = ({ pageContext: { car } }) => {
                         title={car.id}
                     />
                     <CardContent className={classes.cardContent}>
-                        <ItemTitle>Adamobile {car.id}</ItemTitle>
+                        <ItemTitle>Adamobile<br/>{car.id}</ItemTitle>
                         {owner !== null && <Tooltip title={`Owner: ${owner}`}>
-                            <Typography noWrap variant='body1' style={{ marginTop: 8, marginBottom: 8 }}>{owner}</Typography>
+                            <Link style={{color: 'white'}} href={`https://pool.pm/${owner}`} target='_blank'><Typography noWrap variant='body1' style={{ marginTop: 8, marginBottom: 8 }}>{owner}</Typography></Link>
                         </Tooltip>
                         }
                         <Box className={classes.chips}>
-                            {Object.keys(car).filter(trait => car[trait].length).map((trait) => (
+                            {Object.keys(car).filter(trait => car[trait].length).filter(trait => trait !== 'id').map((trait) => (
                                 getChips(car[trait])
                             ))}
                         </Box>
