@@ -98,7 +98,6 @@ const BuyPage = ({ pageContext: { cars } }) => {
                 }
             })
             .catch(function (error) {
-                setSoldItems([])
                 console.log(error)
             })
     }
