@@ -154,7 +154,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
                 <Box className={classes.topRow}>
                     <Box>
                         <Typography component='li'>Send the Exact amount of ADA to the given address. If you like to purchase multiple Adamobiles please send multiple transactions</Typography>
-                        <Typography component='li'>Send ADA from a wallet that support native assets like <Link href='https://yoroi-wallet.com/'>Yoroi</Link>, <Link href='https://daedaluswallet.io'>Daedalus</Link>, or <Link href='https://adalite.io'>AdaLite</Link>. Do not send ADA from an exchange! Your Adamobile and funds will be lost!</Typography>
+                        <Typography component='li'>Send ADA from a wallet that support native assets like <Link target='_blank' href='https://yoroi-wallet.com/'>Yoroi</Link>, <Link target='_blank' href='https://daedaluswallet.io'>Daedalus</Link>, <Link target='_blank' href='https://adalite.io'>AdaLite</Link>, or <Link target='_blank' href='https://namiwallet.io/'>Nami</Link>. Do not send ADA from an exchange! Your Adamobile and funds will be lost!</Typography>
                         <Typography component='li'>You will get a refund if you send less than the given amount or all Adamobiles have been already sold</Typography>
                         <Box display='flex' alignItems='center' margin={2}>
                             <Checkbox checked={acceptTerms} color='primary' onChange={handleAcceptTermsValueChange} />
@@ -196,6 +196,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
                         value={customerWallet}
                         onChange={handleCustomerWalletChange}
                     />
+                    <Typography style={{marginBottom: 16}}>Recently sold</Typography>
                     <GridList id='gridList' cellHeight={250} className={classes.gridList} cols={2.5}>
                         {getFilteredItems().map((item) => (
                             <CarCard key={item.id} id={item.id} car={item} receiver={soldItems.get(item.id)} />

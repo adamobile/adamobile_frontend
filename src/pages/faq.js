@@ -98,7 +98,7 @@ const FaqPage = () => {
                         <VerticalAccordionDetails>
                             <Typography>
                                 On the <GatsbyLink className={classes.gatsbyLink} to='/buy/'>Buy</GatsbyLink> page you will find the amount of ADA and the address to send it to.
-                                Please send ADA from a wallet that support native assets like <Link href='https://yoroi-wallet.com/'>Yoroi</Link>, <Link href='https://daedaluswallet.io'>Daedalus</Link>, or <Link href='https://adalite.io'>AdaLite</Link>.
+                                Please send ADA from a wallet that support native assets like <Link target='_blank' href='https://yoroi-wallet.com/'>Yoroi</Link>, <Link target='_blank' href='https://daedaluswallet.io'>Daedalus</Link>, <Link target='_blank' href='https://adalite.io'>AdaLite</Link>, or <Link target='_blank' href='https://namiwallet.io/'>Nami</Link>.
                                 After the payment is processed, an Adamobile will be selected randomly from the pool of available items. This item will be created on the block chain and sent to your address automatically.
                             </Typography>
                             <br />
