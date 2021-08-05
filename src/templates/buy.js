@@ -152,7 +152,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
             <Container className={classes.root}>
                 <Box className={classes.topRow}>
                     <Box>
-                        <Typography component='li'>Send the Exact amount of ADA to the given address. If you like to purchase multiple Adamobiles please send multiple transactions</Typography>
+                        <Typography component='li'>Send the Exact amount of ADA to the given address. If you like to purchase multiple Adamobiles please send multiples of the price</Typography>
                         <Typography component='li'>Send ADA from a wallet that support native assets like <Link target='_blank' href='https://yoroi-wallet.com/'>Yoroi</Link>, <Link target='_blank' href='https://daedaluswallet.io'>Daedalus</Link>, <Link target='_blank' href='https://adalite.io'>AdaLite</Link>, or <Link target='_blank' href='https://namiwallet.io/'>Nami</Link>. Do not send ADA from an exchange! Your Adamobile and funds will be lost!</Typography>
                         <Typography component='li'>You will get a refund if you send less than the given amount or all Adamobiles have been already sold</Typography>
                         <Box display='flex' alignItems='center' margin={2}>

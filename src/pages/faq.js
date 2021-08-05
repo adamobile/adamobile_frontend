@@ -104,7 +104,7 @@ const FaqPage = () => {
                             <br />
                             <Typography>
                                 On the <GatsbyLink className={classes.gatsbyLink} to='/buy/'>Buy</GatsbyLink> page there is also a list of already minted ADAmobiles. This list can be filtered by your address, so that you can see which Adamobiles you pulled.
-                                If you want to purchase multiple items, please send the specified amout multiple times and not the multiple of the amout one time.
+                                If you want to purchase multiple items, please send multiples of the specified amout.
                             </Typography>
                             <br />
                             <Typography>
