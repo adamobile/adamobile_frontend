@@ -7,6 +7,7 @@ import {
   Button,
   Paper,
 } from '@material-ui/core'
+import { Link as ExternalLink } from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import '../theme/typography.css'
 import Layout from '../components/layout'
@@ -68,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: theme.typography.pxToRem(24),
     },
   },
-  topInfoText: {
+  midbottonInfoText: {
 
     [theme.breakpoints.down('md')]: {
       width: '100%',
@@ -79,7 +80,37 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(2),
     },
   },
-  bottonInfoText: {
+  middleInfoText: {
+
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      marginTop: theme.spacing(2),
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '70%',
+      marginLeft: theme.spacing(2),
+    },
+  },
+  topSpaceBud: {
+
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'block'
+    },
+  },
+  bottomSpaceBud: {
+
+    [theme.breakpoints.down('md')]: {
+      display: 'block'
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    },
+  },
+
+  middleInfoText: {
 
     [theme.breakpoints.down('md')]: {
       width: '100%',
@@ -135,10 +166,11 @@ const IndexPage = (props) => {
         </Paper>
       </FlexBoxCenter>
       <FlexBoxCenter flexDirection='column' alignItems='center' justifyContent='flex-end'>
+
         <Link to='/buy/' style={{ textDecoration: 'none', color: 'white' }}>
           <FlexBoxEvenly className={classes.bottomFlexBox}>
             <StaticImage style={{ float: 'top' }} objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../images/red_car.png' alt='red car' />
-            <Box className={classes.topInfoText}>
+            <Box className={classes.middleInfoText}>
               <TextHeader className={classes.bottomTitle}>Adamobile</TextHeader>
               <TextBody variant='body1'>Adamobile is an NFT-Collectables project on the Cardano block chain.</TextBody>
               <br />
@@ -151,7 +183,7 @@ const IndexPage = (props) => {
 
         <Link to='/explore/' style={{ textDecoration: 'none', color: 'white' }}>
           <FlexBoxEvenly className={classes.bottomFlexBox}>
-            <Box className={classes.bottonInfoText}>
+            <Box className={classes.middleInfoText}>
               <TextHeader className={classes.bottomTitle}>1007 unique Adamobiles</TextHeader>
               <br />
               <TextBody variant='body1'>There are 25 models distributed over 5 types and 8 colors. In addition there is a lot of different rims, stickers and a whole lot cool extras!</TextBody>
@@ -163,6 +195,19 @@ const IndexPage = (props) => {
             <StaticImage objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../images/home_accessories.png' alt='accessories' />
           </FlexBoxEvenly>
         </Link>
+
+        <FlexBoxEvenly className={classes.bottomFlexBox}>
+          <ExternalLink className={classes.topSpaceBud} target='_blank' href='https://spacebudz.io/explore/spacebud/8545'><StaticImage objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../images/8545.png' alt='SpaceBud #8545' /></ExternalLink>
+          <Box className={classes.midbottonInfoText}>
+            <TextHeader className={classes.bottomTitle}>Thank you!</TextHeader>
+            <br />
+            <TextBody variant='body1'>To thank all our supporters we will be giving away the one and only <ExternalLink target='_blank' href='https://spacebudz.io/explore/spacebud/8545'>SpaceBud #8545</ExternalLink>. This bear with 7 gadgets is currently priced at 1000 ADA!</TextBody>
+            <br />
+            <TextBody variant='body1'>The lottery draw will happen after all Adamobiles had found their new owners. Every Adamobile represents a ticket. So buying multiple Adamobiles will multiply the chance of winning!</TextBody>
+          </Box>
+          <ExternalLink className={classes.bottomSpaceBud} target='_blank' href='https://spacebudz.io/explore/spacebud/8545'><StaticImage style={{width: '100%'}} objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../images/8545.png' alt='SpaceBud #8545' /></ExternalLink>
+        </FlexBoxEvenly>
+
       </FlexBoxCenter>
     </Layout>
   )
