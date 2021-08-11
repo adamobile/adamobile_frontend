@@ -201,7 +201,7 @@ const IndexPage = (props) => {
           <Box className={classes.midbottonInfoText}>
             <TextHeader className={classes.bottomTitle}>Thank you!</TextHeader>
             <br />
-            <TextBody variant='body1'>To thank all our supporters we will be giving away the one and only <ExternalLink target='_blank' href='https://spacebudz.io/explore/spacebud/8545'>SpaceBud #8545</ExternalLink>. This bear with 7 gadgets is currently priced at 1000 ADA!</TextBody>
+            <TextBody variant='body1'>To thank all our supporters we will be giving away the one and only <ExternalLink target='_blank' href='https://spacebudz.io/explore/spacebud/8545'>SpaceBud #8545</ExternalLink>. This bear strikes with an uncommon combination of a camo suit with wool boots. While having some standard gadgets like belt and a chest plate, he also have some extra ordinary ones like a VR and an umbrella.</TextBody>
             <br />
             <TextBody variant='body1'>The lottery draw will happen after all Adamobiles had found their new owners. Every Adamobile represents a ticket. So buying multiple Adamobiles will multiply the chance of winning!</TextBody>
           </Box>
