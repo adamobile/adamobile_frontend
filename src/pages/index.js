@@ -7,7 +7,6 @@ import {
   Button,
   Paper,
 } from '@material-ui/core'
-import { Link as ExternalLink } from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import '../theme/typography.css'
 import Layout from '../components/layout'
@@ -80,17 +79,17 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(2),
     },
   },
-  middleInfoText: {
+  bottonInfoText: {
 
     [theme.breakpoints.down('md')]: {
       width: '100%',
-      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
     },
     [theme.breakpoints.up('md')]: {
       width: '70%',
-      marginRight: theme.spacing(0.5),
+      marginRight: theme.spacing(2),
     },
-  }
+  },
 }))
 
 const FlexBoxCenter = withStyles({
@@ -165,6 +164,22 @@ const IndexPage = (props) => {
             <StaticImage objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../images/home_accessories.png' alt='accessories' />
           </FlexBoxEvenly>
         </Link>
+
+
+        <Link to='/buy/' style={{ textDecoration: 'none', color: 'white' }}>
+          <FlexBoxEvenly className={classes.bottomFlexBox}>
+            <Box className={classes.bottonInfoText}>
+              <TextHeader className={classes.bottomTitle}>Thank you!</TextHeader>
+              <br />
+              <TextBody variant='body1'>To thank our supporters we will be giving back 1000 ADA to one lucky winner!</TextBody>
+              <br />
+              <TextBody variant='body1'>The lottery draw will happen after all Adamobiles had found their new owners. Every Adamobile represents a ticket. So buying multiple Adamobiles will multiply the chance of winning!</TextBody>
+              <TextHeader style={{marginTop: 20}} className={classes.bottomTitle}>Good luck!</TextHeader>
+            </Box>
+            <StaticImage objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../../static/clipart/ADA.png' alt='ADA' />
+          </FlexBoxEvenly>
+        </Link>
+
       </FlexBoxCenter>
     </Layout>
   )
