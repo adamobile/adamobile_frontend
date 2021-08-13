@@ -69,17 +69,6 @@ const useStyles = makeStyles((theme) => ({
       fontSize: theme.typography.pxToRem(24),
     },
   },
-  midbottonInfoText: {
-
-    [theme.breakpoints.down('md')]: {
-      width: '100%',
-      marginTop: theme.spacing(2),
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '70%',
-      marginLeft: theme.spacing(2),
-    },
-  },
   middleInfoText: {
 
     [theme.breakpoints.down('md')]: {
@@ -91,25 +80,6 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(2),
     },
   },
-  topSpaceBud: {
-
-    [theme.breakpoints.down('md')]: {
-      display: 'none'
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'block'
-    },
-  },
-  bottomSpaceBud: {
-
-    [theme.breakpoints.down('md')]: {
-      display: 'block'
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'none'
-    },
-  },
-
   middleInfoText: {
 
     [theme.breakpoints.down('md')]: {
@@ -195,19 +165,6 @@ const IndexPage = (props) => {
             <StaticImage objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../images/home_accessories.png' alt='accessories' />
           </FlexBoxEvenly>
         </Link>
-
-        <FlexBoxEvenly className={classes.bottomFlexBox}>
-          <ExternalLink className={classes.topSpaceBud} target='_blank' href='https://spacebudz.io/explore/spacebud/8545'><StaticImage objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../images/8545.png' alt='SpaceBud #8545' /></ExternalLink>
-          <Box className={classes.midbottonInfoText}>
-            <TextHeader className={classes.bottomTitle}>Thank you!</TextHeader>
-            <br />
-            <TextBody variant='body1'>To thank all our supporters we will be giving away the one and only <ExternalLink target='_blank' href='https://spacebudz.io/explore/spacebud/8545'>SpaceBud #8545</ExternalLink>. This bear strikes with an uncommon combination of a camo suit with wool boots. Having 7 gadgets will surely help this little fellow overcome the hardships of space!</TextBody>
-            <br />
-            <TextBody variant='body1'>The lottery draw will happen after all Adamobiles had found their new owners. Every Adamobile represents a ticket. So buying multiple Adamobiles will multiply the chance of winning!</TextBody>
-          </Box>
-          <ExternalLink className={classes.bottomSpaceBud} target='_blank' href='https://spacebudz.io/explore/spacebud/8545'><StaticImage style={{width: '100%'}} objectFit='contain' objectPosition='50% 50%' placeholder='transparent' src='../images/8545.png' alt='SpaceBud #8545' /></ExternalLink>
-        </FlexBoxEvenly>
-
       </FlexBoxCenter>
     </Layout>
   )
