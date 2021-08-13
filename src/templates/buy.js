@@ -75,7 +75,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
     const initialAcceptTerms = getSessionItem('acceptTerms', false)
     const initialCustomerWallet = getSessionItem('customerWallet', '')
     const address = 'addr1vxfehn9hwgv6vplxpkn84w2z8ueym7arg5zw6slnxpnfe3gq2lf50'
-    const amount = '42'
+    const amount = '22'
     const copyValue = (value, title) => {
         navigator.clipboard.writeText(value)
         setSnackbarTitle(title)
