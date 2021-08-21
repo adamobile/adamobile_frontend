@@ -16,6 +16,7 @@ import '../theme/typography.css'
 const useStyles = makeStyles((theme) => ({
   cardRoot: {
     background: theme.palette.background.paper,
+    display: 'block',
   },
   cardMedia: {
     height: 150,

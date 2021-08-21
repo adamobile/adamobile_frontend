@@ -102,6 +102,9 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'dodger',
         flexGrow: 1,
     },
+    policy: {
+        fontSize: theme.typography.pxToRem(10),
+    },
     activeLink: {
         color: theme.palette.primary.main
     },
@@ -149,17 +152,20 @@ const Layout = ({ children, addStats }) => {
                     <FlexBox className={classes.header}>
                         <FlexBox>
                             <Link to='/'><StaticImage placeholder='transparent' src='../images/logo.png' alt='logo' className={classes.logo} /></Link>
-                            <Typography className={classes.title}>Adamobile</Typography>
+                            <Box>
+                                <Typography className={classes.title}>Adamobile</Typography>
+                                <Typography className={classes.policy}>d19a5b3877add514b47fd46bec770e40da9798d5f768bdfacfa4928c</Typography>
+                            </Box>
                         </FlexBox>
                         <Paper className={classes.headerLinksContainer}>
                             <FlexBox className={classes.headerLinks}>
-                                <Link activeStyle={{color: theme.palette.primary.main,}} to='/buy/'><Typography className={classes.linkText}>Buy</Typography></Link>
+                                <Link activeStyle={{ color: theme.palette.primary.main, }} to='/buy/'><Typography className={classes.linkText}>Buy</Typography></Link>
                                 <Spacer>|</Spacer>
-                                <Link activeStyle={{color: theme.palette.primary.main,}} to='/explore/'><Typography className={classes.linkText}>Explore</Typography></Link>
+                                <Link activeStyle={{ color: theme.palette.primary.main, }} to='/explore/'><Typography className={classes.linkText}>Explore</Typography></Link>
                                 <Spacer>|</Spacer>
-                                <Link activeStyle={{color: theme.palette.primary.main,}} to='/stats/'><Typography className={classes.linkText}>Stats</Typography></Link>
+                                <Link activeStyle={{ color: theme.palette.primary.main, }} to='/stats/'><Typography className={classes.linkText}>Stats</Typography></Link>
                                 <Spacer>|</Spacer>
-                                <Link activeStyle={{color: theme.palette.primary.main,}} to='/faq/'><Typography className={classes.linkText}>fAQ</Typography></Link>
+                                <Link activeStyle={{ color: theme.palette.primary.main, }} to='/faq/'><Typography className={classes.linkText}>fAQ</Typography></Link>
                             </FlexBox>
                         </Paper>
 
@@ -210,7 +216,7 @@ const Layout = ({ children, addStats }) => {
                             <Link to='/faq/'><Typography className={classes.link}>FAQ</Typography></Link>
                         </FlexBox>
                         <FlexBox className={classes.verticalFlex}>
-                            <a aria-label="Adamobile on Twitter" href='https://twitter.com/adamobile_cnft' className={classes.link}><Twitter lab/></a>
+                            <a aria-label="Adamobile on Twitter" href='https://twitter.com/adamobile_cnft' className={classes.link}><Twitter lab /></a>
                             <a aria-label="Adamobile on Telegram" href='https://t.me/adamobile_cnft' className={classes.link}><Telegram /></a>
                             <a aria-label="Adamobile on Instagram" href='https://www.instagram.com/adamobile_cnft/' className={classes.link}><Instagram /></a>
                             <a aria-label="Adamobile on Discord" href='https://discord.gg/pXcHHTzj' className={classes.link}>
