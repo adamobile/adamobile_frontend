@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.background.paper,
     display: 'block',
   },
+  cardActionArea: {
+    display: 'block',
+  },
   cardMedia: {
     height: 150,
   },
@@ -52,7 +55,7 @@ const CarCard = (props) => {
           () => {
             navigate(`/explore/car/${car.id.slice(1)}`)
           }}>
-        <CardActionArea >
+        <CardActionArea className={classes.cardActionArea}>
           {
             !imageLoaded && <Skeleton variant="rect" width='100%' height={200} />
           }
