@@ -133,6 +133,19 @@ const FaqPage = () => {
                             </Typography>
                         </VerticalAccordionDetails>
                     </Accordion>
+                    <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel5bh-content"
+                            id="panel5bh-header"
+                        >
+                            <Typography className={classes.heading}>Policy id</Typography>
+                        </AccordionSummary>
+                        <VerticalAccordionDetails>
+                            <Typography>To ensure the authenticity of an Adamobile always check its policy id. It should be as follows</Typography>
+                            <Typography>d19a5b3877add514b47fd46bec770e40da9798d5f768bdfacfa4928c</Typography>
+                        </VerticalAccordionDetails>
+                    </Accordion>
                 </Box>
             </Container>
         </Layout >

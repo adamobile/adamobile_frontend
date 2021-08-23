@@ -102,9 +102,6 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'dodger',
         flexGrow: 1,
     },
-    policy: {
-        fontSize: theme.typography.pxToRem(10),
-    },
     activeLink: {
         color: theme.palette.primary.main
     },
@@ -152,10 +149,7 @@ const Layout = ({ children, addStats }) => {
                     <FlexBox className={classes.header}>
                         <FlexBox>
                             <Link to='/'><StaticImage placeholder='transparent' src='../images/logo.png' alt='logo' className={classes.logo} /></Link>
-                            <Box>
-                                <Typography className={classes.title}>Adamobile</Typography>
-                                <Typography className={classes.policy}>d19a5b3877add514b47fd46bec770e40da9798d5f768bdfacfa4928c</Typography>
-                            </Box>
+                            <Typography className={classes.title}>Adamobile</Typography>
                         </FlexBox>
                         <Paper className={classes.headerLinksContainer}>
                             <FlexBox className={classes.headerLinks}>
