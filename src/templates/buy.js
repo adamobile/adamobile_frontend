@@ -196,7 +196,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
                         onChange={handleCustomerWalletChange}
                     />
                     <Typography style={{marginBottom: 16}}>Recently sold</Typography>
-                    <GridList id='gridList' cellHeight={250} className={classes.gridList} cols={2.5}>
+                    <GridList id='gridList' cellHeight={280} className={classes.gridList} cols={2.5}>
                         {getFilteredItems().map((item) => (
                             <CarCard key={item.id} id={item.id} car={item} receiver={soldItems.get(item.id)} />
                         ))}

@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
   },
   cardMedia: {
-    height: 150,
+    height: 180,
   },
   cardTitle: {
     [theme.breakpoints.down('xs')]: {
