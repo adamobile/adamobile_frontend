@@ -9,8 +9,10 @@ import {
     Snackbar,
     Link,
     Checkbox,
+    useMediaQuery,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import theme from '../theme/theme'
 import CarCard from '../components/carCard'
 import Layout from '../components/layout'
 import Address from '../images/address.png'
@@ -147,6 +149,12 @@ const BuyPage = ({ pageContext: { cars } }) => {
         return soldCars.filter(car => customerItems.map(e => e[0]).includes(car.id))
     }
 
+    const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
+
+    const columnCount = () => {
+        return isSmall ? 1.5 : 2.5
+    }
+
     return (
         <Layout addStats={true}>
             <Container className={classes.root}>
@@ -195,8 +203,8 @@ const BuyPage = ({ pageContext: { cars } }) => {
                         value={customerWallet}
                         onChange={handleCustomerWalletChange}
                     />
-                    <Typography style={{marginBottom: 16}}>Recently sold</Typography>
-                    <GridList id='gridList' cellHeight={280} className={classes.gridList} cols={2.5}>
+                    <Typography style={{ marginBottom: 16 }}>Recently sold</Typography>
+                    <GridList id='gridList' cellHeight={280} className={classes.gridList} cols={columnCount()}>
                         {getFilteredItems().map((item) => (
                             <CarCard key={item.id} id={item.id} car={item} receiver={soldItems.get(item.id)} />
                         ))}

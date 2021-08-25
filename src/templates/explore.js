@@ -72,11 +72,11 @@ const ExplorePage = ({ pageContext: { cars } }) => {
     setPageCount(Math.ceil(filteredItems.length / itemsPerPage))
   }, [filteredItems])
 
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXSmall = useMediaQuery(theme.breakpoints.down('xs'))
   const isMedium = useMediaQuery(theme.breakpoints.down('lg'))
 
   const columnCount = () => {
-    return isSmall ? 2 : isMedium ? 3 : 4
+    return isXSmall ? 1 : isMedium ? 2 : 3
   }
   const itemsPerPage = 12
   const handleChange = (event, value) => {
@@ -93,7 +93,7 @@ const ExplorePage = ({ pageContext: { cars } }) => {
           <CarGridFilter items={cars} soldItems={soldItems} setFilteredItems={setFilteredItems} />
         </Box>
         <Box className={classes.gridListContainer}>
-          <GridList cellHeight={250} spacing={20} cols={columnCount()} className={classes.gridList}>
+          <GridList cellHeight={280} spacing={20} cols={columnCount()} className={classes.gridList}>
             {visibleItems.map((car) => (
               <CarCard key={car.id} id={car.id} car={car} receiver={soldItems.get(car.id)} />
             ))}

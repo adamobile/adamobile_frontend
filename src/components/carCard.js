@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   cardSubtitle: {
     fontSize: '1rem',
   },
+  owner: {
+    marginBottom: 10,
+  },
 }))
 
 const DodgerTypography = withStyles({
@@ -71,7 +74,7 @@ const CarCard = (props) => {
               {`${car.id}`}
             </DodgerTypography>
             {owner !== null && <Tooltip title={`Owner: ${owner}`}>
-              <Typography noWrap variant='body1'>{owner}</Typography>
+              <Typography className={classes.owner} noWrap variant='body1'>{owner}</Typography>
             </Tooltip>
             }
           </CardContent>

@@ -93,6 +93,10 @@ const useStyles = makeStyles((theme) => ({
             display: 'block',
         }
     },
+    owner: {
+        marginTop: 8, 
+        marginBottom: 16,
+    },
 }));
 
 
@@ -167,7 +171,7 @@ const CarDetail = ({ pageContext: { car } }) => {
                     <CardContent className={classes.cardContent}>
                         <ItemTitle>Adamobile<br/>{car.id}</ItemTitle>
                         {owner !== null && <Tooltip title={`Owner: ${owner}`}>
-                            <Link style={{color: 'white'}} href={`https://pool.pm/${owner}`} target='_blank'><Typography noWrap variant='body1' style={{ marginTop: 8, marginBottom: 8 }}>{owner}</Typography></Link>
+                            <Link style={{color: 'white'}} href={`https://pool.pm/${owner}`} target='_blank'><Typography noWrap variant='body1' className={classes.owner}>{owner}</Typography></Link>
                         </Tooltip>
                         }
                         <Box className={classes.chips}>
