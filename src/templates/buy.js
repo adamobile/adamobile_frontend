@@ -109,15 +109,6 @@ const BuyPage = ({ pageContext: { cars } }) => {
     }, [customerWallet])
 
     React.useEffect(() => {
-        if (soldItems.length > 0) {
-            var item = document.getElementById(soldItems[soldItems.length - 1].id)
-            if (item) {
-                item.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
-            }
-        }
-    }, [soldItems])
-
-    React.useEffect(() => {
         updateSoldItems()
         const timerId = setInterval(() => {
             updateSoldItems()
