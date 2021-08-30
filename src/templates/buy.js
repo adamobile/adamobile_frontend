@@ -141,12 +141,9 @@ const BuyPage = ({ pageContext: { cars } }) => {
 
     const getFilteredItems = () => {
         const soldCars = cars.filter(car => soldItems.has(car.id))
-        if (!customerWallet) {
-            return soldCars
-        }
-
-        const customerItems = Array.from(soldItems.entries()).filter(e => e[1] === customerWallet)
-        return soldCars.filter(car => customerItems.map(e => e[0]).includes(car.id))
+        const sortedIds = Array.from(soldItems.keys())
+        soldCars.sort((one, two) => sortedIds.indexOf(one.id) - sortedIds.indexOf(two.id))
+        return soldCars
     }
 
     const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
