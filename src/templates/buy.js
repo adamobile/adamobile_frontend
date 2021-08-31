@@ -9,6 +9,7 @@ import {
     Snackbar,
     Link,
     Checkbox,
+    Tooltip,
     useMediaQuery,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -17,7 +18,7 @@ import CarCard from '../components/carCard'
 import Layout from '../components/layout'
 import Address from '../images/address.png'
 import '../theme/theme'
-import { FileCopy } from '@material-ui/icons'
+import { FileCopy, ExpandMore, ExpandLess } from '@material-ui/icons'
 import { getSessionItem, setSessionItem } from '../utils/utils'
 const axios = require('axios')
 
@@ -77,7 +78,24 @@ const BuyPage = ({ pageContext: { cars } }) => {
     const initialAcceptTerms = getSessionItem('acceptTerms', false)
     const initialCustomerWallet = getSessionItem('customerWallet', '')
     const address = 'addr1vxfehn9hwgv6vplxpkn84w2z8ueym7arg5zw6slnxpnfe3gq2lf50'
-    const amount = '22'
+    const price = 20
+
+    const calculateFees = (count) => {
+        return Math.max(2, Math.ceil((count + 1) / 2))
+    }
+
+    const increaseItemCount = () => {
+        const newItemCount = Math.min(itemCount + 1, 10)
+        setItemCount(newItemCount)
+        setFees(calculateFees(newItemCount))
+    }
+
+    const decreaseItemCount = () => {
+        const newItemCount = Math.max(itemCount - 1, 1)
+        setItemCount(newItemCount)
+        setFees(calculateFees(newItemCount))
+    }
+
     const copyValue = (value, title) => {
         navigator.clipboard.writeText(value)
         setSnackbarTitle(title)
@@ -88,12 +106,14 @@ const BuyPage = ({ pageContext: { cars } }) => {
     const [soldItems, setSoldItems] = React.useState(new Map())
     const [acceptTerms, setAcceptTerms] = React.useState(initialAcceptTerms)
     const [customerWallet, setCustomerWallet] = React.useState(initialCustomerWallet)
+    const [itemCount, setItemCount] = React.useState(1)
+    const [fees, setFees] = React.useState(2)
     const [snackbarOpen, setSnackbarOpen] = React.useState(false)
     const [snackbarTitle, setSnackbarTitle] = React.useState('')
 
     const updateSoldItems = () => {
 
-        axios.get(`${process.env.GATSBY_API_URL}/sold?receiver=${customerWallet}&limit=20`)
+        axios.get(`${process.env.GATSBY_API_URL}/sold?receiver=${customerWallet}&limit=50`)
             .then(function (response) {
                 if (Array.isArray(response.data)) {
                     setSoldItems(new Map(response.data.map(key => [key.id, key.receiver])))
@@ -156,9 +176,9 @@ const BuyPage = ({ pageContext: { cars } }) => {
                             <Typography>I accept the aforementioned terms of use</Typography>
                         </Box>
                     </Box>
-                    <Box marginTop={2} display={acceptTerms ? 'flex' : 'none'} flexDirection='column' alignItems='center' >
+                    <Box marginTop={3} display={acceptTerms ? 'flex' : 'none'} flexDirection='column' alignItems='center' >
                         <img src={Address} alt='Wallet address' width={300} />
-                        <Box display='flex' marginTop={2}>
+                        <Box display='flex' marginTop={3}>
                             <TextField
                                 label="Our wallet address"
                                 className={classes.textField}
@@ -169,16 +189,32 @@ const BuyPage = ({ pageContext: { cars } }) => {
                             />
                             <Button onClick={() => { copyValue(address, 'Address copied!') }}><FileCopy /></Button>
                         </Box>
-                        <Box display='flex' marginTop={2}>
+                        <Box display='flex' marginTop={3}>
                             <TextField
-                                label="Amount ADA"
+                                label="Number of items"
                                 className={classes.textField}
                                 InputProps={{
                                     readOnly: true,
                                 }}
-                                value={amount}
+                                value={itemCount}
                             />
-                            <Button onClick={() => { copyValue(amount, 'Amount copied!') }}><FileCopy /></Button>
+                            <Box display='flex' flexDirection='column'>
+                                <Button onClick={increaseItemCount}><ExpandLess /></Button>
+                                <Button onClick={decreaseItemCount}><ExpandMore /></Button>
+                            </Box>
+                        </Box>
+                        <Box display='flex' marginTop={3}>
+                            <Tooltip title={`Including ${fees} ADA for transaction fees`}>
+                                <TextField
+                                    label="Amount ADA"
+                                    className={classes.textField}
+                                    InputProps={{
+                                        readOnly: true,
+                                    }}
+                                    value={price * itemCount + fees}
+                                />
+                            </Tooltip>
+                            <Button onClick={() => { copyValue(price * itemCount + fees, 'Amount copied!') }}><FileCopy /></Button>
                         </Box>
                     </Box>
                 </Box>
