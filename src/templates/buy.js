@@ -81,7 +81,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
     const price = 20
 
     const calculateFees = (count) => {
-        return 2
+        return 3
     }
 
     const increaseItemCount = () => {
