@@ -79,10 +79,7 @@ const BuyPage = ({ pageContext: { cars } }) => {
     const initialCustomerWallet = getSessionItem('customerWallet', '')
     const address = 'addr1vxfehn9hwgv6vplxpkn84w2z8ueym7arg5zw6slnxpnfe3gq2lf50'
     const price = 20
-
-    const calculateFees = (count) => {
-        return 3
-    }
+    const fees = 3
 
     const increaseItemCount = () => {
         const newItemCount = Math.min(itemCount + 1, 10)
@@ -108,7 +105,6 @@ const BuyPage = ({ pageContext: { cars } }) => {
     const [snackbarOpen, setSnackbarOpen] = React.useState(false)
     const [snackbarTitle, setSnackbarTitle] = React.useState('')
     
-    const fees = 2
 
     const updateSoldItems = () => {
 
