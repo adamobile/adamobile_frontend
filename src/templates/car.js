@@ -22,6 +22,7 @@ import {
 import '../theme/typography.css'
 import Layout from '../components/layout'
 import theme from '../theme/theme'
+import { StaticImage } from 'gatsby-plugin-image'
 import { Share, FileCopy, Twitter, Email, Telegram, WhatsApp } from '@material-ui/icons'
 const axios = require('axios')
 
@@ -94,8 +95,18 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     owner: {
-        marginTop: 8, 
+        marginTop: 8,
         marginBottom: 16,
+    },
+    sold: {
+        marginTop: theme.spacing(2),
+        marginLeft: theme.spacing(2),
+        padding: 8,
+        position: 'absolute',
+        color: 'white',
+        '& > *': {
+            fontFamily: 'dodger',
+        },
     },
 }));
 
@@ -162,6 +173,10 @@ const CarDetail = ({ pageContext: { car } }) => {
             <Container className={classes.root}>
                 <Card className={classes.cardRoot}>
                     <Button className={classes.shareButton} onClick={showShareMenu}><Share /></Button>
+                    {owner && <Tooltip title={`Owner: ${owner}`}>
+                        <Link className={classes.sold} href={`https://pool.pm/${owner}`} target='_blank'><Typography>Sold</Typography></Link>
+                    </Tooltip>
+                    }
                     <CardMedia
                         component="img"
                         className={classes.cardMedia}
@@ -169,11 +184,7 @@ const CarDetail = ({ pageContext: { car } }) => {
                         title={car.id}
                     />
                     <CardContent className={classes.cardContent}>
-                        <ItemTitle>Adamobile<br/>{car.id}</ItemTitle>
-                        {owner !== null && <Tooltip title={`Owner: ${owner}`}>
-                            <Link style={{color: 'white'}} href={`https://pool.pm/${owner}`} target='_blank'><Typography noWrap variant='body1' className={classes.owner}>{owner}</Typography></Link>
-                        </Tooltip>
-                        }
+                        <ItemTitle>Adamobile<br />{car.id}</ItemTitle>
                         <Box className={classes.chips}>
                             {Object.keys(car).filter(trait => car[trait].length).filter(trait => trait !== 'id').map((trait) => (
                                 getChips(car[trait])

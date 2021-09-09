@@ -87,13 +87,11 @@ const BuyPage = ({ pageContext: { cars } }) => {
     const increaseItemCount = () => {
         const newItemCount = Math.min(itemCount + 1, 10)
         setItemCount(newItemCount)
-        setFees(calculateFees(newItemCount))
     }
 
     const decreaseItemCount = () => {
         const newItemCount = Math.max(itemCount - 1, 1)
         setItemCount(newItemCount)
-        setFees(calculateFees(newItemCount))
     }
 
     const copyValue = (value, title) => {
@@ -107,9 +105,10 @@ const BuyPage = ({ pageContext: { cars } }) => {
     const [acceptTerms, setAcceptTerms] = React.useState(initialAcceptTerms)
     const [customerWallet, setCustomerWallet] = React.useState(initialCustomerWallet)
     const [itemCount, setItemCount] = React.useState(1)
-    const [fees, setFees] = React.useState(2)
     const [snackbarOpen, setSnackbarOpen] = React.useState(false)
     const [snackbarTitle, setSnackbarTitle] = React.useState('')
+    
+    const fees = 2
 
     const updateSoldItems = () => {
 

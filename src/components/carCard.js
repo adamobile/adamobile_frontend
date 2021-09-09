@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { navigate } from 'gatsby'
+import { StaticImage } from 'gatsby-plugin-image'
 import {
   GridListTile,
   Card,
@@ -33,9 +34,6 @@ const useStyles = makeStyles((theme) => ({
   cardSubtitle: {
     fontSize: '1rem',
   },
-  owner: {
-    marginBottom: 10,
-  },
 }))
 
 const DodgerTypography = withStyles({
@@ -62,6 +60,11 @@ const CarCard = (props) => {
           {
             !imageLoaded && <Skeleton variant="rect" width='100%' height={200} />
           }
+          {
+            owner && <Tooltip title='Sold!'>
+              <StaticImage style={{ position: 'absolute', width: 30, height: 30, marginLeft: 10, marginTop: 10 }} placeholder='transparent' src='../images/ADA.png' alt='Sold' />
+            </Tooltip>
+          }
           <CardMedia
             component="img"
             className={classes.cardMedia}
@@ -73,10 +76,6 @@ const CarCard = (props) => {
             <DodgerTypography gutterBottom className={classes.cardTitle}>
               {`${car.id}`}
             </DodgerTypography>
-            {owner !== null && <Tooltip title={`Owner: ${owner}`}>
-              <Typography className={classes.owner} noWrap variant='body1'>{owner}</Typography>
-            </Tooltip>
-            }
           </CardContent>
         </CardActionArea>
       </Card>
